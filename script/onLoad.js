@@ -52,7 +52,8 @@ class OnLoad
 
         // HTMLの要素を取得
         this.elements = {
-            modeDropdown      : document.getElementById("mode"),
+            questionModeDrop  : document.getElementById("question-mode"),
+            inputModeDrop     : document.getElementById("input-mode"),
             questionCountText : document.getElementById("question-count"),
             questionText      : document.getElementById("question"),
             answerInput       : document.getElementById("answer-input"),
@@ -63,8 +64,9 @@ class OnLoad
 
         // イベントリスナーを設定
         const e = this.elements;
-        e.answerButton.addEventListener("click", ()=>this.applyCorrectAnswer() );
-        e.nextButton  .addEventListener("click", ()=>this.applyNextQuestion()  );
+        e.inputModeDrop.addEventListener("change", ()=>this.applyAnswerInputVisible());
+        e.answerButton .addEventListener("click" , ()=>this.applyCorrectAnswer());
+        e.nextButton   .addEventListener("click" , ()=>this.applyNextQuestion());
 
         // 次の問題をHTMLに反映
         this.applyNextQuestion();
@@ -108,13 +110,14 @@ class OnLoad
         const index     = Math.floor(Math.random() * this.questions.length);
         const question  = this.questions.splice(index, 1)[0];
 
-        // 出題モードを取得
+        // 出題モード,入力モード を取得
         const e = this.elements;
-        const isEnglishMode = (e.modeDropdown.value == "english");
+        const isEnglishMode = (e.questionModeDrop.value == "english");
+        const isInputMode   = (e.inputModeDrop.value    == "input");
 
         // 出題数をカウント, 表示
         this.questionCount++;
-        e.questionCountText.innerText = 
+        e.questionCountText.innerText =
             this.questionCount + "問目 / " +
             this.totalQuestions + "問中";
 
@@ -136,7 +139,21 @@ class OnLoad
         e.correctAnswerText.classList.add('opacity_0');
 
         // フォーカスを回答欄へ
-        e.answerInput.focus();
+        if (isInputMode)
+            e.answerInput.focus();
+    }
+
+
+    // 入力する/入力しない を反映
+    applyAnswerInputVisible()
+    {
+        const e = this.elements;
+        const isInputMode = (e.inputModeDrop.value == "input");
+
+        // 表示/非表示 を切替え
+        (isInputMode)
+            ? e.answerInput.classList.remove('none')
+            : e.answerInput.classList.add   ('none');
     }
 }
 
