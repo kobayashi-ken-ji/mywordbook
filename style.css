@@ -3,6 +3,7 @@ body {
     color       : #533737;
     font-family : 'meiryo';
     margin      : 0 auto;
+    /* max-width   : 800px; */
 }
 
 
@@ -15,15 +16,8 @@ body {
 }
 
 
-.text-left {
-    margin      : 0 auto;
-    max-width   : 400px;
-    text-align  : left;
-}
-
 .text-center {
     text-align  : center;
-    /* font-size   : 150%; */
 }
 
 .margin-center {
@@ -41,24 +35,16 @@ body {
     max-width   : 100%;
 }
 
-#mode {
-    display         : block;
+.dropdown {
     font-size       : 100%;
     margin-top      : 10px;
     margin-bottom   : 10px;
     padding         : 7px;
 }
 
-/*=============================================*/
-/* フォント */
-/*=============================================*/
-
-.p-small {
-    font-size: 50%;
-}
 
 #question {
-    font-weight: bold;
+    font-weight : bold;
     font-size   : 200%;
 }
 
@@ -72,6 +58,12 @@ body {
 /* 要素を透明にする */
 .opacity_0 {
   opacity: 0;
+}
+
+
+/* 要素を無効にする */
+.none {
+    display: none;
 }
 
 /*=============================================*/

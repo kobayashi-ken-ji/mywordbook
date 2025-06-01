@@ -434,5 +434,6 @@
     "analyze" : "解析する(広義)",
     "via"     : "経由",
     "request" : "要求",
-    "details" : "詳細, 明細"
+    "details" : "詳細, 明細",
+    "translate": "翻訳"
 }
