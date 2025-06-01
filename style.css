@@ -1,0 +1,120 @@
+
+body {
+    color       : #533737;
+    font-family : 'meiryo';
+    margin      : 0 auto;
+}
+
+
+.hedder {
+    color           : #ffffff;
+    background      : linear-gradient(90deg, rgb(119, 209, 154), rgb(123, 170, 240));
+    text-align      : center;
+    padding-top     : 10px;
+    padding-bottom  : 10px;
+}
+
+
+.text-left {
+    margin      : 0 auto;
+    max-width   : 400px;
+    text-align  : left;
+}
+
+.text-center {
+    text-align  : center;
+    /* font-size   : 150%; */
+}
+
+.margin-center {
+    margin : 0 auto;
+}
+
+
+#question-count {
+    font-size: 100%;
+}
+
+#answer-input {
+    text-align  : center;
+    font-size   : 150%;
+    max-width   : 100%;
+}
+
+#mode {
+    display         : block;
+    font-size       : 100%;
+    margin-top      : 10px;
+    margin-bottom   : 10px;
+    padding         : 7px;
+}
+
+/*=============================================*/
+/* フォント */
+/*=============================================*/
+
+.p-small {
+    font-size: 50%;
+}
+
+#question {
+    font-weight: bold;
+    font-size   : 200%;
+}
+
+#correct-answer {
+    color       : #6c49bd;
+    font-weight : bold;
+    font-size   : 150%;
+}
+
+
+/* 要素を透明にする */
+.opacity_0 {
+  opacity: 0;
+}
+
+/*=============================================*/
+/* ボタン */
+/*=============================================*/
+
+/* 共通 */
+.button {
+    width           : 140px;
+    padding-top     : 8px;
+    padding-bottom  : 8px;
+    text-decoration : none;
+    border          : none;
+    border-radius   : 20px;
+    color           : #ffffff;
+    font-size       : 100%;
+
+}
+
+/* 赤指定 */
+.button-red {
+    background-color: rgb(255, 76, 76);
+}
+.button-red:hover {
+  background-color  : rgb(255, 120, 120);
+  color             : white;
+}
+
+
+/* 青指定 */
+.button-blue {
+    background-color: rgb(125, 145, 235);
+}
+.button-blue:hover {
+  background-color  : rgb(158, 174, 245);
+  color             : white;
+}
+
+/*=============================================*/
+/* レスポンシブデザイン (変更点のみ記載)*/
+/*=============================================*/
+/* 
+@media screen and (max-aspect-ratio: 2/3) {
+
+} 
+*/
