@@ -1,0 +1,50 @@
+﻿<!-- このソースを無断で使用・編集を行うことを禁じます。-->
+<!DOCTYPE html>
+<html lang="ja">
+    
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=9">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <link rel="stylesheet" href="style.css">
+        <title>英単語</title>
+    </head>
+
+    <body>
+
+        <!-- ヘッダー -->
+        <div class="hedder">
+            英単語アプリ
+        </div>
+        
+        <!-- モード選択プルダウン -->
+        <select name="mode" id="mode" class="margin-center">
+            <option value="english" >日本語 → 英語</option>
+            <option value="Japanese">英語 → 日本語</option>
+        </select>
+
+        <!-- 出題数/問題数,  問題, 回答欄, 答え -->
+        <div class="text-center">
+            <div id="question-count">1問目/100問中</div>
+            <p id="question">リンゴ</p>
+            <input id="answer-input" type="text">
+            <p id="correct-answer">○ apple</p>
+        </div>
+
+        <!-- 答え合わせ・次の問題ボタン -->
+        <table class="margin-center">
+            <tr>
+                <td>
+                    <button class="button button-red" type="button" id="answer-button">答え</button>
+                </td>
+                <td>
+                    <button class="button button-blue" type="button" id="next-button">次の問題</button>
+                </td>
+            </tr>
+        </table>
+
+        <script src="script/onLoad.js" charset="utf-8"></script>
+
+    </body>
+
+</html>
