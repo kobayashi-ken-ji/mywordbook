@@ -1,5 +1,4 @@
-﻿<!-- このソースを無断で使用・編集を行うことを禁じます。-->
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
     
     <head>
@@ -17,13 +16,21 @@
             英単語アプリ
         </div>
         
-        <!-- モード選択プルダウン -->
-        <table class="margin-center">
+        <!-- ドロップダウン -->
+        <table class="margin-center table-margin">
             <tr>
                 <td>
                     <select id="question-mode" class="dropdown">
-                        <option value="english" >日本語 → 英語</option>
-                        <option value="Japanese">英語 → 日本語</option>
+                        <option value="word"       >単語</option>
+                        <option value="idiom"      >熟語</option>
+                        <option value="syntax"     >構文</option>
+                        <option value="conjugation">活用</option>
+                    </select>
+                </td>
+                <td>
+                    <select id="language-mode" class="dropdown">
+                        <option value="english" >日本語→英語</option>
+                        <option value="japanese">英語→日本語</option>
                     </select>
                 </td>
                 <td>
@@ -35,15 +42,17 @@
             </tr>
         </table>
 
-        <!-- 出題数/問題数,  問題, 回答欄, 答え -->
+        <!-- 出題数/問題数, 問題, 回答欄, 答え -->
         <div class="text-center">
-            <div id="question-count">0問目/100問中</div>
+
+            <div id="question-count">0問目 / 0問中</div>
             <p id="question">出題</p>
             <input id="answer-input" type="text">
             <p id="correct-answer">答え</p>
+
         </div>
 
-        <!-- 答え合わせ・次の問題ボタン -->
+        <!-- 答え, 次の問題 ボタン -->
         <table class="margin-center">
             <tr>
                 <td>
