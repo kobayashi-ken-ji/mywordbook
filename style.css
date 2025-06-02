@@ -8,16 +8,15 @@ body {
 
 
 .hedder {
-    color           : #ffffff;
-    background      : linear-gradient(90deg, rgb(119, 209, 154), rgb(123, 170, 240));
-    text-align      : center;
-    padding-top     : 10px;
-    padding-bottom  : 10px;
+    color       : #ffffff;
+    background  : linear-gradient(90deg, rgb(119, 209, 154), rgb(123, 170, 240));
+    text-align  : center;
+    padding     : 12px 0px;
 }
 
 
 .text-center {
-    text-align  : center;
+    text-align : center;
 }
 
 .margin-center {
@@ -26,7 +25,7 @@ body {
 
 
 #question-count {
-    font-size: 100%;
+    font-size : 100%;
 }
 
 #answer-input {
@@ -35,11 +34,15 @@ body {
     max-width   : 100%;
 }
 
-.dropdown {
-    font-size       : 100%;
+
+.table-margin {
     margin-top      : 10px;
-    margin-bottom   : 10px;
-    padding         : 7px;
+    margin-bottom   : 20px;
+}
+
+.dropdown {
+    font-size   : 100%;
+    padding     : 7px 4px;
 }
 
 
@@ -57,12 +60,12 @@ body {
 
 /* 要素を透明にする */
 .opacity_0 {
-  opacity: 0;
+    opacity: 0;
 }
 
 
 /* 要素を無効にする */
-.none {
+.display-none {
     display: none;
 }
 
