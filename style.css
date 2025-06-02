@@ -1,3 +1,4 @@
+/* cssではclassのみを使用 */
 
 body {
     color       : #533737;
@@ -6,7 +7,6 @@ body {
     /* max-width   : 800px; */
 }
 
-
 .hedder {
     color       : #ffffff;
     background  : linear-gradient(90deg, rgb(119, 209, 154), rgb(123, 170, 240));
@@ -14,8 +14,11 @@ body {
     padding     : 12px 0px;
 }
 
+/*=============================================*/
+/* 汎用 */
+/*=============================================*/
 
-.text-center {
+.align-center {
     text-align : center;
 }
 
@@ -23,19 +26,21 @@ body {
     margin : 0 auto;
 }
 
-
-#question-count {
-    font-size : 100%;
+/* 要素を透明にする */
+.opacity_0 {
+    opacity: 0;
 }
 
-#answer-input {
-    text-align  : center;
-    font-size   : 150%;
-    max-width   : 100%;
+/* 要素を無効にする */
+.display-none {
+    display: none;
 }
 
+/*=============================================*/
+/* ドロップダウン */
+/*=============================================*/
 
-.table-margin {
+.dropdown-table-margin {
     margin-top      : 10px;
     margin-bottom   : 20px;
 }
@@ -45,28 +50,25 @@ body {
     padding     : 7px 4px;
 }
 
+/*=============================================*/
+/* 出題部分 */
+/*=============================================*/
 
-#question {
+.question-text {
     font-weight : bold;
     font-size   : 200%;
 }
 
-#correct-answer {
+.answer-input {
+    text-align  : center;
+    font-size   : 150%;
+    max-width   : 100%;
+}
+
+.corrent-text {
     color       : #6c49bd;
     font-weight : bold;
     font-size   : 150%;
-}
-
-
-/* 要素を透明にする */
-.opacity_0 {
-    opacity: 0;
-}
-
-
-/* 要素を無効にする */
-.display-none {
-    display: none;
 }
 
 /*=============================================*/
@@ -85,6 +87,7 @@ body {
     font-size       : 100%;
 
 }
+
 
 /* 赤指定 */
 .button-red {
@@ -106,7 +109,7 @@ body {
 }
 
 /*=============================================*/
-/* レスポンシブデザイン (変更点のみ記載)*/
+/* レスポンシブデザイン*/
 /*=============================================*/
 /* 
 @media screen and (max-aspect-ratio: 2/3) {
