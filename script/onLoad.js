@@ -22,15 +22,15 @@ class OnLoad
 {
     // HTMLの要素を取得
     elements = {
-        questionModeDrop    : document.getElementById("question-mode"),
-        languageModeDrop    : document.getElementById("language-mode"),
-        inputModeDrop       : document.getElementById("input-mode"),
-        questionCountText   : document.getElementById("question-count"),
-        questionText        : document.getElementById("question"),
-        answerInput         : document.getElementById("answer-input"),
-        correctAnswerText   : document.getElementById("correct-answer"),
-        answerButton        : document.getElementById("answer-button"),
-        nextButton          : document.getElementById("next-button"),
+        typeDropdown     : document.getElementById("type-dropdown"),
+        languageDropdown : document.getElementById("language-dropdown"),
+        noInputDropdown  : document.getElementById("no-input-dropdown"),
+        countText        : document.getElementById("count-text"),
+        questionText     : document.getElementById("question-text"),
+        answerInput      : document.getElementById("answer-input"),
+        correctText      : document.getElementById("corrent-text"),
+        answerButton     : document.getElementById("answer-button"),
+        nextButton       : document.getElementById("next-button"),
     };
 
     // Question型
@@ -46,7 +46,7 @@ class OnLoad
     questionsLength = 0;    // 問題総数
     questionCount   = 0;    // 出題数 (何問目か)
     correctCount    = 0;    // 正解数
-    correctText     = "";   // 現在の問題の答え
+    correctData     = "";   // 現在の問題の答え
     isAnswered = false;     // すでに回答済みの問題かどうか
 
 
@@ -77,36 +77,36 @@ class OnLoad
 
         // イベントリスナーを設定
         const e = this.elements;
-        e.questionModeDrop.addEventListener("change", () => this.applyQuestionMode());
-        e.inputModeDrop   .addEventListener("change", () => this.applyAnswerInputVisible());
-        e.answerButton    .addEventListener("click" , () => this.applyCorrectAnswer());
-        e.nextButton      .addEventListener("click" , () => this.applyNextQuestion());
+        e.typeDropdown   .addEventListener("change", () => this.applyQuestionType());
+        e.noInputDropdown.addEventListener("change", () => this.applyAnswerInputVisible());
+        e.answerButton   .addEventListener("click" , () => this.applyCorrectText());
+        e.nextButton     .addEventListener("click" , () => this.applyNextQuestion());
 
         // 入力する/入力しない を反映
         this.applyAnswerInputVisible()
 
         // 出題モードを反映
-        this.applyQuestionMode();
+        this.applyQuestionType();
     }
 
 
-    // 出題モードを反映
-    applyQuestionMode()
+    // 出題タイプを反映
+    applyQuestionType()
     {
         const e = this.elements;
-        const questionMode = e.questionModeDrop.value;
+        const type = e.typeDropdown.value;
 
         // 分詞モードの場合は、日本語←→英語 を無効にする
-        if (questionMode == "conjugation") {
-            e.languageModeDrop.value = "japanese";
-            e.languageModeDrop.disabled = true;
+        if (type == "conjugation") {
+            e.languageDropdown.value = "japanese";
+            e.languageDropdown.disabled = true;
         }
 
         // それ以外は 無効を解除
-        else e.languageModeDrop.disabled = false;
+        else e.languageDropdown.disabled = false;
 
         // 問題リスト, 問題総数, 回答数, 正解数 を更新
-        this.questions       = [...this.questionStorage[questionMode]];
+        this.questions       = [...this.questionStorage[type]];
         this.questionsLength = this.questions.length;
         this.questionCount   = 0;
         this.correctCount    = 0;
@@ -117,11 +117,11 @@ class OnLoad
 
 
     // 正解テキストを反映
-    applyCorrectAnswer()
+    applyCorrectText()
     {
         const e = this.elements;
-        const value = e.answerInput.value;
-        const isCorrect = (value == this.correctText);
+        const inputValue = e.answerInput.value;
+        const isCorrect  = (inputValue == this.correctData);
 
         // 初回答 → 回答済み
         if (!this.isAnswered) {
@@ -133,13 +133,12 @@ class OnLoad
 
         // 正解判定マーク
         const mark =
-            (value == "") ? ""   :  // 回答無し → マーク無し
-            (isCorrect  ) ? "○ " :
-                            "× " ;
+            (inputValue == "") ? ""   :  // 回答無し → マーク無し
+            (isCorrect       ) ? "○ " : "× ";
 
         // 正解を表示
-        e.correctAnswerText.innerText = mark + this.correctText;
-        e.correctAnswerText.classList.remove('opacity_0');
+        e.correctText.innerText = mark + this.correctData;
+        e.correctText.classList.remove('opacity_0');
     }
 
 
@@ -152,7 +151,7 @@ class OnLoad
                 "全問終了しました。\n" + 
                 "正解数" + this.correctCount + "/" + this.questionsLength
             );
-            this.applyQuestionMode();
+            this.applyQuestionType();
             return;
         }
 
@@ -165,11 +164,11 @@ class OnLoad
 
         // 出題モード,入力モード を取得
         const e = this.elements;
-        const isEnglishMode = (e.languageModeDrop.value == "english");
-        const isInputMode   = (e.inputModeDrop.value    == "input");
+        const isEnglishMode = (e.languageDropdown.value == "english");
+        const isInputMode   = (e.noInputDropdown.value  == "input");
 
         // 出題数をカウント, 表示
-        e.questionCountText.innerText =
+        e.countText.innerText =
             (++this.questionCount) + "問目 / " +
             this.questionsLength + "問中";
 
@@ -179,7 +178,7 @@ class OnLoad
             : question.english;
 
         // 正解データを保存
-        this.correctText = (isEnglishMode)
+        this.correctData = (isEnglishMode)
             ? question.english
             : question.japanese;
 
@@ -188,7 +187,7 @@ class OnLoad
 
         // 正解を不透明度0に
         //      文字が無くなると、高さを失ってしまうため
-        e.correctAnswerText.classList.add('opacity_0');
+        e.correctText.classList.add('opacity_0');
 
         // フォーカスを回答欄へ
         if (isInputMode)
@@ -200,7 +199,7 @@ class OnLoad
     applyAnswerInputVisible()
     {
         const e = this.elements;
-        const isInputMode = (e.inputModeDrop.value == "input");
+        const isInputMode = (e.noInputDropdown.value == "input");
 
         // 表示/非表示 を切替え
         (isInputMode)
