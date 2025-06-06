@@ -50,10 +50,14 @@
         <div class="align-center">
 
             <div id="count-text">0問目 / 0問中</div>
-            <p id="question-text" class="question-text">出題</p>
+            <div class="question-text-parent">
+                <p id="question-text" class="question-text">出題</p>
+            </div>
             <input id="answer-input" class="answer-input" type="text">
             <p id="corrent-text" class="corrent-text">答え</p>
 
+        <!-- 例文 -->
+        <div id="example-text" class="align-center example-text">例文</div>
         </div>
 
         <!-- 答え, 次の問題 ボタン -->
@@ -68,6 +72,7 @@
             </tr>
         </table>
 
+        
         <script src="script/onLoad.js" charset="utf-8"></script>
 
     </body>

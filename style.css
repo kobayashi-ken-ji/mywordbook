@@ -42,7 +42,7 @@ body {
 
 .dropdown-table-margin {
     margin-top      : 10px;
-    margin-bottom   : 20px;
+    margin-bottom   : 10px;
 }
 
 .dropdown {
@@ -51,12 +51,21 @@ body {
 }
 
 /*=============================================*/
-/* 出題部分 */
+/* 出題・回答部分 */
 /*=============================================*/
+
+.question-text-parent {
+    margin      : 5px 0px;
+    height      : 82px;
+    display     : table;
+    margin      : 0 auto;
+}
 
 .question-text {
     font-weight : bold;
-    font-size   : 200%;
+    font-size   : 170%;
+    display     : table-cell;
+    vertical-align:middle;
 }
 
 .answer-input {
@@ -69,6 +78,16 @@ body {
     color       : #6c49bd;
     font-weight : bold;
     font-size   : 150%;
+    margin      : 5px 0px;
+}
+
+.example-text {
+    color       : #6c49bd;
+    font-size   : 85%;
+    line-height : 160%;
+    margin-bottom : 5px;
+    height      : 110px;
+    white-space : pre-wrap;
 }
 
 /*=============================================*/
