@@ -7,10 +7,16 @@ const JSON_URL = "./script/vocabularies.json"
 
 class Question
 {
-    constructor(english, japanese)
+    /**
+     * JSON → 英語, 日本語, 例文
+     * @param {string}   key    english
+     * @param {string[]} values [japanese, example1, example2, ...]
+     */
+    constructor(key, values)
     {
-        this.english  = english;
-        this.japanese = japanese;
+        this.english  = key;
+        this.japanese = values.shift();
+        this.example  = values.join("\n");
     }
 }
 
@@ -31,6 +37,7 @@ class OnLoad
         correctText      : document.getElementById("corrent-text"),
         answerButton     : document.getElementById("answer-button"),
         nextButton       : document.getElementById("next-button"),
+        exampleText      : document.getElementById("example-text"),
     };
 
     // Question型
@@ -129,6 +136,9 @@ class OnLoad
 
             // 正解カウント
             if (isCorrect) this.correctCount++;
+
+            // 例文を表示
+            e.exampleText.classList.remove('opacity_0');
         }
 
         // 正解判定マーク
@@ -188,6 +198,10 @@ class OnLoad
         // 正解を不透明度0に
         //      文字が無くなると、高さを失ってしまうため
         e.correctText.classList.add('opacity_0');
+        e.exampleText.classList.add('opacity_0');
+
+        // 例文を反映
+        e.exampleText.innerText = question.example;
 
         // フォーカスを回答欄へ
         if (isInputMode)
