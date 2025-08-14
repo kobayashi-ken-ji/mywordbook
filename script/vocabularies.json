@@ -752,6 +752,10 @@
         "belong"    : ["[動] 所属する, あるべき場所にある"],
         "lost"      : ["[形] 失った, 道に迷った"],
         "minute"    : ["[名] 分(時間の単位)"],
+        "fatal"     : ["[形] 致命的な"],
+        "discard"   : ["[動] 捨てる, 処分する"],
+        "restore"   : ["[動] 復元する, 戻す"],
+        "modify"    : ["[動] 修正する, 変更する"],
 
 
         "Subject"   : ["主語 (単語の役割)"],
@@ -1123,10 +1127,10 @@
         ],
         "too ~ to 原形" : [
             "～すぎて～できない [不定詞]",
-            "= so ~ that 否定文",
+            "= so ~ that ~ cannot",
             "This problem is too difficult (for me) to answer."
         ],
-        "so ~ that 否定文" : [
+        "so ~ that ~ cannot" : [
             "～すぎて～できない",
             "= too ~ to",
             "This problem is so difficult that I cannot answer it."
@@ -1200,7 +1204,7 @@
             "～があれば...",
             "With more time, we could achieve the goal."
         ],
-        "without ~, 助動詞の過去文(+完了)" : [
+        "Without ~, 助動詞の過去文(+完了)" : [
             "～がなければ...",
             "Without your help, we would not have succeeded."
         ],
@@ -1210,9 +1214,9 @@
             "He is an honest man; otherwise, we would not trust him."
         ],
 
-
         "be able to" : [
-            "～できる, する能力がある"
+            "～できる, する能力がある",
+            "You will be able to see the Tokyo Tower from the new office."
         ],
         "It is better to 〜" : [
             "〜する方がよい",
@@ -1232,7 +1236,7 @@
         ],
         "would (often) 原形" : [
             "以前は～した (不規則)",
-            "They would often hava picnics in the park on sunny day."
+            "They would often have picnics in the park on sunny day."
         ],
         "must have 過去分詞" : [
             "～したに違いない (推量)",
@@ -1242,7 +1246,7 @@
         "cannot have 過去分詞" : [
             "～したはずがない (推量)",
             "[!] could not (～できなかった) とは別",
-            "You cannot have been there yesteday."
+            "You cannot have been there yesterday."
         ],
         "should have 過去分詞" : [
             "～するべきだった (していない)",
@@ -1359,11 +1363,11 @@
         ],
         "at any time when" : [
             "～するときはいつでも",
-            "= wherever"
+            "= whenever"
         ],
         "no matter when" : [
             "いつ～しようとも",
-            "= wherever"
+            "= whenever"
         ],
         "no matter how" : [
             "どんなに～しようとも",
@@ -1383,7 +1387,7 @@
         ],
         "none of the ~" : [
             "～うち、どれも...ない",
-            "None of books were interesting."
+            "None of the books were interesting."
         ],
         "It is ... that ~" : [
             "...(名詞・副詞) の強調",

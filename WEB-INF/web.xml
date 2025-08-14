@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ルーティング -->
+<!-- 
+    <wev-app> の属性は削除しても開けたが
+    属性名が間違っていた場合は開けなかった
+
+    <?xml> の上にコメントを置くと、404になった
+-->
+<web-app
+        xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+            http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+        version="4.0" metadata-complete="true">
+
+
+
+    <!-- サーブレットに名前を付ける -->
+    <servlet>
+        <servlet-name>Hello</servlet-name>
+        <servlet-class>HelloWorld</servlet-class>
+    </servlet>
+
+    <!-- URLを割り当てる -->
+    <servlet-mapping>
+        <servlet-name>Hello</servlet-name>
+        <url-pattern>/hello</url-pattern>
+    </servlet-mapping>
+
+
+</web-app>
