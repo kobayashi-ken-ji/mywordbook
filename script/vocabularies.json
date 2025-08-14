@@ -42,16 +42,38 @@
         "summer"    : ["夏"],
         "autumn"    : ["秋"],
         "winter"    : ["冬"],
-        
-        "from"      : ["～から"],
-        "to"        : ["～へ"],
-        "for"       : [" ～のために / ～に向かって / ～の間"],
-        "at"        : ["～に / ～で (1点を表す)"],
-        "in"        : ["～に / ～で (内部を表す)"],
-        "on"        : ["～に / ～で (上部, 接触を表す)"],
-        "under"     : ["～の下に"],
-        "by"        : [" ～のそばに / ～で(手段) / ～までに"],
-        
+
+        "at"        : ["[前] ～に, ～で (1点)"],
+        "in"        : ["[前] ～に, ～で (内部)"],
+        "on"        : ["[前] ～に, ～で (上部, 接触)"],
+        "by"        : ["[前] ～のそばに, ～までに(期間), ～で(手段)"],
+        "above"     : ["[前] 〜の上方に, 〜より優先して, 〜を超えて, 上記の", "対義語 below"],
+        "below"     : ["[前] 〜の下方に, 〜より低く, 低く", "対義語 above"],
+        "over"      : ["[前] ～の上に, ～を覆って, 越えて, 経由して", "対義語 under"],
+        "under"     : ["[前] ～の下に", "対義語 over"],
+        "in front of":["[前] ～の前に", "対義語 behind"],
+        "behind"    : ["[前] ～の後ろに, 〜を支持して", "対義語 in front of"],
+        "between"   : ["[前] ～間で (2点間)"],
+        "among"     : ["[前] ～間で (グループ)"],
+        "around"    : ["[前] その周囲, そのあたりで"],
+        "near"      : ["[前] 〜の近くに, [形] 近い"],
+        "from"      : ["[前] ～から (起点, 分離)"],
+        "to"        : ["[前] ～へ (到達点)"],
+        "for"       : ["[前] ～のために, ～に向かって(方向), ～の間(期間) [節] というのも～だから"],
+        "into"      : ["[前] ～の中へ"],
+        "out of"    : ["[前] ～の中から外へ"],
+        "along"     : ["[前] ～に沿って"],
+        "across"    : ["[前] 横切って, 交差して, 向こう側に"],
+        "through"   : ["[前] ～を通り抜けて"],
+        "beyond"    : ["[前] ～を越えて"],
+        "during"    : ["[前] ～の間ずっと (時間の幅を指定)"],
+        "until"     : ["[前] ～までの間ずっと (終了時間を指定)", "till - 同じ意味(カジュアル寄り)"],
+        "since"     : ["[前] ～以来ずっと, [接 副] 〜なので (原因)"],
+        "with"      : ["[前] ～と一緒に, ～を伴って, ～に対して (繋がり)"],
+        "without"   : ["[前] ～なしで, ～せずに (繋がりなし)"],
+        "against"   : ["[前] ～に反対して (向かい合う)"],
+        "of"        : ["[前] ～の所有する, ～に属する (起源)"],
+
         "fine"      : ["元気"],
         "docter"    : ["医者"],
         "smart"     : ["かしこい"],
@@ -82,6 +104,7 @@
         "grand"     : ["壮大"],
         "grandmother": ["祖母"],
         "garden"    : ["庭"],
+        "rain"      : ["[名] 雨, 降雨, [動] 雨が降る"],
         "this"      : ["これ"],
         "that"      : ["あれ"],
         "these"     : ["this の複数形"],
@@ -110,7 +133,7 @@
         "evening"   : ["夕方"],
         "night"     : ["夜"],
         "watch"     : ["見る(変化に注視), 時計(身に着ける)"],
-        "look"      : ["見る(静止物に視線を向ける)"],
+        "look"      : ["見る(静止物に視線を向ける), 〜のように見える"],
         "see"       : ["見る(自然と目に入る)"],
         "feel"      : ["感じる"],
         "like"      : ["好き"],
@@ -122,7 +145,7 @@
         "listen"    : ["聞く (意識的に)"],
         "hear"      : ["聞く、 聞こえる"],
         "dinner"    : ["夕食"],
-        "park"      : ["公園"],
+        "park"      : ["[名] 公園, [動] 駐車する"],
         "picture"   : ["絵   "],
         "story"     : ["話"],
         "town"      : ["町, 街"],
@@ -133,7 +156,7 @@
         "about"     : ["~について"],
         "shirt"     : ["シャツ"],
         "yellow"    : ["黄色"],
-        "ofcourse"  : ["もちろん"],
+        "of course" : ["もちろん"],
         "show"      : ["見せる, 見せ物"],
         "just"      : ["ただの, 丁度"],
         "difficult" : ["難しい"],
@@ -173,7 +196,7 @@
         "speak"     : ["話す (一方的)"],
         "talk"      : ["話す (対話)"],
         "say"       : ["言う"],
-        "tell"      : ["伝える"],
+        "tell"      : ["伝える, 教える, 話す"],
         "English"   : ["英語"],
         "give"      : ["与える"],
         "cute"      : ["かわいい"],
@@ -193,7 +216,7 @@
         "shopping"  : ["買い物"],
         "read"      : ["読む"],
         "history"   : ["歴史"],
-        "quiet"     : ["静かな [形容詞]"],
+        "quiet"     : ["[形] 静かな"],
         "hard"      : ["堅い, 難しい, 熱心に,  一生懸命に"],
         "clean"     : ["清潔な, 清潔にする"],
         "shy"       : ["恥ずかしがり屋"],
@@ -204,10 +227,10 @@
         "stay"      : ["滞在"],
         "sure"      : ["確信して, 確かに, もちろん"],
         "place"     : ["場所"],
-        "help"      : ["助ける, 手伝う"],
-        "with"      : ["～と一緒に"],
+        "help"      : ["[動] 助ける, 手伝う (直接的/全面的), [名] 助け"],
         "kind"      : ["優しい, 種類"],
         "fun"       : ["楽しい"],
+        "enjoy"     : ["楽しむ"],
         "usually"   : ["たいてい, 通常は"],
         "group"     : ["集団, 群れ"],
         "birthday"  : ["誕生日"],
@@ -221,7 +244,6 @@
         "plate"     : ["平版, 皿 (大皿)"],
         "wait"      : ["待つ"],
         "together"  : ["一緒に [副詞]"],
-        "with "     : ["～と一緒に [前置詞]"],
         "sing"      : ["歌う"],
         "tonight"   : ["今夜"],
         "exam"      : ["学力を測る試験"],
@@ -230,9 +252,9 @@
         "fish"      : ["魚"],
         "drive"     : ["運転する, 駆動する"],
         "letter"    : ["手紙"],
-        "present"   : ["贈り物"],
+        "present"   : ["[形] 贈り物, 現在 / [動] 贈呈する, 発表する, 提出する"],
         "come"      : ["来る"],
-        "late"      : ["遅い"],
+        "late"      : ["[形]遅い, [副]遅く", "latest - [形]最新の"],
         "there"     : ["そこ, ~がある"],
         "shrine"    : ["神社"],
         "meet"      : ["会う, 集う"],
@@ -261,7 +283,7 @@
         "sleep"     : ["眠る"],
         "then"      : ["その時, それから"],
         "arrive"    : ["到着する"],
-        "leave"     : ["離れる, 出発する"],
+        "leave"     : ["離れる, 出発する, 残す"],
         "will"      : ["意思, ～でしょう"],
         "call"      : ["呼ぶ, 呼び出す, 電話"],
         "sell"      : ["売る"],
@@ -279,38 +301,37 @@
         "believe"   : ["信じる"],
         "festival"  : ["祭り, 祭典"],
         "carnival"  : ["謝肉祭"],
-        "must"      : ["～しなければならない"],
+        "must"      : ["～しなければならない, ～に違いない"],
         "maybe"     : ["多分"],
         "expensive" : ["高い, 費用の掛かる"],
+        "cheap"     : ["[形] 安い, 安っぽい"],
         "practice"  : ["練習する"],
-        "near"      : ["近い"],
         "carry"     : ["運ぶ, 持ち歩く"],
         "sick"      : ["病気"],
         "soon"      : ["すぐに, 近日"],
         "learn"     : ["学ぶ, 覚える"],
         "really"    : ["本当に"],
-        "kind of"   : ["ちょっと"],
         "corner"    : ["角, 隅"],
         "castle"    : ["城"],
         "bank"      : ["銀行"],
-        "problem"   : ["問題"],
         "not any"   : ["ひとつもない"],
         "accident"  : ["事故, 偶然"],
         "want"      : ["欲しい"],
-        "hope"      : ["望む"],
-        "wish"      : ["したいと思う"],
+        "hope"      : ["望む (叶う可能性がある)"],
+        "wish"      : ["したいと思う(ほぼ叶わない)"],
         "decide"    : ["決定する"],
         "refuse"    : ["拒否する"],
-        "expect"    : ["期待する"],
-        "suggest"   : ["～することを勧める, 提案する"],
-        "recommend" : ["～することを勧める, 推薦する"],
+        "expect"    : ["[動] 期待する, 予想する", "expectation - [名] 期待, 予想"],
+        "suggest"   : ["提案する, 仄めかす"],
+        "recommend" : ["～を勧める, 推薦する"],
+        "insist"    : ["主張する, 強く要求する"],
         "hobby"     : ["趣味"],
         "thing"     : ["事, 物"],
         "any"       : ["いくらも(ない), どんな～でも"],
         "some"      : ["いくらかの, なんらかの, ある～"],
         "anything"  : ["何も （もの・こと）"],
         "something" : ["何か （もの・こと）"],
-        "nothing"   : ["何もない"],
+        "nothing"   : ["[代名] 何もない, [名] 無"],
         "extra"     : ["追加の, 余分な"],
         "surprise"  : ["驚かせる, 驚き"],
         "surprised" : ["驚いた [形容詞]"],
@@ -330,38 +351,41 @@
         "more"      : ["もっと (比較級)"],
         "important" : ["重要な, 大切な"],
         "interesting" : ["面白い (知的)"],
-        "popular"   : ["人気のある"],
+        "popular"   : ["人気のある, 大衆的な"],
         "subject"   : ["科目, 主題, 件名"],
         "ill"       : ["病気, 悪い"],
         "worse"     : ["より悪い"],
         "worst"     : ["最も悪い"],
         "compare"   : ["比較する"],
-        "invite"    : ["招待する"],
+        "invite"    : [
+            "[動] 招待する",
+            "invitation - [名] 招待, 招待状",
+            "inviting - [形] 招く, 誘う, 誘惑するような"
+        ],
         "cover"     : ["覆う"],
         "interest"  : ["興味を持たせる"],
         "actually"  : ["実は"],
         "steal"     : ["盗む"],
-        "since"     : ["～以来"],
         "yet"       : ["まだ (疑問形の場合は もう)"],
         "already"   : ["既に"],
         "report"    : ["報告"],
         "ever"      : ["今までに, これまでに"],
         "never"     : ["一度もない"],
-        "become"    : ["なる"],
+        "become"    : ["なる, ～に相応しい"],
         "keep"      : ["保つ"],
         "myself"    : ["自分自身"],
-        "around"    : ["その周り, そのあたりで"],
         "round"     : ["一周, 丸っこい"],
         "ceil"      : ["天井"],
         "floor"     : ["床"],
         "middle"    : ["(だいたい)真ん中, 中間"],
         "center"    : ["(ぴったり)中央"],
-        "ask"       : ["尋ねる, 頼む"],
+        "ask"       : ["問う, 頼む"],
         "trip"      : ["旅, 旅行"],
         "answer"    : ["答え, 応答"],
         "question"  : ["質問, 問い"],
         "climb"     : ["登る"],
-        "tired"     : ["疲れた [形容詞]"],
+        "tire"      : ["[動] 疲れさせる, [名] タイヤ", "Sは疲れている → S be tired"],
+        "tired"     : ["[形] 疲れた", "= tireの過去分詞"],
         "salt"      : ["塩"],
         "enough"    : ["十分に"],
         "let"       : ["～させる, ～させて"],
@@ -376,10 +400,8 @@
         "company"   : ["会社"],
         "prime"     : ["第一, 主要な, 最上の, 素数"],
         "minister"  : ["大臣, 公使"],
-        "among"     : ["～間で"],
         "hill"      : ["丘"],
         "curly"     : ["縮れる, 巻きつける, 巻く"],
-        "across"    : ["横切って, 交差して, 向こう側に"],
         "language"  : ["言語"],
         "situation" : ["状況, 場合"],
         "win"       : ["勝利, 勝つ"],
@@ -389,14 +411,14 @@
         "such"      : ["そのような, とても～な"],
         "fanny"     : ["おもしろい, おかしな, 滑稽な"],
         "reserve"   : ["予約する"],
-        "location"  : ["場所, 位置"],
+        "book"      : ["本, (航空券やホテルなどを)予約する"],
         "competition" : ["競争"],
         "invoke"    : ["発動する, 呼び出す"],
         "parse"     : ["(文などを規則に従って)解析する"],
         "analyze"   : ["解析する(広義)"],
         "via"       : ["経由"],
         "request"   : ["要求"],
-        "details"   : ["詳細, 明細"],
+        "detail"    : ["詳細, 明細"],
         "translate" : ["翻訳"],
         "syntax"    : ["構文"],
         "modifier"  : ["修飾語句"],
@@ -410,17 +432,339 @@
         "improve"   : ["改善する, 改良する"],
         "layout"    : ["配置, 割付"],
         "insecure"  : ["不安な, 安全ではない"],
-        "over"      : ["～を覆って, 越えて, 経由して"],
         "confirm"   : ["確認する, 裏付ける"],
         "subsequent": ["その後の, 続いて起こる"],
-        "without"   : ["～なしで, ～せずに"],
-        "allow"     : ["許可する"],
-        "towards"   : ["～方へ、～向かって"],
+        "allow"     : ["許可する", "発音 アラウ"],
+        "allocate"  : ["割り当てる, 配分する"],
+        "toward"    : ["～方へ、～向かって"],
+        "abort"     : ["中止する, 中断する, 打ち切る"],
+        "fetch"     : ["取ってくる, 連れてくる"],
+        "promise"   : ["約束する, 誓約する"],
+        "vertex"    : ["頂点"],
+        "proxy"     : ["代理, 代理人"],
+        "cluster"   : ["房, 群れ, 集団"],
+        "slave"     : ["奴隷, 僕, 従属装置"],
+        "shard"     : ["破片, かけら, データを分割して複数の機器に保管"],
+        "separate"  : ["離す, 分ける, 引き離す"],
+        "gain"      : ["得る, 獲得する, 稼ぐ"],
+        "mall"      : ["大規模なショッピング施設"],
+        "well"      : ["上手に, うまく, よく"],
+        "roof"      : ["屋根"],
+        "borrow"    : ["借りる", "発音 バーロー"],
+        "rent"      : ["賃借する, 賃貸する"],
+        "quick"     : ["素早い, 急速な", "quickly - [副] 急いで, 素早く"],
+        "forest"    : ["森"],
+        "thirst"    : ["喉の渇き, 渇望"],
+        "museum"    : ["博物館, 美術館"],
+        "discuss"   : ["[動] 話し合う, 議論する", "discussion - [名] 議論"],
+        "laugh"     : ["笑う, おもしろがる"],
+        "fall"      : ["落ちる"],
+        "theater"   : ["劇場, 映画館"],
+        "quite"     : ["かなり, 全く, 非常に"],
+        "sound"     : ["音を出す, 鳴る, 鳴動する"],
+        "find"      : ["見つける, 発見する, 判断する, 感じる"],
+        "offer"     : ["提供する, 申し出る, 提案する"],
+        "meal"      : ["食事, 食べ物"],
+        "guest"     : ["客人, 来客"],
+        "customer"  : ["顧客, 取引先"],
+        "audience"  : ["観客"],
+        "smell"     : ["匂い, 匂いがする, 嗅ぐ"],
+        "church"    : ["教会", "発音 チャーチ"],
+        "rise"      : ["上がる, 立ち上がる, 増加する"],
+        "set"       : ["しっかりと置く, 配置する, 設定する, 一揃いの"],
+        "crack"     : ["割れ目, 亀裂, ひびを入れる(割る),"],
+        "president" : ["社長, 大統領"],
+        "carpenter" : ["大工"],
+        "lesson"    : ["授業, 講座"],
+        "medicine"  : ["医学, 薬"],
+        "airplane"  : ["飛行機"],
+        "begin"     : ["始める, 着手する"],
+        "each"      : ["それぞれ, 各自"],
+        "complete"  : ["完了する, 完全にする"],
+        "task"      : ["作業, 業務"],
+        "everyone"  : ["みんな, 全ての人"],
+        "machine"   : ["機械"],
+        "forget"    : ["[動] 忘れる", "⇔ remember"],
+        "remember"  : ["[動] 覚えている/おく, 思い出す", "⇔ forget"],
+        "notice"    : ["[動]気づく, 注目する, [名]通知", "notify - [動]通知する"],
+        "think"     : ["考える, 思う"],
+        "even"      : ["[副] ～でさえ, [形] 平らな, 同等な", "イーヴン"],
+        "solve"     : ["(数学の問題などを)解く, 解決する", "solution - 課題解決の方法"],
+        "pass"      : ["手渡す, 通過する, 通り抜ける, 時間が経つ"],
+        "might"     : ["(ひょっとしたら)かもしれない", "may の過去形"],
+        "pay"       : ["支払う, 報酬"],
+        "ought"     : ["～するべきである(義務)"],
+        "spend"     : ["過ごす, 費やす", "spending - 支出, 消費"],
+        "care"      : [
+            "[動] 心配する, 気にかける, 世話をする",
+            "careful - [形]注意深い, 慎重な",
+            "careless - [形]不注意な"
+        ],
+        "prefer"    : ["好む, (優先的に)選ぶ"],
+        "hold"      : ["保持する, 開催する, 抱く"],
+        "deliver"   : ["配達する, 引き渡す"],
+        "package"   : ["荷物にまとめる, 小包, 小荷物"],
+        "miss"      : ["逃す, し損なう, 乗り遅れる, 逸れる"],
+        "instruct"  : ["指示する, 教える, 指導する", "instruction - 教育, 指示, 案内, 説明書​"],
+        "clown"     : ["ピエロ, いなか者, ばか"],
+        "chase"     : ["追跡する, 狩る"],
+        "bridge"    : ["橋"],
+        "build"     : ["建てる, 構築する"],
+        "review"    : ["見直す, 論評する, 審査する, 思い返す"],
+        "rumor"     : ["うわさする, うわさ"],
+        "talent"    : ["[名] 才能, 素質", "talented - [形] 才能のある, 有能な"],
+        "plan"      : ["計画, 企画, 予定"],
+        "challenge" : ["挑戦する, 異議を唱える"],
+        "adult"     : ["大人, 大人の"],
+        "dream"     : ["(睡眠中に見る)夢, (心に描く)夢"],
+        "excuse"    : ["容赦する, 許す, 言い訳"],
+        "scare"     : ["怖がらせる, おびえさせる"],
+        "noise"     : ["騒音, 雑音"],
+        "asleep"    : ["[形] 眠って"],
+        "while"     : ["[接] 〜する間に, 〜と同時に, 〜しながら"],
+        "coach"     : ["指導者, 指導する"],
+        "profess"   : ["公言する, 主張する", "profession - 専門職", "professor - 教授"],
+        "assist"    : ["手伝う, 援助する (間接的/専門的)", "assistant - 助手"],
+        "happen"    : ["(予想外のことが)起こる"],
+        "touch"     : ["触る, (物事に)手を付ける"],
+        "seem"      : ["[動] ～のようだ, ～のように思われる, ～らしい"],
+        "wrong"     : ["悪い, 間違っている", "発音 ロング"],
+        "try"       : ["試す, 試みる"],
+        "someday"   : ["いつか"],
+        "abroad"    : ["外国の, 外国へ"],
+        "advise"    : ["[動] 忠告する, 助言する"],
+        "advice"    : ["[名] 忠告, 助言"],
+        "exercise"  : ["鍛える，運動する, 訓練する"],
+        "daily"     : ["毎日の，日刊の"],
+        "bake"      : ["(油を使わずに)焼く"],
+        "fry"       : ["(油を引いて)焼く, 揚げる"],
+        "grill"     : ["(鉄板や網で)焼く"],
+        "choose"    : ["[動]選ぶ"],
+        "choice"    : ["[名]選択"],
+        "order"     : ["指示する，注文する / 命令，順序, 注文"],
+        "curtain"   : ["カーテン"],
+        "need"      : ["必要とする, 必要", "needless - 不必要な"],
+        "chath"     : ["つかまえる, 捕える"],
+        "save"      : ["節約する，守る，保存する"],
+        "heavy"     : ["[形] 重い，激しい，深刻な"],
+        "light"     : ["[形]軽い, [名]明るい, [動]明るくする"],
+        "brave"     : ["勇敢な, 恐れない"],
+        "grow"      : ["成長する, 育つ", "grow up - 人が成長する"],
+        "fail"      : ["失敗する", "failure - 失敗, 失敗した人"],
+        "clever"    : ["利口な, 賢い"], 
+        "honest"    : ["正直な, 誠実な", "発音 オネスト"],
+        "true"      : ["[形] 真実の, 本当の", "truth - [名]真実"],
+        "false"     : ["[形] 誤った, 偽の"],
+        "trouble"   : ["問題, 困難, めんどうな状況 / 悩む, 心配する"],
+        "issue"     : ["問題, テーマ, 論点"],
+        "problem"   : ["問題, 課題 (解決する必要がある)"],
+        "send"      : ["送る, 派遣する, 送信する"],
+        "else"      : ["他に, それ以外の"],
+        "hate"      : ["ひどく嫌う, 憎む"],
+        "loudly"    : ["大声で, 騒々しく, うるさく"],
+        "shock"     : ["[名]衝撃, [動]衝撃を与える, 動揺させる", "be shocked - 動揺する[受動態]"],
+        "receive"   : ["受け取る, 受信する"],
+        "avoid"     : ["避ける, よける, 回避する"],
+        "forward"   : ["[動] 転送する, [形] 前方へ, 将来(に向けて)"],
+        "own"       : ["[動] 所有する, 持っている, [形] 自分の"],
+        "treat"     : ["[動] 扱う, 治療する, ごちそうする [名]おごり, 楽しみ", "treat like a child - 子ども扱いする"],
+        "traffic"   : ["[名] 交通, 運輸, [動] 売買する, 取引する"],
+        "jam"       : ["[動] 詰め込む, 動かなくなる, [名]人込み, ジャム"],
+        "misunderstand" : ["誤解をする, 勘違い"],
+        "frustrate" : [
+            "[動] 妨げる, イライラさせる",
+            "発音 フラストレイト",
+            "frustrating - 苛立たしい"],
+        "proud"     : ["[形] 誇らしげな, 自尊心のある"],
+        "deny"      : ["否定する, 認めない", "発音 ディナイ"],
+        "lie"       : [
+            "[動]嘘をつく [名]嘘  /  [動]横になる, 休む",
+            "[!] 二つは別の単語",
+            "嘘をつく  lie - lied - lied",
+            "横になる  lie - lay  - lain"
+        ],
+        "regret"    : ["[動] 後悔する, 残念に思う, [名] 後悔"],
+        "bark"      : ["[動] (犬などが)吠える, [名] 樹皮"],
+        "defeat"    : [
+            "[動] 打ち負かす",
+            "defeated - [形] 負けた, 敗北した",
+            "undefeated - [形] 負けたことが無い, 無敗の"
+        ],
+        "excite"    : ["[動] 興奮させる, 刺激する"],
+        "bore"      : ["[動] あきさせる, 退屈にさせる, 穴をあける/掘る"],
+        "shout"     : ["[動] 叫ぶ, [名] 叫び, 歓声"],
+        "result"    : ["[名] 結果"],
+        "experiment": ["[名] (科学の)実験, [動] 実験する"],
+        "silent"    : ["[形] 静かな, 寡黙な"],
+        "remain"    : ["[動] そのままで居る, 留まる"],
+        "happy"     : ["[形] 幸せな, 楽しい", "happily - [副] 幸せに, 楽しく"],
+        "disappoint": ["[動] 失望させる, がっかりさせる", "be disappointed - 失望した"],
+        "several"   : ["[形] いくつかの (後ろには可算名詞)"],
+        "nap"       : ["[名] 昼寝"],
+        "distance"  : ["[名] 距離, 間隔, 道のり"],
+        "join"      : ["[動] 接合する, 参加する, 合流する"],
+        "direction" : ["[名] 方向, 向き, 監督"],
+        "sit"       : ["[動] 座る, 座らせる"],
+        "ready"     : ["[形] 用意が整って, 準備ができて, [動] 準備をする"],
+        "judge"     : ["[動] 判断する, [名] 裁判官, 審判"],
+        "general"   : ["[形] 一般的な, 大まかな, [名] 大将", "generally - [副] 一般的に"],
+        "population": ["[形] 人口, 住民数"],
+        "much"      : ["[形] 多い, 多量の, たくさんの"],
+        "agree"     : ["[動] 同意する, 賛成する", "agreement - [名] 合意, 同意, 契約"],
+        "totally"   : ["[副] 何から何まで, 完全に, 全くその通りだ"],
+        "explain"   : ["[動] 説明する, 解説する"],
+        "fill"      : ["[動] 満たす"],
+        "mouth"     : ["[形] 口, (瓶・銃・袋などの)口"],
+        "leg"       : ["[名] 脚 (太ももから足首まで), [動] 歩く"],
+        "cross"     : ["[動] 交差する, 横切る, [名] 十字形のもの"],
+        "award"     : ["[名] 賞, 報酬, [動] 与える, 裁定する"],
+        "display"   : ["[動] 展示する, [名] 展示, 展示品"],
+        "fascinate" : [
+            "[動] 魅了する",
+            "fascinating - [形] 魅惑的な, うっとりさせる",
+            "fascination - [名] 魅了（された状態）, 強い興味"
+        ],
+        "principle" : ["[名] 原理, 法則"],
+        "principal" : ["[形] 主要な, [名] 校長"],
+        "establish" : ["[動] 設立する, 確立する"],
+        "matter"    : ["[名] 問題, 厄介ごと, 物質, [動] 重要である, うみを出す"],
+        "hire"      : ["[動] 雇う, 賃借りする, [名] 雇用, 賃借料"],
+        "follow"    : ["[動] 従う, 後に続く"],
+        "rule"      : ["[名] 規則, 慣習"],
+        "share"     : ["[動] 共有する, 分け合う [名] 分け前, 割り当て"],
+        "peace"     : ["[名] 平和, 平穏, 講和"],
+        "excellent" : ["[形] 非常に優れた, すばらしい, 卓越した"],
+        "reason"    : ["[名] 理由, 原因, 根拠 [動] 判断する, 主張する, 論じる"],
+        "way"       : ["[名] 道, 方法, [副] はるかに(強調)"],
+        "life"      : ["[名] 生命, 生活, 人生"],
+        "hide"      : ["[動] 隠す, 覆い隠す, かくまう"],
+        "relax"     : ["[動] くつろぐ, くつろがせる, 楽にさせる"],
+        "however"   : ["[接] しかしながら, けれども"],
+        "far"       : ["[副] 遠くに, おおいに, [形] 遠い, [前] ～を超えて"],
+        "intellect" : [
+            "[名] 知力, 知性, 知識人",
+            "intelligence - [名] 知能、思考力",
+            "intelligent - [形] 頭の良い, 知能が高い"
+        ],
+        "possible"  : ["[形] 可能な, ありうる, できるだけの [名] 候補者, 可能性"],
+        "less"      : ["[名 前 副] より少ない", "対義語 more"],
+        "least"     : ["[名 前 副] 最も少ない", "対義語 most"],
+        "knowledge" : ["[名] 知識, 情報"],
+        "skill"     : ["[名] 技術, 腕前"],
+        "scenery"   : ["[名] 景色 (特定の場所から見たものではなく、全体的な景色)"],
+        "react"     : ["[動] 反応する"],
+        "cancel"    : ["[動] 取り消す, 解消する, 中止する"],
+        "echo"      : ["[名] 反響, [動] 反響する"],
+        "behave"    : ["[動] 振振る舞う, 行動する"],
+        "close"     : ["[動] 閉じる, [名] 終わり, [形] 近い"],
+        "succeed"   : [
+            "[動] 成功する, 継承する",
+            "success - [名] 成功",
+            "successful - [形] 成功した"
+        ],
+        "achieve"   : ["[動] 達成する, 獲得する"],
+        "goal"      : ["[名] 目的, 目標"],
+        "trust"     : ["[動] 信頼する, 信用する, [名] 信用, 委託, 責任, 義務"],
+        "otherwise" : ["[接] そうでなければ"],
+        "information" : ["[名] 情報, 知識"],
+        "wear"      : ["[動] 着る, 磨耗する, 長持ちする, [名] 服"],
+        "cause"     : ["[動] 引き起す, ～させる, [名] 原因, 根拠"],
+        "common"    : ["[形] 共通の, 一般的な, [名] 共有地, 公有地"],
+        "uncommon"  : ["[形] 珍しい"],
+        "none"      : ["[代名] のうち一つもない"],
+        "hardly"    : ["[副] ほとんど～ない (程度)"],
+        "rarely"    : ["[副] めったに～ない (頻度)", "発音 レアリー"],
+        "few"       : ["[形] ほとんどない(可算), [副] 少々", "発音 フュー"],
+        "little"    : ["[形] ほとんどない(不可算), 小さい, 小柄な, 幼い"],
+        "also"      : ["[副] （～も）また, 同様に"],
+        "fortune"   : [
+            "[名] 運, 幸運, 富",
+            "fortunate - [形] 幸運な",
+            "unfortunate - [形] 不幸な, 残念な"
+        ],
+        "flood"     : ["[名] 洪水, [動] 氾濫する, 水浸しにする"],
+        "able"      : ["[形] ～することができる"],
+        "enable"    : ["[動] 可能にする"],
+        "connect"   : ["[動] 接続する"],
+        "other"     : ["[形 代名] 他の, もう一方の"],
+        "another"   : ["[形 代名] 別の, もう一つのもの", "an other が由来"],
+        "neighbor"  : ["[名] 隣人, 近くのもの, 同種のもの", "発音 ネイバー"],
+        "loud"      : ["[形] うるさい, (音量が)大きい", "発音 ラウド"],
+        "unless"    : ["[接] もし〜でなければ"],
+        "support"   : ["[動] 支援する, 援助する, [名] 支持, 支援"],
+        "conference": ["[名] 会議, 協議会"],
+        "survive"   : ["[動] 生き残る"],
+        "though"    : ["[接] ～にも関わらず", "発音 ゾー"],
+        "although"  : ["[接] ～にも関わらず", "発音 オルゾー"],
+        "search"    : ["[動] 探す"],
+        "research"  : ["[名] 研究, [動] 研究する, 調査する"],
+        "provide"   : ["[動] 提供する, 用意する"],
+        "value"     : [
+            "[名] 価値, [動] 評価する, 重んじる",
+            "valuable - [形] 貴重な"
+        ],
+        "raise"     : ["[動] 上げる, 持ち上げる"],
+        "sometime"  : ["[副] いつか"],
+        "sometimes" : ["[副] 時々, たまに"],
+        "if"        : ["[接] ～かどうか (目的節を作る)"],
+        "whether"   : ["[接] ～かどうか (万能型)", "発音 ウェザー"],
+        "opinion"   : ["[名] 意見"],
+        "consider"  : ["[動] 熟考する, 配慮する"],
+        "once"      : ["[接] ひとたび～したら"],
+        "lack"      : ["[名] 不足, 欠如 [動] 欠く, 不足している"],
+        "effort"    : ["[名] 努力, 取り組み"],
+        "source"    : ["[名] 源, 起源, 出所"],
+        "resource"  : ["[名] 資源"],
+        "both"      : ["[形] 両方の"],
+        "either"    : ["[代名 副] どちらか一方の", "発音 イーザー"],
+        "shelf"     : ["[名] 棚"],
+        "hang"      : ["[動] 吊るす, 吊るされる, ぶら下げる"],
+        "recipe"    : ["[名] 手法, 作り方, 処方"],
+        "depend"    : ["[動] 依存する, 左右される"],
+        "float"     : ["[動] 浮く, 流れる"],
+        "locate"    : [
+            "[動] (場所を)見つける, （建物を)設置する",
+            "location - [名] 場所"
+        ],
+        "level"     : ["[名] 水準, 程度, [形] 平らな"],
+        "appear"    : ["[動] 現れる, 出現する", "発音 アピア"],
+        "disappear" : ["[動] 消える, 見えなくなる"],
+        "modern"    : ["[形] 現代の, 新しい, 近代的な"],
+        "different" : ["[形] 異なる", "difference - [名] 違い, 差異"],
+        "model"     : ["[名] 模型, 模範"],
+        "pour"      : ["[動] 注ぐ"],
+        "perform"   : [
+            "[動] 行う, 成し遂げる",
+            "performance - [名] 実行, 成績, 性能"
+        ],
+        "vacate"    : [
+            "[動] 空にする, 立ち退く",
+            "発音 ヴェイケイト",
+            "vacation - [名] 休暇, 発音-ヴェイケイション"
+        ],
+        "instead"   : ["[副] その代わりに"],
+        "term"      : ["[名] 期間, (専門)用語", "発音 ターム"],
+        "accord"    : ["[動] 一致する, 調和する [名] 一致, 調和"],
+        "delay"     : ["[動] 遅らせる, 遅れる"],
+        "rapid"     : ["[形] 急速な, 素早い", "rapidly - [副] 急速に"],
+        "commit"    : ["[動] (～をすると)約束する, 尽くす, 任せる"],
+        "remind"    : ["[動] 思い出させる, 気づかせる"],
+        "belong"    : ["[動] 所属する, あるべき場所にある"],
+        "lost"      : ["[形] 失った, 道に迷った"],
+        "minute"    : ["[名] 分(時間の単位)"],
+
+
+        "Subject"   : ["主語 (単語の役割)"],
+        "Verb"      : ["動詞 (単語の役割)"],
+        "Object"    : ["目的語 (単語の役割)"],
+        "Complement": ["補語 (単語の役割)"],
+        "Modifier"  : ["修飾語 (単語の役割)"],
         "won't"     : ["will not の短縮形"]
     },
 
 
     "idiom" : {
+        "kind of"       : ["ちょっと, なんとなく, まぁね"],
         "how many"      : ["どのくらいたくさんの"],
         "how many time" : ["何回"],
         "How do you do?": ["はじめまして, ごきげんよう"],
@@ -430,22 +774,88 @@
         "be free"       : ["暇なとき"],
         "cram school"   : ["塾"],
         "all over the world" : ["世界中で"],
+        "around the world"   : ["世界中の"],
         "Here you are." : ["(手渡すときに) はいどうぞ"],
+        "feel free to"  : ["ご自由に, 遠慮なく～して"],
         "pass the test" : ["テストに合格"],
-        "all day long"  : ["一日中"],
+        "all day long"  : ["一日中ずっと"],
+        "all day"       : ["一日中, 終日"],
         "week days"     : ["平日"],
         "a lot of"      : ["たくさんの"],
         "take a picture": ["写真を撮る"],
         "take a bath"   : ["風呂に入る"],
-        "in front of"   : ["～の前に"],
         "over there"    : ["あそこに, 向こうに"],
         "come on"       : ["来て / さあさあ / 頑張って"],
         "be good at"    : ["～が得意だ"],
         "have a fever"  : ["熱がある"],
         "turn on the heater" : ["ヒーターを付ける"],
         "due to ~"      : ["～が原因で, ～に起因して"],
+        "look up"       : ["見上げる, (辞書などを)調べる, 尊敬する"],
         "look at"       : ["～を見る"],
-        "look for"      : ["～を探す"]
+        "look for"      : ["～を探す"],
+        "look back"     : ["回想する, 追憶する"],
+        "each other"    : ["お互いに"],
+        "I see"         : ["なるほど, わかった, そっか"],
+        "that's too bad": ["お気の毒に, 残念ですね", "皮肉的なニュアンスになってしまう場合がある"],
+        "you guys"      : ["あなたたち (カジュアル)"],
+        "These days"    : ["最近 (過去と対比した現在)"],
+        "hear from ~"   : ["～から連絡をもらう"],
+        "another day"   : ["もう一日, 別の日"],
+        "before bed"    : ["寝る前に"],
+        "look forward to" : [
+            "～を楽しみにする",
+            "toは前置詞",
+            "toの後ろは、名詞か動名詞になる"
+        ],
+        "proud of"      : ["誇りに思う"],
+        "sounds lovely" : ["素敵だね, いいね"],
+        "get lost"      : ["道に迷う, 迷子になる"],
+        "from a distance" : ["遠くから"],
+        "ask for directions" : ["道を尋ねる"],
+        "not matter what" : ["たとえ何が起こっても", "= whatever [関係代名詞]"],
+        "among us"      : ["私たちの中に"],
+        "on time"       : ["時間通りに, 定刻に"],
+        "In time"       : ["時間内に, 時間に間に合う"],
+        "as long as"    : ["[接] ～する限り (期間の上限)"],
+        "as far as"     : ["[接] ～する限り (知見や記憶の範囲)"],
+        "even though"   : ["たとえ～だとしても (事実)"],
+        "even if"       : ["たとえ～だとしても (仮定)"],
+        "once ~ "       : ["ひとたび～したら"],
+        "as soon as"    : ["[接] ～するとすぐに"],
+        "as if"         : ["[接] まるで〜であるかのように"],
+        "so that"       : ["[接] 〜するために, ～できるように"],
+        "not A but B"   : ["AではなくBだ"],
+        "not only A but also B" : ["AだけではなくBも"],
+        "both A and B"  : ["AとBの両方"],
+        "either A or B" : ["AかBのどちらか"],
+
+        "because of"    : ["[前] ～のために, ～のせいで"],
+        "instead of"    : ["[前] その代わりに"],
+        "in terms of"   : ["[前] ～に関して, ～の点で"],
+        "according to"  : ["[前] ～の言うところによれば"],
+        "thanks to"     : ["[前] ～のおかげで"],
+        "show up"       : ["姿を現す"],
+        "take care of"  : ["～を世話する"],
+        "turn on"       : ["(電源など)をつける", "対義語 turn off"],
+        "give up"       : ["諦める, 断念する"],
+        "put on"        : ["着る", "対義語 put off"],
+        "be about to"   : ["ちょうど～するところだ"],
+
+        "to be honest"  : ["正直なところ"],
+        "to start with" : ["まず第一に"],
+        "to make a long story short" : ["かいつまんで言うと"],
+        "needless to say" : ["言うまでもなく"],
+
+        "jadging from A"    : ["Aから判断すれば [独立分詞構文]"],
+        "generally speaking": ["一般的に言って [独立分詞構文]"],
+        "speaking of A"     : ["Aといえば (関連の話に繋ぐ) [独立分詞構文]"],
+        "compared with A"   : ["Aと比べると [独立分詞構文]"],
+        "as soon as possible": ["出来る限り早く", "ASAP"],
+
+        "one of"        : ["～の内の1つ", "one of the best players"],
+        "twice"         : ["2倍", "= two times"],
+        "three times"   : ["3倍"],
+        "enable A to do": ["～を可能にする"]
     },
 
 
@@ -470,26 +880,26 @@
             "What were you doing then?",
             "I was not studying then."
         ],
-        "be動詞 going to 原型" : [
+        "be動詞 going to 原形" : [
             "～するつもり, ～でしょう",
             "I am going to visit Australia next summer.",
             "Are you going to visit Australia next summer?",
             "My father is not going to buy a car next month."
         ],
-        "will 原型" : [
+        "will 原形" : [
             "～するつもり (その場で決めたこと)",
             "I will buy this bag.",
             "Will he play baseball next Sunday?",
             "He will not play baseball next Sunday."
         ],
-        "～ので,  だから" : [
-            "~, so ~",
+        "~, so ~" : [
+            "～ので, だから",
             "I have a test tomorrow, so I am studying now.",
             "I don't have a bike, so I'll walk to the station.",
             "理由は前述できない (繋いでいるだけ)"
         ],
-        "～なので, ～だから" : [
-            "because ~",
+        "because ~" : [
+            "～なので, ～だから",
             "I am studing because I have a test tomorrow.",
             "Because I have a test tomorrow, I am studying.",
             "理由を前述できる (後述することが多い)"
@@ -505,7 +915,7 @@
         ],
         "believe that ~" : [
             "～だと信じる",
-            "We believe  that he is right."
+            "We believe that he is right."
         ],
         "say that ~" : [
             "～だと言う",
@@ -541,7 +951,7 @@
             "(Can I → カジュアル)"
         ],
         "should" : [
-            "～しましょう, ～すべき [助動詞]",
+            "～したほうがよい, ～すべき [助動詞]",
             "You should stay here.",
             "You should go to see a docter."
         ],
@@ -558,7 +968,7 @@
             "～しても良いですか (許可を求める)",
             "May I use your pen?"
         ],
-        "May/Can you ~ ?" : [
+        "Will/Can you ~ ?" : [
             "～してくれませんか (依頼)",
             "≒ Please",
             "Will you show me your notebook?"
@@ -572,7 +982,7 @@
             "～したいです（丁寧）",
             "I would like to have a pizza."
         ],
-        "There is/are ~" : [
+        "there is/are ~" : [
             "～がある (単数/複数)",
             "There are two new students in our class.",
             "Is there any library at that corner?",
@@ -581,21 +991,23 @@
         ],
         "~ing" : [
             "～すること [動名詞]",
-            "= to 原型",
+            "= to 原形",
             "Eating vegetables is good."
         ],
-        "to 原型" : [
+        "to 原形" : [
             "～すること [不定詞]",
             "= ~ing",
             "To eat vegetables is good."
         ],
-        "名詞 to 原型" : [
+        "名詞 to 原形" : [
             "～するための, ～すべき [不定詞]",
+            " 形容詞的用法 (名詞を詳しく説明)",
             "Do you have anything to eat?",
             "He has something to say."
         ],
-        "動詞 to 原型" : [
+        "to 原形 [副詞的用法]" : [
             "～するために [不定詞]",
+            "動詞を詳しく説明",
             "My brother went to Sydoney to study art.",
             "To see bill, we will go to India next week."
         ],
@@ -624,19 +1036,28 @@
             "...ほど～ではない",
             "Ichiro does not run as fast as Jiro."
         ],
+        "less ~ than ~" : [
+            "～よりも～ではない [比較級]",
+            "This camera is less expensive than that one."
+        ],
+        "least ~" : [
+            "最も～ではない [最上級]",
+            "That camera is the least expensive here."
+        ],
         "be動詞 現在分詞" : [
             "今～しているところ [現在進行形]",
             "We are making cake."
         ],
         "be動詞 過去分詞 (by ~)" : [
             "～される [受動態]",
+            "I was given this watch by him.",
             "This car is used by my father."
         ],
         "have 過去分詞" : [
             "継続, 完了, 経験 を表す [現在完了]",
             "[継続] I have lived in Tokyo for three years.",
             "[完了] I have just finished my homework.",
-            "[経験] I have been to Canada twice."
+            "[経験] I have never eaten the fruit."
         ],
         "have been" : [
             "ずっと居る, ずっと～している [継続]",
@@ -648,9 +1069,7 @@
         ],
         "have been to" : [
             "行ったことがある [経験]",
-            "I have been to Canada twice.",
-            "Have you ever met Mr.Suzuki?",
-            "I have never eaten the fruit."
+            "I have been to Canada twice."
         ],
         "have been ~ing" : [
             "ずっと～している [現在完了進行形]",
@@ -661,45 +1080,48 @@
             "～ではないですか [否定疑問文]",
             "Isn't he from India?",
             "- Yes, he is. (インド出身)",
-            "- No, he isn't. (インド出身ではない)"
+            "- No, he isn't. (インド出身ではない)",
+            "返答はnotではなく、肯定文に対してされる"
         ],
-        "~, be/助動詞(肯否を逆) 主語 ?" : [
+        "~, be/do/助動詞(肯否を逆) 主語 ?" : [
             "～だ。 そうですよね？ [付加疑問文]",
             "You killed Mr.Sato, didn't you?"
         ],
         "疑問詞 主語 動詞" : [
             "Yes/No で答えられる文 [間接疑問文]",
-            "I didn't know who he was.",
-            "疑問詞の前が過去形 → 後も過去形"
+            "文中に疑問文が埋め込まれているもの",
+            "I don't know, who you are.",
+            "Do you know where she lives?",
+            "I didn't know who he was."
         ],
-        "It is ~ (for 人) to 原型" : [
+        "It is ~ (for 人) to 原形" : [
             "～することは(人 にとって)～です [不定詞]",
             "It is hard for me to study English at home by myself.",
             "It is dangerous to walk around here at midnight."
         ],
-        "want to 原型" : [
+        "want to 原形" : [
             "～したい [不定詞]",
             "I want to drink coffee."
         ],
-        "want 人 to 原型" : [
+        "want 人 to 原形" : [
             "～に～してほしい [不定詞]",
             "I want you to see the new movie."
         ],
-        "ask 人 to 原型" : [
+        "ask 人 to 原形" : [
             "～に～を頼む [不定詞]",
             "My mother asked me to go shopping."
         ],
-        "tell 人 to 原型" : [
+        "tell 人 to 原形" : [
             "～に～するように言う [不定詞]",
             "My father told me to come home early."
         ],
-        "疑問詞 to 原型" : [
+        "疑問詞 to 原形" : [
             "～する(べき) [不定詞]",
             "I don't know how to start this game.",
             "I don't know what to do.",
             "Did you decide where to go on school trip?"
         ],
-        "too ~ to 原型" : [
+        "too ~ to 原形" : [
             "～すぎて～できない [不定詞]",
             "= so ~ that 否定文",
             "This problem is too difficult (for me) to answer."
@@ -709,7 +1131,7 @@
             "= too ~ to",
             "This problem is so difficult that I cannot answer it."
         ],
-        "enough to 原型" : [
+        "enough to 原形" : [
             "～できるくらい～だ [不定詞]",
             "= so ~ that ~ can",
             "John is rich enough to buy the house."
@@ -719,12 +1141,12 @@
             "= enough to",
             "John is so rich that he can buy the house."
         ],
-        "let 人 原型不定詞" : [
+        "let 人 原形不定詞" : [
             "人に～させる",
             "Let me try!",
             "Will you let me open the box?"
         ],
-        "help 人 原型不定詞" : [
+        "help 人 原形不定詞" : [
             "～が～するのを手伝う [不定詞]",
             "I helped my father cook diner.",
             "He helped the lady carry her bag."
@@ -746,48 +1168,314 @@
             "(最上級) This is the best movie that I have ever seen.",
             "関係代名詞 who / whom / whose / which / that"
         ],
-        "I wish 過去文" : [
-            "～ならなぁ [仮定法]",
-            "I wish I could speak many languages.",
-            "I wish I were a high school student.",
+
+        "if 過去文, 助動詞の過去文" : [
+            "もし～だったら、～ [仮定法/現在]",
+            "「可能性の低いこと」 を仮定する文",
+            "If I were you, I would ask my teacher.",
             "be動詞は必ず were"
         ],
-        "if 過去文, 主語 助動詞過去 原形" : [
-            "もし～だったら、～ [仮定法]",
-            "「可能性の低いこと」 を仮定する文",
-            "If I were you, I would ask my teacher."
+        "If 過去完了の文, 助動詞(過)+完了の文" : [
+            "もし～だったら、...だったのに。[仮定法/過去]",
+            "If he had studied harder, he might have passed the test."
+        ],
+        "If shouldの文, 助動詞の文" : [
+            "万一～だったら、...でしょう。[仮定法/未来]",
+            "If it should rains tomorrow, the picnic would be canceld."
+        ],
+        "If S were to ~, 助動詞の過去文" : [
+            "仮に～だとしたら、...でしょう。",
+            "If you were to win the lottery, wat would you do?"
+        ],
+        "wish 仮定法" : [
+            "～ならなぁ(と思う)",
+            "I wish I were taller.",
+            "He wishes he had studied more."
+        ],
+        "as if 仮定法" : [
+            "まるで～のように",
+            "He looks as if he had seen a ghost."
+        ],
+        "with ~, 助動詞の過去文(+完了)" : [
+            "～があれば...",
+            "With more time, we could achieve the goal."
+        ],
+        "without ~, 助動詞の過去文(+完了)" : [
+            "～がなければ...",
+            "Without your help, we would not have succeeded."
+        ],
+        "...; otherwise, 助動詞の過去文(+完了)" : [
+            "もしそうでなければ～",
+            "直前の文を否定",
+            "He is an honest man; otherwise, we would not trust him."
+        ],
+
+
+        "be able to" : [
+            "～できる, する能力がある"
+        ],
+        "It is better to 〜" : [
+            "〜する方がよい",
+            "It is better not to make noise."
+        ],
+        "ought to 原形" : [
+            "～するべき (義務)",
+            "You ought to pay him the money by next week."
+        ],
+        "had better 原形" : [
+            "～するべき (忠告/警告)",
+            "You had better see a doctor."
+        ],
+        "used to 原形" : [
+            "以前は～した (規則的)",
+            "There used to be a small park here."
+        ],
+        "would (often) 原形" : [
+            "以前は～した (不規則)",
+            "They would often hava picnics in the park on sunny day."
+        ],
+        "must have 過去分詞" : [
+            "～したに違いない (推量)",
+            "[!] had to (～しなければならなかった) とは別",
+            "You must have seen the movie, too."
+        ],
+        "cannot have 過去分詞" : [
+            "～したはずがない (推量)",
+            "[!] could not (～できなかった) とは別",
+            "You cannot have been there yesteday."
+        ],
+        "should have 過去分詞" : [
+            "～するべきだった (していない)",
+            "I should have brought an umbrella."
+        ],
+        "be being 過去分詞" : [
+            "～されている",
+            "That bridge is being built by them."
+        ],
+        "It is better to ~" : [
+            "～する方が良い",
+            "It is better not to make noise while the baby is sleeping."
+        ],
+        "使役動詞 O 原形不定詞" : [
+            "(人)に～させる",
+            "使役動詞 : make (強制), let (許可), have (役割)",
+            "The coach made the team members plactice every morning.",
+            "My mother let us stay up late tonight.",
+            "The professor had the assistant make a hotel reservation."
+        ],
+        "知覚動詞 O 原形不定詞" : [
+            "～するのが 見える/聞こえる(など)",
+            "I saw something move outside the window.",
+            "I heard someone call my name."
+        ],
+        "in order to do" : [
+            "～するために (目的を表す)",
+            "in order は無くても良い",
+            "so as to do とほぼ同じ",
+            "In order to pass the test, you must study header."
+        ],
+        "so as to do" : [
+            "～するために(目的/結果を表す)",
+            "in order とほぼ同じ",
+            "She opened the curtain so as to see outside."
+        ],
+        "have/get O 分詞(C)" : [
+            "O が ～ している(現分)/された(過分) 状態にする",
+            "have    受動的な印象",
+            "get     能動的",
+            "They had their house painted in blue."
+        ],
+        "make O 分詞(C)" : [
+            "O が～された状態にする",
+            "積極的に状態を作る",
+            "He tried to make himself underestood."
+        ],
+        "分詞 ~, SV..." : [
+            "~すると / ~するので.. [分詞構文]",
+            "接続詞+主語 が省略される表現",
+            "Walked in the park, I saw beautiful flowers."
+        ],
+        "with O 分詞" : [
+            "付帯状況を表す",
+            "口に食べ物が入ったまま話さないで。",
+            "Don't talk with your mouth filled with food."
+        ],
+        "whatever" : [
+            "[複合関係代名詞] (1)～は何でも, (2)何が～しても",
+            "何が～しても  =  no matter what",
+            "(1) I will give you whatever you want.",
+            "(2) Whatever happends, we will win the game tomorrow."
+        ],
+        "whoever" : [
+            "[複合関係代名詞] (1)～は誰でも, (2)誰が～しようとも",
+            "(2)誰が～しようとも  =  no matter who",
+            "(1) I will hier whoever you recommend.",
+            "(2) Whoever you are, you must follow the rule."
+        ],
+        "whichever" : [
+            "[複合関係代名詞] (1)～はどれでも, (2)どれが～しても",
+            "どれが～しても  =  no matter which",
+            "(1) Please choose whichever you like.",
+            "(2) Whichever team wins, the fans will enjoy the game."
+        ],
+        "no matter what" : [
+            "何が～しても",
+            "= whatever"
+        ],
+        "no matter who": [
+            "誰が～しようとも",
+            "= whoever"
+        ],
+        "no matter which": [
+            "どれが～しても",
+            "= whichever"
+        ],
+        "wherever" : [
+            "[複合関係副詞] (1)～するところはどこでも, (2)どこで～しようとも",
+            "(1) ～するところはどこでも  =  at any place where",
+            "(2) どこで～しようとも  =  no matter where",
+            "(1) Tim followed his grandma wherever she went.",
+            "(2) Wherever you hide yourself, I will find you in the end."
+        ],
+        "whenever" : [
+            "[複合関係副詞] (1)～するときはいつでも, (2) いつ～しようとも",
+            "(1) ～するときはいつでも  =  at any time when",
+            "(2) いつ～しようとも  =  no matter when",
+            "(1) I feel relaxed whenever I listen to this song.",
+            "(2) Whenever you come, I'm glad to meet you."
+        ],
+        "however" : [
+            "どんなに～しようとも",
+            "= no matter how",
+            "However hard you try, you cannot change the past."
+        ],
+        "at any place where" : [
+            "～するところはどこでも",
+            "= wherever"
+        ],
+        "no matter where" : [
+            "どこで～しようとも",
+            "= wherever"
+        ],
+        "at any time when" : [
+            "～するときはいつでも",
+            "= wherever"
+        ],
+        "no matter when" : [
+            "いつ～しようとも",
+            "= wherever"
+        ],
+        "no matter how" : [
+            "どんなに～しようとも",
+            "= however"
+        ],
+        "比較級 and 比較級" : [
+            "だんだん～,  どんどん～",
+            "It's getting colder and colder these day."
+        ],
+        "the 比較級 ~, the 比較級 ..." : [
+            "～につれて... ,  ～するほど...",
+            "The highter you climb, the cooler it get."
+        ],
+        "What do you think ~ ?" : [
+            "なんだと思う？",
+            "What do you think she has?"
+        ],
+        "none of the ~" : [
+            "～うち、どれも...ない",
+            "None of books were interesting."
+        ],
+        "It is ... that ~" : [
+            "...(名詞・副詞) の強調",
+            "He bought a new car.",
+            " → It was a new car that he bought."
+        ],
+        "動詞の前に do/does/did" : [
+            "動詞の強調",
+            "They did try their best."
+        ],
+        "疑問詞 on earth" : [
+            "疑問詞の強調",
+            "What on earth are you doing?"
+        ],
+        "疑問詞 in the world" : [
+            "疑問詞の強調",
+            "What in the world are you doing?"
+        ],
+        "否定語 + 疑問文の形" : [
+            "否定語の強調",
+            "  He [not only] won the race, but he also set a record.",
+            "→ [Not only] <did he win> the race, but he also set a record."
+        ],
+        "副詞句 V S" : [
+            "[倒置] 場所などは文頭に置くことができる",
+            "Here comes the bus."
+        ],
+        "It is ~ that"  : [
+            "...することは～だ [形式主語/仮主語]",
+            "※ 強調とは別の用法",
+            "「It is ~ to 不定詞」 と異なり、主語を入れることができる",
+            "It is important that (S)you eat healthy food."
         ]
     },
 
 
     "conjugation" : {
-        "be"      : ["be - was/were - been"],
-        "do"      : ["do - did - done"],
-        "will"    : ["will - would"],
-        "can"     : ["can - could"],
-        "go"      : ["go - went - gone"],
-        "break"   : ["break - broke - broken"],
-        "make"    : ["make - made - made"],
-        "take"    : ["take - took - taken"],
-        "speak"   : ["speak - spoke - spoken"],
-        "read"    : ["read - read - read"],
-        "write"   : ["write - wrote - written"],
-        "know"    : ["know - knew - known"],
-        "buy"     : ["buy - bought - bought"],
-        "come"    : ["come - came - come"],
-        "eat"     : ["eat - ate - eaten"],
-        "get"     : ["get - got - got/gotten"],
-        "give"    : ["give - gave - given"],
-        "have"    : ["have - had - had"],
-        "meet"    : ["meet - met - met"],
-        "run"     : ["run - ran - ran"],
-        "teach"   : ["teach - taught - taught"],
-        "see"     : ["see - saw - seen"],
-        "say"     : ["say - said - said"],
-        "steal"   : ["steal - stole - stolen"],
-        "tell"    : ["tell - told - told"],
-        "lose"    : ["lose - lost - lost"],
-        "win"     : ["win - won - won"]
+        "be"        : ["be - was/were - been"],
+        "do"        : ["do - did - done"],
+        "will"      : ["will - would"],
+        "can"       : ["can - could"],
+        "go"        : ["go - went - gone"],
+        "break"     : ["break - broke - broken"],
+        "make"      : ["make - made - made"],
+        "take"      : ["take - took - taken"],
+        "speak"     : ["speak - spoke - spoken"],
+        "read"      : ["read - read - read", "リード レッド レッド"],
+        "write"     : ["write - wrote - written", "ライト ロート リテン"],
+        "know"      : ["know - knew - known"],
+        "buy"       : ["buy - bought - bought"],
+        "sell"      : ["sell - sold - sold"],
+        "come"      : ["come - came - come"],
+        "eat"       : ["eat - ate - eaten"],
+        "get"       : ["get - got - got/gotten"],
+        "give"      : ["give - gave - given"],
+        "have"      : ["have - had - had"],
+        "meet"      : ["meet - met - met"],
+        "run"       : ["run - ran - run"],
+        "teach"     : ["teach - taught - taught"],
+        "see"       : ["see - saw - seen"],
+        "say"       : ["say - said - said"],
+        "steal"     : ["steal - stole - stolen"],
+        "tell"      : ["tell - told - told"],
+        "lose"      : ["lose - lost - lost"],
+        "win"       : ["win - won - won"],
+        "catch"     : ["catch - caught - caught", "キャッチ カート カート"],
+        "send"      : ["send - sent - sent"],
+        "find"      : ["find - found - found"],
+        "wake"      : ["wake - woke - woken"],
+        "begin"     : ["begin - began - begun", "ビギン ビギャン ビガン"],
+        "leave"     : ["leave - left - left"],
+        "forget"    : ["forget - forgot - forgotten"],
+        "hear"      : ["hear - heard - heard", "ヒア ハード ハード"],
+        "think"     : ["think - thought - thought"],
+        "may"       : ["may - might"],
+        "spend"     : ["spend - spent - spent"],
+        "hold"      : ["hold - held - held"],
+        "bring"     : ["bring - brought - brought"],
+        "feel"      : ["feel - felt - felt"],
+        "build"     : ["build - built - built"],
+        "let"       : ["let - let - let"],
+        "grow"      : ["grow - grew - grown"],
+        "stand"     : ["stand - stood - stood"],
+        "understand": ["understand - understood - understood"],
+        "choose"    : ["choose - chose - chosen", "チューズ チョーズ チョーゼン"],
+        "keep"      : ["keep - kept - kept"],
+        "cut"       : ["cut - cut - cut"],
+        "sit"       : ["sit - sat - sat"],
+        "become"    : ["become - became - become"],
+        "fly"       : ["fly - flew - flown", "フライ フルウ フローン"],
+        "drive"     : ["drive - drove - driven", "ドライヴ ドローヴ ドリヴン"],
+        "put"       : ["put - put - put"]
     },
 
 

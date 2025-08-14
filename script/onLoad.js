@@ -64,7 +64,7 @@ class OnLoad
         fetch(url)
             .then( response => response.json() )
             .then( json => this.setEventListener(json) )
-            .catch( error => console.log("JSONの読込に失敗", error) );
+            .catch( error => console.log(error) );
     }
 
 
@@ -74,12 +74,12 @@ class OnLoad
         // JSON → questionStorage
         for (let type in this.questionStorage) {
 
-            const storage = this.questionStorage[type];
+            const questions = this.questionStorage[type];
             const json = jsonAll[type];
 
             // Question型化
             for (let key in json)
-                storage.push(new Question(key, json[key]));
+                questions.push(new Question(key, json[key]));
         }
 
         // イベントリスナーを設定
