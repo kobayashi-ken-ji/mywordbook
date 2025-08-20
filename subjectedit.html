@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+    
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=9">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <link rel="stylesheet" href="style.css">
+        <title>単語帳アプリ</title>
+    </head>
+
+    <body class="bg-main">
+
+        <div class="hedder">
+            単語帳アプリ
+        </div>
+
+
+        <div class="window-width align-center">
+            <form class="white-area">
+
+                <h1>科目編集</h1>
+
+                <!-- テーブルヘッダーを縦並べ -->
+                <table class="td-align-left ">
+                    <tr>
+                        <th>ID</th>
+                        <td>00001</td>
+                    </tr>
+                    <tr>
+                        <th>科目名</th>
+                        <td><input type="text"></td>
+                    </tr>
+                </table>
+                
+                <button class="blue">保存</button>
+                <button class="blue">削除</button>
+                
+                <hr>
+
+                <p class="destroy-alert">
+                    [ 削除時の注意点 ]<br>
+                    科目内の問題も全て削除されます。
+                </p>
+            </form>
+            
+            <a class="button red wide" href="questiondetails">キャンセル</a>
+        </div>
+    </body>
+</html>

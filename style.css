@@ -1,17 +1,54 @@
-/* cssではclassのみを使用 */
+/*
+    css         - classを使用
+    javaScript  - idを使用
+*/
+
+:root {
+    --button-dark   : #2589d0;
+    --button-bright : #e2f3ff;
+    --window-width  : 320px;
+    --background    : #edf2f9;
+    --font-blue     : #6c49bd;
+}
 
 body {
-    color       : #533737;
+    color       : #564c6d;
     font-family : 'meiryo';
     margin      : 0 auto;
-    /* max-width   : 800px; */
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+h1 {
+    color       : var(--font-blue);
+    font-weight : bold;
+    font-size   : 150%;
+    margin      : 5px 0px;
+}
+
+h1 + p {
+    font-size   : 85%;
+    color       : var(--font-blue);
+    margin      : 0px;
+}
+
+hr {
+    height      : 1px;
+    border      : none;
+    margin      : 20px 0px;
+    background  : rgb(165, 165, 165);
+
 }
 
 .hedder {
     color       : #ffffff;
-    background  : linear-gradient(90deg, rgb(119, 209, 154), rgb(123, 170, 240));
+    font-size   : 120%;
+    background  : linear-gradient(200deg, #1a9ddf, #015DAC);
     text-align  : center;
-    padding     : 12px 0px;
+    padding     : 20px 0px;
 }
 
 /*=============================================*/
@@ -36,42 +73,228 @@ body {
     display: none;
 }
 
-/*=============================================*/
-/* ドロップダウン */
-/*=============================================*/
-
-.dropdown-table-margin {
-    margin-top      : 10px;
-    margin-bottom   : 10px;
+.bg-main {
+    background  : var(--background);
 }
 
-.dropdown {
+.window-width {
+    display  : block;
+    max-width: 450px;
+    min-width: 320px;
+    padding  : 0px 20px;
+    margin   : 0px auto;
+}
+
+.white-area {
+    margin          : 12px 0px;
+    padding         : 14px 6px;
+    background      : white;
+    border-radius   : 8px;
+    box-shadow      : 1px 1px 4px rgba(0,0,0,0.2);
+}
+
+.align-left {
+    text-align: left;
+}
+
+/* 
+.white-space-pre {
+    white-space : pre-line;
+} */
+
+/*=============================================*/
+/* ボタン化 (ラジオボタン、チェックボックス) */
+/*=============================================*/
+
+.buttonlike label {
+    margin: 0px 0px;
+}
+
+/* デフォルトのinputを非表示 */
+.buttonlike label input {
+    display: none;
+}
+
+/* チェックされていない状態 */
+.buttonlike label span {
+    color           : var(--button-dark);
+    margin-top      : 5px;
+    margin-bottom   : 5px;
+    font-size       : 12px;
+    border-radius   : 15px;
+    padding         : 5px 0px;
+    background      : var(--button-bright);
+    border          : 1px solid var(--button-dark);
+
+    /* 幅固定のため */
+    display         : inline-block;
+    text-align      : center;
+    width           : 95px;
+}
+
+/* チェックされている状態 */
+.buttonlike label input:checked + span {
+    color           : white;
+    background      : var(--button-dark);
+    border          : 1px solid var(--button-dark);
+}
+
+/*=============================================*/
+/* ボタン */
+/* リンク <a class="button">で適用可 */
+/*=============================================*/
+
+/* 共通 */
+button,
+a.button {
+    display         : inline-block;
+    padding         : 8px 0px;
+    width           : 140px;
+    text-decoration : none;
+    border          : none;
+    border-radius   : 8px;
+    color           : #ffffff;
+    font-size       : 100%;
+    margin          : 2px 0px;
+}
+
+
+/* 赤指定 */
+button.red,
+a.button.red {
+    background-color: rgb(255, 104, 71);
+}
+
+button.red:hover,
+a.button.red:hover  {
+  background-color  : rgb(255, 120, 120);
+  color             : white;
+}
+
+/* 青指定 */
+button.blue,
+a.button.blue  {
+    background-color: rgb(125, 145, 235);
+}
+
+button.blue:hover,
+a.button.blue:hover {
+  background-color  : rgb(158, 174, 245);
+  color             : white;
+}
+
+
+/* 横幅いっぱい */
+button.wide,
+a.button.wide {
+    width       : 100%;
+    box-sizing  : border-box;
+}
+
+button.search {
+    vertical-align  : middle;
+    font-size       : 80%;
+    padding: 0;
+    width           : 50px;
+    height          : 25px;
+}
+
+/*=============================================*/
+/* テーブル */
+/*=============================================*/
+
+table {
+    margin      : 15px auto;
+    padding     : 0px 0px;
+    box-sizing  : border-box;
+    min-width   : var(--window-width);
+}
+
+table th {
+    font-weight     : normal;
+    color           : white;
+    background      : rgb(174, 188, 250);
+    border-radius   : 3px;
+    min-width       : 70px;
+}
+
+table td {
+    box-sizing      : border-box;
+    height          : 30px;
+    padding         : 0px;
+    vertical-align  : middle;
+}
+
+table input[type="text"] {
+    box-sizing  : border-box;
+    padding     : 5px;
+    width       : 100%;
+    height      : 100%;
+    margin      : 0;
+}
+
+table textarea {
+    box-sizing  : border-box;
+    padding     : 5px;
+    min-width   : 100%;
+    max-width   : 100%;
+    min-height  : 90px;
+}
+
+table.td-align-left  td {
+    text-align  : left;
+    padding-left: 5px;
+}
+
+/*=============================================*/
+/* セレクト (プルダウン) */
+/*=============================================*/
+
+select {
     font-size   : 100%;
     padding     : 7px 4px;
 }
 
+/* テーブル内の場合、横幅いっぱい */
+table select {
+    width       : 100%;
+    box-sizing  : border-box;
+}
+
 /*=============================================*/
-/* 出題・回答部分 */
+/* 出題ページ */
 /*=============================================*/
 
-.question-text-parent {
+.config-div {
+    margin  : 12px auto;
+}
+
+.finish-button {
+    width       : 100px;
+    padding     : 4px 0px;
+    font-size   : 100%;
+}
+
+.question-div {
     margin      : 5px 0px;
     height      : 82px;
     display     : table;
     margin      : 0 auto;
 }
 
-.question-text {
+.question-div p {
     font-weight : bold;
     font-size   : 170%;
     display     : table-cell;
-    vertical-align:middle;
+    vertical-align : middle;
 }
 
 .answer-input {
+    display     : inline-block;
     text-align  : center;
     font-size   : 150%;
-    max-width   : 100%;
+    box-sizing  : border-box;
+    width       : 100%;
 }
 
 .corrent-text {
@@ -81,7 +304,7 @@ body {
     margin      : 5px 0px;
 }
 
-.example-text {
+.explanation-text {
     color       : #6c49bd;
     font-size   : 85%;
     line-height : 160%;
@@ -91,47 +314,30 @@ body {
 }
 
 /*=============================================*/
-/* ボタン */
+/* 問題リスト */
 /*=============================================*/
 
-/* 共通 */
-.button {
-    width           : 140px;
-    padding-top     : 8px;
-    padding-bottom  : 8px;
-    text-decoration : none;
-    border          : none;
-    border-radius   : 20px;
-    color           : #ffffff;
-    font-size       : 100%;
-
+.search-input {
+    font-size: 110%;
+    vertical-align : middle;
 }
 
+/*=============================================*/
+/* 科目編集 */
+/*=============================================*/
 
-/* 赤指定 */
-.button-red {
-    background-color: rgb(255, 76, 76);
-}
-.button-red:hover {
-  background-color  : rgb(255, 120, 120);
-  color             : white;
-}
-
-
-/* 青指定 */
-.button-blue {
-    background-color: rgb(125, 145, 235);
-}
-.button-blue:hover {
-  background-color  : rgb(158, 174, 245);
-  color             : white;
+.destroy-alert {
+    color       : red;
+    font-size   : 90%;
+    margin      : 6px auto;
 }
 
 /*=============================================*/
 /* レスポンシブデザイン*/
 /*=============================================*/
-/* 
-@media screen and (max-aspect-ratio: 2/3) {
 
-} 
-*/
+@media (max-width: 360px) {
+    .window-width {
+        padding: 0;
+    }
+}
