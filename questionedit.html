@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+    
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=9">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <link rel="stylesheet" href="style.css">
+        <title>単語帳アプリ</title>
+    </head>
+
+    <body class="bg-main">
+
+        <div class="hedder">
+            単語帳アプリ
+        </div>
+
+
+        <div class="window-width align-center">
+            <div class="white-area">
+
+                <h1>問題編集</h1>
+
+                <!-- テーブルヘッダーを縦並べ -->
+                <table class="td-align-left ">
+                    <tr>
+                        <th>ID</th>
+                        <td>00001</td>
+                    </tr>
+                    <tr>
+                        <th>科目</th>
+                        <td>
+                            <select id="subject-select">
+                                <option value="word"       >英語 - 単語</option>
+                                <option value="idiom"      >英語 - 熟語</option>
+                                <option value="syntax"     >英語 - 構文</option>
+                                <option value="conjugation">英語 - 活用</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>問題文</th>
+                        <td><input type="text"></td>
+                    </tr>
+                    <tr>
+                        <th>正解文</th>
+                        <td><input type="text"></td>
+                    </tr>
+                    <tr>
+                        <th>説明文</th>
+                        <td>
+                            <textarea></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>学習度</th>
+                        <td class="buttonlike">
+                            <label>
+                                <input type="radio" name="scope" checked>
+                                <span>覚えていない</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="scope">
+                                <span>うろ覚え</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="scope">
+                                <span>覚えた</span>
+                            </label>
+                        </td>
+                    </tr>
+                </table>
+                <br>
+                
+                <a class="button blue">保存</a>
+                <a class="button blue">削除</a>
+            </div>
+
+            <a class="button red wide" href="questiondetails">
+                キャンセル
+            </a>
+        </div>
+    </body>
+</html>

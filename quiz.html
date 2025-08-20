@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+    
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=9">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <link rel="stylesheet" href="style.css">
+        <title>単語帳アプリ</title>
+    </head>
+
+    <body class="bg-main">
+
+        <div class="hedder">
+            英語 - 単語
+        </div>
+
+
+        <div class="window-width align-center">
+
+            <div class="config-div">
+                <select id="input-select">
+                    <option value="enable" >回答欄を表示</option>
+                    <option value="disable">回答欄を非表示</option>
+                </select>
+
+                <button class="blue finish-button">
+                    出題終了
+                </button> 
+            </div>
+
+            <div class="white-area">
+
+                <div id="count-text">0問目 / 0問中</div>
+
+                <div class="question-div">
+                    <p id="question-text">出題</p>
+                </div>
+
+                
+                <input type="text" id="answer-input" class="answer-input">
+                
+                <p id="corrent-text" class="corrent-text">答え</p>
+
+                <div id="explanation-text" class="explanation-text">説明</div>
+
+                
+                <div class="buttonlike">
+                    <label>
+                        <input type="radio" name="learning-level" checked>
+                        <span>覚えていない</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="learning-level">
+                        <span>うろ覚え</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="learning-level">
+                        <span>覚えた</span>
+                    </label>
+                </div>
+                <br>
+
+
+                <button class="red"  id="answer-button">答え</button>
+                <button class="blue" id="next-button">次の問題</button>
+            </div>
+        </div>
+        <!-- <script src="script/quizpage.js" charset="utf-8"></script> -->
+
+    </body>
+</html>
