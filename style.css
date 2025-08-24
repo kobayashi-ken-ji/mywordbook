@@ -120,9 +120,9 @@ hr {
     color           : var(--button-dark);
     margin-top      : 5px;
     margin-bottom   : 5px;
-    font-size       : 12px;
+    font-size       : 14px;
     border-radius   : 15px;
-    padding         : 5px 0px;
+    padding         : 3px 0px;
     background      : var(--button-bright);
     border          : 1px solid var(--button-dark);
 
@@ -145,6 +145,7 @@ hr {
 /*=============================================*/
 
 /* 共通 */
+/* 基本色 青 */
 button,
 a.button {
     display         : inline-block;
@@ -156,6 +157,13 @@ a.button {
     color           : #ffffff;
     font-size       : 100%;
     margin          : 2px 0px;
+    background-color: rgb(125, 145, 235);
+}
+
+button:hover,
+a.button:hover {
+  background-color  : rgb(158, 174, 245);
+  color             : white;
 }
 
 
@@ -171,32 +179,12 @@ a.button.red:hover  {
   color             : white;
 }
 
-/* 青指定 */
-button.blue,
-a.button.blue  {
-    background-color: rgb(125, 145, 235);
-}
-
-button.blue:hover,
-a.button.blue:hover {
-  background-color  : rgb(158, 174, 245);
-  color             : white;
-}
-
 
 /* 横幅いっぱい */
 button.wide,
 a.button.wide {
     width       : 100%;
     box-sizing  : border-box;
-}
-
-button.search {
-    vertical-align  : middle;
-    font-size       : 80%;
-    padding: 0;
-    width           : 50px;
-    height          : 25px;
 }
 
 /*=============================================*/
@@ -265,16 +253,55 @@ table select {
 /* 出題ページ */
 /*=============================================*/
 
-.config-div {
+div .quiz-menu {
     margin  : 12px auto;
 }
 
-.finish-button {
+div .quiz-menu  button {
     width       : 100px;
     padding     : 4px 0px;
     font-size   : 100%;
 }
 
+.quiz div.question {
+    margin      : 5px 0px;
+    height      : 82px;
+    display     : table;
+    margin      : 0 auto;
+}
+
+.quiz div.question p {
+    font-weight : bold;
+    font-size   : 170%;
+    display     : table-cell;
+    vertical-align : middle;
+}
+
+.quiz input.answer {
+    display     : block;
+    text-align  : center;
+    box-sizing  : border-box;
+    font-size   : 150%;
+    width       : 100%;
+}
+
+.quiz p.correct {
+    color       : #6c49bd;
+    font-weight : bold;
+    font-size   : 150%;
+    margin      : 5px 0px;
+}
+
+.quiz div.explanation {
+    color       : #6c49bd;
+    font-size   : 85%;
+    line-height : 160%;
+    margin-bottom : 5px;
+    height      : 110px;
+    white-space : pre-wrap;
+}
+
+/* 
 .question-div {
     margin      : 5px 0px;
     height      : 82px;
@@ -302,7 +329,7 @@ table select {
     font-weight : bold;
     font-size   : 150%;
     margin      : 5px 0px;
-}
+
 
 .explanation-text {
     color       : #6c49bd;
@@ -312,14 +339,38 @@ table select {
     height      : 110px;
     white-space : pre-wrap;
 }
+} */
 
 /*=============================================*/
 /* 問題リスト */
 /*=============================================*/
 
+
+button.search {
+    vertical-align  : middle;
+    font-size       : 80%;
+    padding: 0;
+    width           : 50px;
+    height          : 25px;
+}
+
+
 .search-input {
     font-size: 110%;
     vertical-align : middle;
+}
+
+.search-box input {
+    font-size: 110%;
+    vertical-align : middle;
+}
+
+.search-box button {
+    vertical-align  : middle;
+    font-size       : 80%;
+    padding: 0;
+    width           : 50px;
+    height          : 25px;
 }
 
 /*=============================================*/
