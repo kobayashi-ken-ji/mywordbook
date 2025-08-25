@@ -15,17 +15,16 @@
         version="4.0" metadata-complete="true">
 
 
-
     <!-- サーブレットに名前を付ける -->
     <servlet>
-        <servlet-name>Hello</servlet-name>
-        <servlet-class>HelloWorld</servlet-class>
+        <servlet-name>Top</servlet-name>
+        <servlet-class>com.TopServlet</servlet-class>
     </servlet>
 
     <!-- URLを割り当てる -->
     <servlet-mapping>
-        <servlet-name>Hello</servlet-name>
-        <url-pattern>/hello</url-pattern>
+        <servlet-name>Top</servlet-name>
+        <url-pattern>/top</url-pattern>
     </servlet-mapping>
 
 
