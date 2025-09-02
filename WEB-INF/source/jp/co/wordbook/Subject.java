@@ -1,4 +1,4 @@
-package com;
+package jp.co.wordbook;
 import java.sql.*;
 
 // DBの科目情報を格納する

@@ -4,8 +4,7 @@
     pageEncoding="UTF-8"
 %>
 <%@ page import="java.util.*" %>
-<%@ page import="com.Subject" %>
-
+<%@ page import="jp.co.wordbook.Subject" %>
 
 <%
     // 科目ID, 科目名
