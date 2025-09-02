@@ -49,7 +49,7 @@ INSERT
         (4, "英語 - 活用");
 
 -- 問題
---  Meryマクロ】JSON→SQL挿入文.js  を使用してINSERT文を作成
+--  【Mery】JSON→SQL挿入文.js  を使用してINSERT文を作成
 INSERT 
     INTO quizzes(subject_id, difficulty_id, question, answer, explanation)
     VALUES

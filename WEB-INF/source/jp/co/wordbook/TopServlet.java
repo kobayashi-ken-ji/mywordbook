@@ -1,11 +1,11 @@
-package com;
+package jp.co.wordbook;
 
 import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import java.util.*;
 import java.sql.*;
-import com.Subject;
+// import jp.co.wordbook.Subject;
 
 public class TopServlet extends HttpServlet {
     
@@ -17,7 +17,7 @@ public class TopServlet extends HttpServlet {
         String user = "root";
         String password = "";
 
-        // JDBCドライバのチェック
+        // JDBCドライバの読み込み (必須)
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (Exception e) {
