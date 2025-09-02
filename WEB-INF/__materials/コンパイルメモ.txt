@@ -1,0 +1,6 @@
+文字化け対策
+chcp 65001
+
+コンパイル
+cd WEB-INF
+javac -classpath lib/servlet-api.jar -d classes source/*.java
