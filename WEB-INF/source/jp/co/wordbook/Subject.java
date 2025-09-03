@@ -1,9 +1,8 @@
 package jp.co.wordbook;
 import java.sql.*;
-import java.util.*;
 
 // DBの科目情報を格納する
-public class Subject
+public class Subject implements DatabaseTable
 {
     public int id;
     public String name;
@@ -14,27 +13,14 @@ public class Subject
         this.name = name;
     }
 
-    // コンストラクタ (SQLリザルト版)
-    public Subject(ResultSet results) throws SQLException {
-        id = results.getInt("id");
-        name = results.getString("name");
-    }
 
+    // 自クラスを生成
+    @Override
+    public Subject create(ResultSet results) throws SQLException {
 
-    // ユーティリティー
-    // SQLのリザルトからSubjectリストを生成
-    public static List<Subject> createList(ResultSet results) {
-
-        List<Subject> subjects = new ArrayList<>();
-
-        try {
-            while (results.next())
-                subjects.add(new Subject(results));
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return subjects;
+        return new Subject(
+            results.getInt("id"),
+            results.getString("name")
+        );
     }
 }
