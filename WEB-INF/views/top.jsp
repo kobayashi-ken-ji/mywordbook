@@ -1,11 +1,6 @@
-<%@ 
-    page language="java"
-    contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"
-%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.util.*" %>
 <%@ page import="jp.co.wordbook.Subject" %>
-
 <%
     // 科目ID, 科目名
     List<Subject> subjects = (List<Subject>)request.getAttribute("subjects");
@@ -13,20 +8,10 @@
 
 <!DOCTYPE html>
 <html lang="ja">
-    
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=9">
-        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-        <link rel="stylesheet" href="style.css">
-        <title>単語帳アプリ</title>
-    </head>
+    <%@ include file="header.jsp"%>
 
     <body class="bg-main">
-
-        <div class="hedder">
-            単語帳アプリ
-        </div>
+        <div class="hedder">単語帳アプリ</div>
 
         <div class="window-width align-center">
             <form class="white-area buttonlike">
@@ -86,8 +71,8 @@
                 
 
             <div>
-                <a href="subjectlist" >科目を編集</a> | 
-                <a href="questionlist">問題を編集</a>
+                <a href="subjectlist">科目を編集</a> | 
+                <a href="subjectlist">問題を編集</a>
             </div>
         </div>
     </body>
