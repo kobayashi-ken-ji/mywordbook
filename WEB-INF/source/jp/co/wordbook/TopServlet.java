@@ -4,7 +4,6 @@ import java.io.*;
 import java.sql.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
-import java.util.*;
 
 public class TopServlet extends HttpServlet {
     
@@ -12,7 +11,7 @@ public class TopServlet extends HttpServlet {
         throws ServletException, IOException
     {
         // データベースへ接続 / 処理実行 / JSPへ送信
-        ServletSupport.accessAndDispatch(
+        ServletSupport.access(
 
             "SELECT * FROM subjects",
             statement -> {
@@ -20,7 +19,7 @@ public class TopServlet extends HttpServlet {
                     ResultSet results = statement.executeQuery();
                     
                     // SQLのリザルトからSubjectリストを生成
-                    List<Subject> subjects = Subject.createList(results);
+                    var subjects = (new Subject(0,null)).createList(results);
 
                     // リクエストに追加
                     request.setAttribute("subjects", subjects);
@@ -28,10 +27,10 @@ public class TopServlet extends HttpServlet {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-            },
-            
-            "/WEB-INF/views/top.jsp",
-            request, response
+            }
         );
+
+        // JSPへ送信
+        ServletSupport.dispatch("/WEB-INF/views/top.jsp", request, response);
     }
 }

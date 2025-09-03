@@ -3,23 +3,22 @@ package jp.co.wordbook;
 import java.io.IOException;
 import java.sql.*;
 import javax.servlet.*;
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.function.Consumer;
 
-// サーブレットの汎用処理ユーティリティー
+// データベースへの接続を簡易化するためのクラス
+// ユーティリティー
 public class ServletSupport {
-    
+
     // データベース情報
     private final static String URL      = "jdbc:mysql://localhost/mywordbook";
     private final static String USER     = "root";
     private final static String PASSWORD = "";
 
 
-    // データベースへ接続 / 処理実行 / JSPへ送信
-    static public void accessAndDispatch(
-        String sql, Consumer<PreparedStatement> process, String view,
-        HttpServletRequest request, HttpServletResponse response
-    )
+    // データベースへ接続 / 処理実行 / 切断
+    public static void access(String sql, Consumer<PreparedStatement> process)
         throws ServletException, IOException
     {
         // JDBCドライバの読み込み (必須)
@@ -40,8 +39,14 @@ public class ServletSupport {
         } catch (SQLException e) {
             System.out.println(e);
         }
+    }
 
-        // JSPへ送信
+
+    // JSPへ送信
+    public static void dispatch
+        (String view, HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException
+    {
         RequestDispatcher dispatcher = request.getRequestDispatcher(view);
         dispatcher.forward(request, response);
     }
