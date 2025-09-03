@@ -21,13 +21,25 @@
 
     <!-- 科目リストページ -->
     <servlet>
-        <servlet-name>SubjecLlist</servlet-name>
-        <servlet-class>jp.co.wordbook.SubjecLlistServlet</servlet-class>
+        <servlet-name>SubjectList</servlet-name>
+        <servlet-class>jp.co.wordbook.SubjectListServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>SubjecLlist</servlet-name>
+        <servlet-name>SubjectList</servlet-name>
         <url-pattern>/subjectlist</url-pattern>
     </servlet-mapping>
+
+    <!-- 問題リストページ -->
+    <servlet>
+        <servlet-name>QuizList</servlet-name>
+        <servlet-class>jp.co.wordbook.QuizListServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>QuizList</servlet-name>
+        <url-pattern>/quizlist</url-pattern>
+    </servlet-mapping>
+
 
 </web-app>

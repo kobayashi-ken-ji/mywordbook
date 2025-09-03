@@ -3,12 +3,10 @@ package jp.co.wordbook;
 import java.io.IOException;
 import java.sql.*;
 import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.util.function.Consumer;
 
-// データベースへの接続を簡易化するためのクラス
-// ユーティリティー
+// サーブレットの共通処理ユーティリティー
 public class ServletSupport {
 
     // データベース情報

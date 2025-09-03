@@ -4,6 +4,14 @@
 <%
     // 科目ID, 科目名
     List<Subject> subjects = (List<Subject>)request.getAttribute("subjects");
+
+    // 問題編集モードか否か
+    boolean isQuizEdit = "quiz".equals((String)request.getParameter("edit"));
+
+    // 説明文
+    String explanation = isQuizEdit
+        ? "問題を編集します。"
+        : "科目を編集します。";
 %>
 <!DOCTYPE html>
 <html lang="ja">
@@ -16,7 +24,7 @@
             <div class="white-area">
                 
                 <h1>科目一覧</h1>
-                <p>科目を編集します。</p>
+                <p><%= explanation %></p>
 
                 <table>
                     <tr>
@@ -26,10 +34,13 @@
                     <% for (Subject subject : subjects) { 
                         int     id   = subject.id;
                         String  name = subject.name;
+                        String  link = (isQuizEdit)
+                            ? "quizlist?subjectid="    + id
+                            : "subjectedit?subjectid=" + id;
                     %>
                         <tr>
                             <th><%= id %></td>
-                            <td><a href=""><%= name %></a></td>
+                            <td><a href="<%= link %>"><%= name %></a></td>
                         </tr>
                     <% } %>
                 </table>
