@@ -8,17 +8,26 @@
         version="4.0" metadata-complete="true">
 
 
-    <!-- サーブレットに名前を付ける -->
+    <!-- トップページ -->
     <servlet>
         <servlet-name>Top</servlet-name>
         <servlet-class>jp.co.wordbook.TopServlet</servlet-class>
     </servlet>
 
-    <!-- URLを割り当てる -->
     <servlet-mapping>
         <servlet-name>Top</servlet-name>
         <url-pattern>/top</url-pattern>
     </servlet-mapping>
 
+    <!-- 科目リストページ -->
+    <servlet>
+        <servlet-name>SubjecLlist</servlet-name>
+        <servlet-class>jp.co.wordbook.SubjecLlistServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>SubjecLlist</servlet-name>
+        <url-pattern>/subjectlist</url-pattern>
+    </servlet-mapping>
 
 </web-app>
