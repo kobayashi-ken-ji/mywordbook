@@ -2,6 +2,7 @@ package jp.co.wordbook;
 
 import java.io.*;
 import java.sql.*;
+import java.util.List;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
@@ -10,18 +11,14 @@ public class TopServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException
     {
-        // データベースへ接続 / 処理実行 / JSPへ送信
+        // データベースへ接続 / 処理実行
         ServletSupport.access(
-
             "SELECT * FROM subjects",
             statement -> {
                 try {
+                    // SQLリザルト → Subjectリスト化 → リクエストへ追加
                     ResultSet results = statement.executeQuery();
-                    
-                    // SQLのリザルトからSubjectリストを生成
-                    var subjects = (new Subject(0,null)).createList(results);
-
-                    // リクエストに追加
+                    List<Subject> subjects = Subject.createList(results);
                     request.setAttribute("subjects", subjects);
                     
                 } catch (SQLException e) {

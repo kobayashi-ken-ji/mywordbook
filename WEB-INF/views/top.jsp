@@ -71,8 +71,8 @@
                 
 
             <div>
-                <a href="subjectlist">科目を編集</a> | 
-                <a href="subjectlist">問題を編集</a>
+                <a href="subjectlist?edit=subject">科目を編集</a> | 
+                <a href="subjectlist?edit=quiz"   >問題を編集</a>
             </div>
         </div>
     </body>
