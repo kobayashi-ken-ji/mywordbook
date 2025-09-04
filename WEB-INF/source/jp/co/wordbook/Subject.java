@@ -1,9 +1,12 @@
 package jp.co.wordbook;
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
-// DBの科目を格納する
+import java.util.*;
+import java.io.IOException;
+import javax.servlet.ServletException;
+
+/**
+ * subjectテーブルのレコードを扱うクラス
+ */
 public class Subject
 {
     public int id;
@@ -15,22 +18,35 @@ public class Subject
         this.name = name;
     }
 
-    // コンストラクタ (SQLリザルトを使用)
-    public Subject(ResultSet results) throws SQLException {
-        this.id   = results.getInt("id");
-        this.name = results.getString("name");
+    // データベース接続を実装
+    private static final DatabaseAccess<Subject> database =
+        results -> {
+            return new Subject(
+                results.getInt("id"),
+                results.getString("name")
+            );
+        };
+    
+
+    // レコードからインスタンスを生成
+    static Subject getFromDatabase(int subject_id)
+        throws ServletException, IOException
+    {
+        final String sql = "SELECT * FROM subjects WHERE id = ?";
+        List<Subject> list = database.createList(sql, subject_id);
+
+        return (list.isEmpty())
+            ? null
+            : list.get(0);
     }
 
 
-    // Subjectリストを生成
-    public static List<Subject> createList(ResultSet results)
-        throws SQLException
+    // テーブルからインスタンスリストを生成
+    static List<Subject> getListFromDatabase()
+        throws ServletException, IOException
     {
-        List<Subject> list = new ArrayList<>();
-
-        while (results.next())
-            list.add(new Subject(results));
-
+        final String sql = "SELECT * FROM subjects";
+        List<Subject> list = database.createList(sql);
         return list;
     }
 }

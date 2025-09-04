@@ -9,12 +9,20 @@ public class QuizDetailsServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException
     {
-        int quizid = Integer.parseInt(request.getParameter("quizid"));
+        int quiz_id = Integer.parseInt(request.getParameter("quizid"));
 
-        // データベースからクイズを取得、リクエストへセット
-        Quiz.setQuizToRequest(quizid, "quiz", request);
+        // データベースから取得
+        Quiz quiz = Quiz.getFromDatabase(quiz_id);
+        Subject subject = Subject.getFromDatabase(quiz.subject_id);
+
+        // リクエストへ設定
+        request.setAttribute("quiz", quiz);
+        request.setAttribute("subject_name", subject.name);
+        request.setAttribute("difficulty_name", "未実装");
 
         // JSPへ送信
-        ServletSupport.dispatch("/WEB-INF/views/quizdetails.jsp", request, response);
+        String view = "/WEB-INF/views/quizdetails.jsp";
+        RequestDispatcher dispatcher = request.getRequestDispatcher(view);
+        dispatcher.forward(request, response);
     }
 }
