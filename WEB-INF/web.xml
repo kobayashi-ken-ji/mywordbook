@@ -41,5 +41,15 @@
         <url-pattern>/quizlist</url-pattern>
     </servlet-mapping>
 
+    <!-- 問題詳細ページ -->
+    <servlet>
+        <servlet-name>QuizDetails</servlet-name>
+        <servlet-class>jp.co.wordbook.QuizDetailsServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>QuizDetails</servlet-name>
+        <url-pattern>/quizdetails</url-pattern>
+    </servlet-mapping>
 
 </web-app>

@@ -68,4 +68,9 @@ FROM quizzes
     LEFT JOIN difficultys ON quizzes.difficulty_id = difficultys.id;
 
 
-
+-- クイズ情報 + 科目名, 難易度名
+SELECT quizzes.id, subject_id, difficulty_id, explanation, question, answer, subjects.name AS subject_name, difficultys.name AS difficulty_name
+FROM quizzes
+	LEFT JOIN subjects ON subjects.id = quizzes.subject_id
+    LEFT JOIN difficultys ON difficultys.id = quizzes.difficulty_id
+WHERE quizzes.id = 1;

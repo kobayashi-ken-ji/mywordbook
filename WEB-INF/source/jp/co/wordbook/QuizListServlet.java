@@ -11,7 +11,6 @@ public class QuizListServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException
     {
-        
         int subjectid = Integer.parseInt(request.getParameter("subjectid"));
 
         // データベースへ接続 / 処理実行

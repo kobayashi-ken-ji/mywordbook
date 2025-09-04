@@ -39,7 +39,7 @@
                     <% for (Quiz quiz : quizzes) { 
                         int    id       = quiz.id;
                         String question = quiz.question;
-                        String link     = "quizdetails?" + id;
+                        String link     = "quizdetails?quizid=" + id;
                     %>
                         <tr>
                             <th><%= id %></td>
@@ -50,7 +50,7 @@
 
             </div>
 
-            <a class="button red wide" href="subjectlist?edit=quiz">戻る</a>
+            <a class="button red wide" onclick="history.back()">戻る</a>
         </div>
     </body>
 </html>
