@@ -35,7 +35,7 @@ public class ServletSupport {
             process.accept(statement);
 
         } catch (SQLException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
     }
 

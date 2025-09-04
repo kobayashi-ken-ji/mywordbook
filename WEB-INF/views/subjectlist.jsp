@@ -48,7 +48,7 @@
                 <a class="button">科目を追加</a>
             </div>
 
-            <a class="button red wide"  href="top">戻る</a>
+            <a class="button red wide" onclick="history.back()">戻る</a>
         </div>
     </body>
 </html>
