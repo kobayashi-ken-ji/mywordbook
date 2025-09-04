@@ -46,7 +46,7 @@ public class Quiz {
 
 
     // レコードからインスタンスを生成
-    public static Quiz getFromDatabase(int quiz_id)
+    public static Quiz getRecord(int quiz_id)
         throws ServletException, IOException
     {
         final String sql = "SELECT * FROM quizzes WHERE id = ?";
@@ -59,7 +59,7 @@ public class Quiz {
 
 
     // テーブルからインスタンスリストを生成
-    public static List<Quiz> getListFromDatabase(int subject_id)
+    public static List<Quiz> getRecords(int subject_id)
         throws ServletException, IOException
     {
         final String sql = "SELECT * FROM quizzes WHERE subject_id = ?";

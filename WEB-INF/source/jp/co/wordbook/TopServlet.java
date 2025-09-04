@@ -1,7 +1,7 @@
 package jp.co.wordbook;
 
 import java.io.*;
-import java.util.List;
+import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
@@ -11,7 +11,7 @@ public class TopServlet extends HttpServlet {
         throws ServletException, IOException
     {
         // データベースから取得
-        List<Subject> subjects = Subject.getListFromDatabase();
+        List<Subject> subjects = Subject.getRecords();
 
         // リクエストへ設定
         request.setAttribute("subjects", subjects);
