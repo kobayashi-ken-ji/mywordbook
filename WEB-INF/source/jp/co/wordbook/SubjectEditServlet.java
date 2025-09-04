@@ -1,23 +1,26 @@
 package jp.co.wordbook;
 
 import java.io.*;
-import java.util.List;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-public class SubjectListServlet extends HttpServlet {
+public class SubjectEditServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException
     {
-        // データベースから取得
-        List<Subject> subjects = Subject.getRecords();
+        int subjectid = Integer.parseInt(request.getParameter("subjectid"));
+
+        // データベースから取得 or 新規作成
+        Subject subject = (subjectid == 0)
+            ? new Subject(0, "")
+            : Subject.getRecord(subjectid);
 
         // リクエストへ設定
-        request.setAttribute("subjects", subjects);
+        request.setAttribute("subject", subject);
         
         // JSPへ送信
-        String view = "/WEB-INF/views/subjectlist.jsp";
+        String view = "/WEB-INF/views/subjectedit.jsp";
         RequestDispatcher dispatcher = request.getRequestDispatcher(view);
         dispatcher.forward(request, response);
     }

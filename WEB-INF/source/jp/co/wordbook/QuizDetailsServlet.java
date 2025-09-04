@@ -12,8 +12,8 @@ public class QuizDetailsServlet extends HttpServlet {
         int quiz_id = Integer.parseInt(request.getParameter("quizid"));
 
         // データベースから取得
-        Quiz quiz = Quiz.getFromDatabase(quiz_id);
-        Subject subject = Subject.getFromDatabase(quiz.subject_id);
+        Quiz quiz = Quiz.getRecord(quiz_id);
+        Subject subject = Subject.getRecord(quiz.subject_id);
 
         // リクエストへ設定
         request.setAttribute("quiz", quiz);

@@ -29,6 +29,29 @@
         <servlet-name>SubjectList</servlet-name>
         <url-pattern>/subjectlist</url-pattern>
     </servlet-mapping>
+    
+    <!-- 科目編集ページ -->
+    <servlet>
+        <servlet-name>SubjectEdit</servlet-name>
+        <servlet-class>jp.co.wordbook.SubjectEditServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>SubjectEdit</servlet-name>
+        <url-pattern>/subjectedit</url-pattern>
+    </servlet-mapping>
+
+        <!-- 科目変更処理 -->
+    <servlet>
+        <servlet-name>SubjectChange</servlet-name>
+        <servlet-class>jp.co.wordbook.SubjectChangeServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>SubjectChange</servlet-name>
+        <url-pattern>/subjectchange</url-pattern>
+    </servlet-mapping>
+    
 
     <!-- 問題リストページ -->
     <servlet>

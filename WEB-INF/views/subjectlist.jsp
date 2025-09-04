@@ -2,7 +2,7 @@
 <%@ page import="java.util.*" %>
 <%@ page import="jp.co.wordbook.Subject" %>
 <%
-    // 科目ID, 科目名
+    // 科目リスト
     List<Subject> subjects = (List<Subject>)request.getAttribute("subjects");
 
     // 問題編集モードか否か
@@ -12,6 +12,11 @@
     String explanation = isQuizEdit
         ? "問題を編集します。"
         : "科目を編集します。";
+
+    // 科目を追加ボタン の非表示
+    String displaynone = (isQuizEdit)
+        ? "style=\"display: none;\""
+        : "";
 %>
 <!DOCTYPE html>
 <html lang="ja">
@@ -45,7 +50,8 @@
                     <% } %>
                 </table>
 
-                <a class="button">科目を追加</a>
+                <a class="button" href="subjectedit?subjectid=0" <%= displaynone %>>
+                    科目を追加</a>
             </div>
 
             <a class="button red wide" onclick="history.back()">戻る</a>

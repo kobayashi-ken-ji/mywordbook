@@ -1,7 +1,7 @@
 package jp.co.wordbook;
 
 import java.io.*;
-import java.util.List;
+import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
@@ -14,8 +14,8 @@ public class QuizListServlet extends HttpServlet {
         int subject_id = Integer.parseInt(request.getParameter("subjectid"));
 
         // データベースから取得
-        Subject subject = Subject.getFromDatabase(subject_id);
-        List<Quiz> quizzes = Quiz.getListFromDatabase(subject_id);
+        Subject subject = Subject.getRecord(subject_id);
+        List<Quiz> quizzes = Quiz.getRecords(subject_id);
 
         // リクエストへ設定
         request.setAttribute("subjectname", subject.name);
