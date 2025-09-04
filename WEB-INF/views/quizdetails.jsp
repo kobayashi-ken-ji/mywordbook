@@ -10,8 +10,9 @@
     String explanation     = (String)quiz.explanation;      // 説明文
     String question        = (String)quiz.question;         // 問題文
     String answer          = (String)quiz.answer;           // 正解文
-    String subject_name    = (String)quiz.subject_name;     // 科目名
-    String difficulty_name = (String)quiz.difficulty_name;  // 難易度名
+
+    String subject_name    = (String)request.getAttribute("subject_name");    // 科目名
+    String difficulty_name = (String)request.getAttribute("difficulty_name"); // 難易度名
 %>
 <!DOCTYPE html>
 <html lang="ja">
