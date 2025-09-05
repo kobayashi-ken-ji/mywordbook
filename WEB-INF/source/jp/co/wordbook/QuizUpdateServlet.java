@@ -19,7 +19,6 @@ public class QuizUpdateServlet extends HttpServlet {
         String answer        = request.getParameter("answer");
         String explanation   = request.getParameter("explanation");
 
-
         // レコードを 上書き or 挿入
         Quiz quiz = new Quiz(quiz_id, subject_id, difficulty_id, explanation, question, answer);
         quiz.updateRecord();

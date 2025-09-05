@@ -5,7 +5,7 @@
     // リクエストから取得
     Quiz quiz = (Quiz)request.getAttribute("quiz");
     List<Subject>    subjects    = (List<Subject>)request.getAttribute("subjects");
-    List<Difficulty> difficultys = (List<Difficulty>)request.getAttribute("difficultys");
+    List<Difficulty> difficulties = (List<Difficulty>)request.getAttribute("difficulties");
 
     String quiz_id = (quiz.id == 0)
         ? "- 新規作成 -"
@@ -59,7 +59,7 @@
                     <tr>
                         <th>難易度</th>
                         <td class="buttonlike">
-                            <% for (Difficulty difficulty : difficultys) { 
+                            <% for (Difficulty difficulty : difficulties) { 
                                 String checked = (difficulty.id == quiz.difficulty_id)
                                     ? "checked" : "";
                             %>

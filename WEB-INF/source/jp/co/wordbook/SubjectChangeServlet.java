@@ -17,13 +17,14 @@ public class SubjectChangeServlet extends HttpServlet {
         String  name     = request.getParameter("subjectname");
         Subject subject  = new Subject(id, name);
 
-        // レコードから削除
-        if (isDelete)
+        // レコードから削除 (今回の科目が設定されている問題も削除)
+        if (isDelete) {
+            Quiz.destroyRecords(subject.id);
             subject.destroyRecord();
-        
+        }
+
         // レコードを 上書き or 挿入
-        else 
-            subject.updateRecord();
+        else subject.updateRecord();
 
         // // リクエストへ設定
         // request.setAttribute("subject", subject);

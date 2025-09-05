@@ -19,6 +19,18 @@
         <url-pattern>/top</url-pattern>
     </servlet-mapping>
 
+    <!-- 出題画面 -->
+    <servlet>
+        <servlet-name>ToQuiz</servlet-name>
+        <servlet-class>jp.co.wordbook.ToQuizServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ToQuiz</servlet-name>
+        <url-pattern>/toquiz</url-pattern>
+    </servlet-mapping>
+
+
     <!-- 科目リストページ -->
     <servlet>
         <servlet-name>SubjectList</servlet-name>

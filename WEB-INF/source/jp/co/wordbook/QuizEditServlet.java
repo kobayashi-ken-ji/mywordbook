@@ -17,7 +17,7 @@ public class QuizEditServlet extends HttpServlet {
 
         // データベースから取得;
         List<Subject>    subjects    = Subject.getRecords();
-        List<Difficulty> difficultys = Difficulty.getRecords();
+        List<Difficulty> difficulties = Difficulty.getRecords();
         
         // 新規作成 or 編集
         Quiz quiz = (quiz_id < 1)
@@ -27,7 +27,7 @@ public class QuizEditServlet extends HttpServlet {
         // リクエストへ設定
         request.setAttribute("quiz", quiz);
         request.setAttribute("subjects", subjects);
-        request.setAttribute("difficultys", difficultys);
+        request.setAttribute("difficulties", difficulties);
 
         // JSPへ送信
         String view = "/WEB-INF/views/quizedit.jsp";

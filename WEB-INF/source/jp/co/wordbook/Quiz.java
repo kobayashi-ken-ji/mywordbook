@@ -44,13 +44,16 @@ public class Quiz {
                 results.getString("answer")
             );
         };
-
+    
+    //-------------------------------------------------------------------------
+    // インスタンスの生成
+    //-------------------------------------------------------------------------
 
     // レコードからインスタンスを生成
     public static Quiz getRecord(int quiz_id)
         throws ServletException, IOException
     {
-        final String sql = "SELECT * FROM quizzes WHERE id = ?";
+        final String sql = "SELECT * FROM quizzes WHERE id = ?;";
         List<Quiz> list = database.createList(sql, quiz_id);
         
         return (list.isEmpty())
@@ -63,11 +66,42 @@ public class Quiz {
     public static List<Quiz> getRecords(int subject_id)
         throws ServletException, IOException
     {
-        final String sql = "SELECT * FROM quizzes WHERE subject_id = ?";
+        final String sql = "SELECT * FROM quizzes WHERE subject_id = ?;";
         List<Quiz> list = database.createList(sql, subject_id);
         return list;
     }
 
+
+    // テーブルからインスタンスリストを生成 (難易度を指定版)
+    public static List<Quiz> getRecords(int subject_id, String[] difficulty_ids)
+        throws ServletException, IOException
+    {
+        // SQL条件(クイズ難易度) を作成
+        //      複数の場合がある
+        //      例:  配列 {"2","3"}  →  文字列 "difficulty_id=2 OR difficulty_id=3"
+        String difficultiesSql = 
+            Arrays.stream(difficulty_ids)
+                .map(id -> "difficulty_id=" + Integer.parseInt(id))
+                .reduce((String joined, String element) -> joined + " OR " + element)
+                .orElse(null);
+        
+        // 難易度指定がない場合は、ANDも不要
+        difficultiesSql = (difficultiesSql == null)
+            ? ""
+            : "AND (" + difficultiesSql + ")";
+
+        final String sql = 
+            "SELECT * FROM quizzes " +
+            "WHERE subject_id = ? " + difficultiesSql + ";";
+
+        System.out.println(sql);
+        List<Quiz> list = database.createList(sql, subject_id);
+        return list;
+    }
+
+    //-------------------------------------------------------------------------
+    // レコードの 新規作成、上書き、削除
+    //-------------------------------------------------------------------------
 
     // レコードの上書き(id>=0)、新規作成(id==0)
     public void updateRecord() throws ServletException, IOException {
@@ -130,6 +164,24 @@ public class Quiz {
         database.access(sql, statement -> {
             try {
                 statement.setInt(1, id);
+                statement.executeUpdate();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+
+    // レコードの削除 (指定した科目のものを全て)
+    public static void destroyRecords(int subject_id)
+        throws ServletException, IOException
+    {
+        String sql = "DELETE FROM quizzes WHERE subject_id = ?";
+
+        database.access(sql, statement -> {
+            try {
+                statement.setInt(1, subject_id);
                 statement.executeUpdate();
 
             } catch (SQLException e) {

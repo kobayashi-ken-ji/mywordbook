@@ -32,7 +32,7 @@ public class Difficulty
     public static Difficulty getRecord(int difficulty_id)
         throws ServletException, IOException
     {
-        final String sql = "SELECT * FROM difficultys WHERE id = ?";
+        final String sql = "SELECT * FROM difficulties WHERE id = ?";
         List<Difficulty> list = database.createList(sql, difficulty_id);
 
         return (list.isEmpty())
@@ -45,7 +45,7 @@ public class Difficulty
     public static List<Difficulty> getRecords()
         throws ServletException, IOException
     {
-        final String sql = "SELECT * FROM difficultys";
+        final String sql = "SELECT * FROM difficulties";
         List<Difficulty> list = database.createList(sql);
         return list;
     }
