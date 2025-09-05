@@ -58,13 +58,14 @@
                 </table>
                 <br>
                 
-                <a class="button">編集</a>
-                <a class="button">削除</a>
+                <a class="button" href="quizedit?id=<%= id %>">編集</a>
+                <a class="button" href="quizdestroy?id=<%= id %>" onclick="quizDeleteButton()">削除</a>
             </div>
 
-            <a class="button red wide" onclick="history.back()">
+            <a class="button red wide" href="quizlist?subjectid=<%= subject_id %>">
                 戻る
             </a>
         </div>
+        <script src="script/onclick.js" charset="utf-8"></script>
     </body>
 </html>

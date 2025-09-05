@@ -14,11 +14,12 @@ public class QuizDetailsServlet extends HttpServlet {
         // データベースから取得
         Quiz quiz = Quiz.getRecord(quiz_id);
         Subject subject = Subject.getRecord(quiz.subject_id);
+        Difficulty difficulty = Difficulty.getRecord(quiz.difficulty_id);
 
         // リクエストへ設定
         request.setAttribute("quiz", quiz);
         request.setAttribute("subject_name", subject.name);
-        request.setAttribute("difficulty_name", "未実装");
+        request.setAttribute("difficulty_name", difficulty.name);
 
         // JSPへ送信
         String view = "/WEB-INF/views/quizdetails.jsp";

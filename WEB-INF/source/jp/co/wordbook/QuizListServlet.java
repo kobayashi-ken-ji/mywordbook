@@ -18,7 +18,7 @@ public class QuizListServlet extends HttpServlet {
         List<Quiz> quizzes = Quiz.getRecords(subject_id);
 
         // リクエストへ設定
-        request.setAttribute("subjectname", subject.name);
+        request.setAttribute("subject", subject);
         request.setAttribute("quizzes", quizzes);
 
         // JSPへ送信

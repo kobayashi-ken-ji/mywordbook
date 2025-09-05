@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.util.*" %>
-<%@ page import="jp.co.wordbook.Quiz" %>
+<%@ page import="jp.co.wordbook.*" %>
 <%
     // 科目名
-    String subjectName = (String)request.getAttribute("subjectname");
+    Subject subject = (Subject)request.getAttribute("subject");
 
     // 問題セット
     List<Quiz> quizzes = (List<Quiz>)request.getAttribute("quizzes");
@@ -18,13 +18,13 @@
 
 
         <div class="window-width align-center">
-            
             <div class="white-area">
 
-                <h1><%= subjectName %></h1>
+                <h1><%= subject.name %></h1>
                 <p>問題数 : <%= quizListSize %></p>
 
-                <a class="button">問題を追加</a>
+                <a class="button" href="quizedit?id=0&subjectid=<%= subject.id %>">
+                    問題を追加</a>
                 <br><br><br>
 
                 <div class="search-box">
@@ -50,7 +50,7 @@
 
             </div>
 
-            <a class="button red wide" onclick="history.back()">戻る</a>
+            <a class="button red wide" href="subjectlist?edit=quiz">戻る</a>
         </div>
     </body>
 </html>

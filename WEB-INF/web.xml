@@ -41,7 +41,7 @@
         <url-pattern>/subjectedit</url-pattern>
     </servlet-mapping>
 
-        <!-- 科目変更処理 -->
+    <!-- 科目変更処理 -->
     <servlet>
         <servlet-name>SubjectChange</servlet-name>
         <servlet-class>jp.co.wordbook.SubjectChangeServlet</servlet-class>
@@ -75,4 +75,37 @@
         <url-pattern>/quizdetails</url-pattern>
     </servlet-mapping>
 
+    <!-- 問題編集ページ -->
+    <servlet>
+        <servlet-name>QuizEdit</servlet-name>
+        <servlet-class>jp.co.wordbook.QuizEditServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>QuizEdit</servlet-name>
+        <url-pattern>/quizedit</url-pattern>
+    </servlet-mapping>
+
+    <!-- 問題削除処理 -->
+    <servlet>
+        <servlet-name>QuizDestroy</servlet-name>
+        <servlet-class>jp.co.wordbook.QuizDestroyServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>QuizDestroy</servlet-name>
+        <url-pattern>/quizdestroy</url-pattern>
+    </servlet-mapping>
+
+    <!-- 問題 上書き・新規作成 処理 -->
+    <servlet>
+        <servlet-name>QuizUpdate</servlet-name>
+        <servlet-class>jp.co.wordbook.QuizUpdateServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>QuizUpdate</servlet-name>
+        <url-pattern>/quizupdate</url-pattern>
+    </servlet-mapping>
+    
 </web-app>
