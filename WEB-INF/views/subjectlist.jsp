@@ -8,6 +8,11 @@
     // 問題編集モードか否か
     boolean isQuizEdit = "quiz".equals((String)request.getParameter("edit"));
 
+    // 見出し
+    String heading = isQuizEdit
+        ? "科目を選択してください"
+        : "科目一覧";
+
     // 説明文
     String explanation = isQuizEdit
         ? "問題を編集します。"
@@ -28,7 +33,7 @@
         <div class="window-width align-center">
             <div class="white-area">
                 
-                <h1>科目一覧</h1>
+                <h1><%= heading %></h1>
                 <p><%= explanation %></p>
 
                 <table>
@@ -54,7 +59,7 @@
                     科目を追加</a>
             </div>
 
-            <a class="button red wide" onclick="history.back()">戻る</a>
+            <a class="button red wide" href="top">戻る</a>
         </div>
     </body>
 </html>

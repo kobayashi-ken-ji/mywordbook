@@ -68,9 +68,10 @@ interface DatabaseAccess<T> {
         }
 
         // データベースに接続
+        // RETURN_GENERATED_KEYS で新規作成したIDを取得できるようになる
         try (
             Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-            PreparedStatement statement = connection.prepareStatement(sql);
+            PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         ) {
             // 渡された処理を実行
             process.accept(statement);

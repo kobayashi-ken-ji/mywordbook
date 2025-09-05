@@ -1,8 +1,9 @@
 package jp.co.wordbook;
 
 import java.util.*;
-import java.io.IOException;
-import javax.servlet.ServletException;
+import java.io.*;
+import java.sql.*;
+import javax.servlet.*;
 
 /**
  * quizテーブルのレコードを扱うクラス
@@ -65,5 +66,75 @@ public class Quiz {
         final String sql = "SELECT * FROM quizzes WHERE subject_id = ?";
         List<Quiz> list = database.createList(sql, subject_id);
         return list;
+    }
+
+
+    // レコードの上書き(id>=0)、新規作成(id==0)
+    public void updateRecord() throws ServletException, IOException {
+
+        // 新規作成
+        if (id == 0) {
+            String sql = 
+                "INSERT INTO quizzes(subject_id, difficulty_id, explanation, question, answer) " +
+                "VALUES (?, ?, ?, ?, ?)";
+
+            database.access(sql, statement -> {
+                try {
+                    statement.setInt(1, subject_id);
+                    statement.setInt(2, difficulty_id);
+                    statement.setString(3, explanation);
+                    statement.setString(4, question);
+                    statement.setString(5, answer);
+                    statement.executeUpdate();
+
+                    // 生成したIDを取得
+                    ResultSet result = statement.getGeneratedKeys();
+                    if(result.next())
+                        this.id = result.getInt(1);
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            });
+        }
+
+        // 上書き
+        else {
+            String sql = 
+                "UPDATE quizzes " +
+                "SET subject_id=?, difficulty_id=?, explanation=?, question=?, answer=? " +
+                "WHERE id = ?;";
+
+            database.access(sql, statement -> {
+                try {
+                    statement.setInt(1, subject_id);
+                    statement.setInt(2, difficulty_id);
+                    statement.setString(3, explanation);
+                    statement.setString(4, question);
+                    statement.setString(5, answer);
+                    statement.setInt(6, id);
+                    statement.executeUpdate();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            });
+        }
+    }
+
+    // レコードの削除
+    public void destroyRecord() throws ServletException, IOException {
+
+        String sql = "DELETE FROM quizzes WHERE id = ?";
+
+        database.access(sql, statement -> {
+            try {
+                statement.setInt(1, id);
+                statement.executeUpdate();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
     }
 }
