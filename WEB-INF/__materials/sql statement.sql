@@ -22,7 +22,7 @@ CREATE TABLE subjects (
 );
 
 -- 難易度テーブル
-CREATE TABLE difficultys (
+CREATE TABLE difficulties (
     id      INT NOT NULL PRIMARY KEY,   -- 1, 2, 3
     name    VARCHAR(15)                 -- 簡単, 普通, 難しい
 );
@@ -33,7 +33,7 @@ CREATE TABLE difficultys (
 
 -- 難易度
 INSERT
-    INTO difficultys(id, name)
+    INTO difficulties(id, name)
     VALUES
         (1, "簡単"),
         (2, "普通"),
@@ -62,15 +62,15 @@ INSERT
 ------------------------------------------------------------------------------
 
 -- ID, 問題文, 正解文, 説明文, 科目名, 難易度名
-SELECT quizzes.id, question, answer, explanation, subjects.name, difficultys.name
+SELECT quizzes.id, question, answer, explanation, subjects.name, difficulties.name
 FROM quizzes 
     LEFT JOIN subjects ON quizzes.subject_id = subjects.id
-    LEFT JOIN difficultys ON quizzes.difficulty_id = difficultys.id;
+    LEFT JOIN difficulties ON quizzes.difficulty_id = difficulties.id;
 
 
 -- クイズ情報 + 科目名, 難易度名
-SELECT quizzes.id, subject_id, difficulty_id, explanation, question, answer, subjects.name AS subject_name, difficultys.name AS difficulty_name
+SELECT quizzes.id, subject_id, difficulty_id, explanation, question, answer, subjects.name AS subject_name, difficulties.name AS difficulty_name
 FROM quizzes
 	LEFT JOIN subjects ON subjects.id = quizzes.subject_id
-    LEFT JOIN difficultys ON difficultys.id = quizzes.difficulty_id
+    LEFT JOIN difficulties ON difficulties.id = quizzes.difficulty_id
 WHERE quizzes.id = 1;

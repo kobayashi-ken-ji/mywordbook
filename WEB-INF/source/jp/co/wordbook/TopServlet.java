@@ -12,9 +12,11 @@ public class TopServlet extends HttpServlet {
     {
         // データベースから取得
         List<Subject> subjects = Subject.getRecords();
+        List<Difficulty> difficulties = Difficulty.getRecords();
 
         // リクエストへ設定
         request.setAttribute("subjects", subjects);
+        request.setAttribute("difficulties", difficulties);
 
         // JSPへ送信
         String view = "/WEB-INF/views/top.jsp";
