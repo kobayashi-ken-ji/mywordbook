@@ -43,7 +43,7 @@
                     %>
                         <label>
                             <input
-                                type="checkbox" name="difficultyid" 
+                                type="checkbox" name="difficultyids"
                                 value="<%= difficulty.id %>"
                                 id="<%= diffId %>" <%= checked %>
                             >
@@ -60,7 +60,7 @@
                         <span>通常</span>
                     </label>
                     <label>
-                        <input type="radio" name="format" value="reverse">
+                        <input type="radio" name="format" value="swap">
                         <span>問題 ⇔ 答え</span>
                     </label>
                 </div>

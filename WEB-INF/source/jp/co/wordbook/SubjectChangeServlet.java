@@ -4,6 +4,7 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
+// 科目を新規作成、上書き、削除
 public class SubjectChangeServlet extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -26,9 +27,6 @@ public class SubjectChangeServlet extends HttpServlet {
         // レコードを 上書き or 挿入
         else subject.updateRecord();
 
-        // // リクエストへ設定
-        // request.setAttribute("subject", subject);
-        
         // ページ遷移
         response.sendRedirect("./subjectlist?edit=subject");
     }

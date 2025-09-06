@@ -80,15 +80,5 @@ interface DatabaseAccess<T> {
             e.printStackTrace();
         }
     }
-
-
-    // JSPへ送信
-    // default void dispatch
-    //     (String view, HttpServletRequest request, HttpServletResponse response)
-    //     throws ServletException, IOException
-    // {
-    //     RequestDispatcher dispatcher = request.getRequestDispatcher(view);
-    //     dispatcher.forward(request, response);
-    // }
 }
 

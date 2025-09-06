@@ -4,6 +4,7 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
+// 問題の新規作成、上書き
 public class QuizUpdateServlet extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response)
