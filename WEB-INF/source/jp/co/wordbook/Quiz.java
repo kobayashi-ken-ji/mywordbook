@@ -46,6 +46,46 @@ public class Quiz {
         };
     
     //-------------------------------------------------------------------------
+    // 出題時の処理
+    //-------------------------------------------------------------------------
+
+    // 問題文と正解文を入れ替える (出題方式の変更用)
+    public void swapQuestionAndAnswer() {
+
+        String tmp = question;
+        question = answer;
+        answer = tmp;
+    }
+
+
+    // インスタンスリストからJSONテキストを生成
+    public static String getJson(List<Quiz> quizzes) {
+
+        final String DELIM = ", ";
+        final String QUOUT = "\"";
+        StringJoiner joiner = new StringJoiner(",\n");
+
+        // JSONへ変換
+        for (Quiz quiz : quizzes) {
+
+            // "[クイズid, 難易度id, 問題文, 正解文, 説明文]"
+            joiner.add(
+                "    [" +
+                    quiz.id + DELIM +
+                    quiz.difficulty_id + DELIM +
+                    QUOUT + quiz.question + QUOUT + DELIM +
+                    QUOUT + quiz.answer + QUOUT + DELIM +
+                    QUOUT + quiz.explanation.replace("\n", "\\n") + QUOUT +
+                "]"
+            );
+        }
+
+        return "[\n" + joiner.toString() + "\n]";
+    }
+
+
+
+    //-------------------------------------------------------------------------
     // インスタンスの生成
     //-------------------------------------------------------------------------
 
@@ -94,7 +134,6 @@ public class Quiz {
             "SELECT * FROM quizzes " +
             "WHERE subject_id = ? " + difficultiesSql + ";";
 
-        System.out.println(sql);
         List<Quiz> list = database.createList(sql, subject_id);
         return list;
     }
@@ -105,6 +144,9 @@ public class Quiz {
 
     // レコードの上書き(id>=0)、新規作成(id==0)
     public void updateRecord() throws ServletException, IOException {
+
+        // 改行コードを LF に限定
+        explanation = explanation.replace("\r\n", "\n");
 
         // 新規作成
         if (id == 0) {
@@ -182,6 +224,25 @@ public class Quiz {
         database.access(sql, statement -> {
             try {
                 statement.setInt(1, subject_id);
+                statement.executeUpdate();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    
+    // 難易度のみ変更
+    public static void updateDifficulty(int quiz_id, int difficulty_id)
+        throws ServletException, IOException
+    {
+        String sql = "UPDATE quizzes SET difficulty_id = ? WHERE id = ?;";
+
+        database.access(sql, statement -> {
+            try {
+                statement.setInt(1, difficulty_id);
+                statement.setInt(2, quiz_id);
                 statement.executeUpdate();
 
             } catch (SQLException e) {

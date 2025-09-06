@@ -4,6 +4,7 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
+// 科目編集ページ
 public class SubjectEditServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response)

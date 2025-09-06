@@ -120,4 +120,26 @@
         <url-pattern>/quizupdate</url-pattern>
     </servlet-mapping>
     
+    <!-- 出題画面からの難易度変更 処理 -->
+    <servlet>
+        <servlet-name>DifficultyUpdate</servlet-name>
+        <servlet-class>jp.co.wordbook.DifficultyUpdateServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>DifficultyUpdate</servlet-name>
+        <url-pattern>/difficultyupdate</url-pattern>
+    </servlet-mapping>
+    
+    <!-- 結果ページ -->
+    <servlet>
+        <servlet-name>Result</servlet-name>
+        <servlet-class>jp.co.wordbook.ResultServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Result</servlet-name>
+        <url-pattern>/result</url-pattern>
+    </servlet-mapping>
+
 </web-app>

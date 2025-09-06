@@ -5,6 +5,7 @@ import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
+// 問題編集ページ
 public class QuizEditServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response)

@@ -4,6 +4,7 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
+// 問題を削除 → 問題リストへ戻る
 public class QuizDestroyServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response)

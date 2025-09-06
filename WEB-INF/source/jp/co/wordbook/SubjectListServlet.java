@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
+// 科目リストページ
 public class SubjectListServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response)
