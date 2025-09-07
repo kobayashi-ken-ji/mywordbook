@@ -277,15 +277,15 @@ div .quiz-menu  button {
     vertical-align : middle;
 }
 
-.quiz input.answer {
-    display     : block;
+.quiz input.input {
+    /* display     : block; */
     text-align  : center;
     box-sizing  : border-box;
     font-size   : 150%;
     width       : 100%;
 }
 
-.quiz p.correct {
+.quiz p.answer {
     color       : #6c49bd;
     font-weight : bold;
     font-size   : 150%;
@@ -300,46 +300,6 @@ div .quiz-menu  button {
     height      : 110px;
     white-space : pre-wrap;
 }
-
-/* 
-.question-div {
-    margin      : 5px 0px;
-    height      : 82px;
-    display     : table;
-    margin      : 0 auto;
-}
-
-.question-div p {
-    font-weight : bold;
-    font-size   : 170%;
-    display     : table-cell;
-    vertical-align : middle;
-}
-
-.answer-input {
-    display     : inline-block;
-    text-align  : center;
-    font-size   : 150%;
-    box-sizing  : border-box;
-    width       : 100%;
-}
-
-.corrent-text {
-    color       : #6c49bd;
-    font-weight : bold;
-    font-size   : 150%;
-    margin      : 5px 0px;
-
-
-.explanation-text {
-    color       : #6c49bd;
-    font-size   : 85%;
-    line-height : 160%;
-    margin-bottom : 5px;
-    height      : 110px;
-    white-space : pre-wrap;
-}
-} */
 
 /*=============================================*/
 /* 問題リスト */

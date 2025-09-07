@@ -15,23 +15,23 @@
         <div class="hedder">単語帳アプリ</div>
 
         <div class="window-width align-center">
-            <form class="white-area buttonlike" action="toquiz" method="get" name="form">
+            <a class="button" href="logout">ログアウト</a>
 
+            <form class="white-area buttonlike" action="toquiz" method="get" name="form">
                 <h1>出題設定</h1>
 
                 <div>
                     科目<br>
                     <select id="subject-select" name="subjectid">
                         <% for (Subject subject : subjects) { 
-                            int     id   = subject.id;
-                            String  name = subject.name;
+                            int    id   = subject.id;
+                            String name = subject.name;
                         %>
                             <option value='<%= id %>'><%= name %></option>
                         <% } %>
                     </select>
                 </div>
                 <br>
-
 
                 <div>
                     出題範囲<br>

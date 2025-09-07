@@ -21,3 +21,11 @@ chcp 65001
 
 cd WEB-INF
 javac -cp "lib/servlet-api.jar;classes" -d classes source/jp/co/wordbook/*.java
+
+
+================================================================================
+warファイルを生成
+================================================================================
+
+カレントディレクトリ mywordbook
+jar cvf mywordbook.war -C . .
