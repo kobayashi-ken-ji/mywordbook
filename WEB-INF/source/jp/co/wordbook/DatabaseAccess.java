@@ -19,7 +19,7 @@ interface DatabaseAccess<T> {
     /**
      * インスタンスのリストを生成
      * @param sql     SQL文
-     * @param numbers SQLの?部分に代入する数値 (不要な場合は0)
+     * @param numbers SQLの?部分に代入する数値 省略可
      */
     default List<T> createList(String sql, int... numbers)
         throws ServletException, IOException
