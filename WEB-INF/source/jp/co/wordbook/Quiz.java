@@ -83,8 +83,6 @@ public class Quiz {
         return "[\n" + joiner.toString() + "\n]";
     }
 
-
-
     //-------------------------------------------------------------------------
     // インスタンスの生成
     //-------------------------------------------------------------------------
@@ -116,8 +114,8 @@ public class Quiz {
     public static List<Quiz> getRecords(int subject_id, String[] difficulty_ids)
         throws ServletException, IOException
     {
-        // SQL条件(クイズ難易度) を作成
-        //      複数の場合がある
+        // SQLの検索条件を作成
+        //      クイズ難易度は複数選択できる
         //      例:  配列 {"2","3"}  →  文字列 "difficulty_id=2 OR difficulty_id=3"
         String difficultiesSql = 
             Arrays.stream(difficulty_ids)

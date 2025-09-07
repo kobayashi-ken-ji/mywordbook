@@ -4,15 +4,12 @@
 <%
     // 問題
     Quiz quiz = (Quiz)request.getAttribute("quiz");
-    int    id              = (Integer)quiz.id;              // クイズID
-    int    subject_id      = (Integer)quiz.subject_id;      // 科目ID
-    int    difficulty_id   = (Integer)quiz.difficulty_id;   // 難易度
-    String explanation     = (String)quiz.explanation;      // 説明文
-    String question        = (String)quiz.question;         // 問題文
-    String answer          = (String)quiz.answer;           // 正解文
-
-    String subject_name    = (String)request.getAttribute("subject_name");    // 科目名
-    String difficulty_name = (String)request.getAttribute("difficulty_name"); // 難易度名
+    int    id              = quiz.id;               // クイズID
+    int    subject_id      = quiz.subject_id;       // 科目ID
+    int    difficulty_id   = quiz.difficulty_id;    // 難易度
+    String explanation     = quiz.explanation;      // 説明文
+    String question        = quiz.question;         // 問題文
+    String answer          = quiz.answer;           // 正解文
 %>
 <!DOCTYPE html>
 <html lang="ja">
@@ -35,7 +32,7 @@
                     </tr>
                     <tr>
                         <th>科目</th>
-                        <td><%= subject_name %></td>
+                        <td>${subject_name}</td>
                     </tr>
                     <tr>
                         <th>問題</th>
@@ -53,7 +50,7 @@
                     </tr>
                     <tr>
                         <th>難易度</th>
-                        <td><%= difficulty_name %></td>
+                        <td>${difficulty_name}</td>
                     </tr>
                 </table>
                 <br>
