@@ -1,6 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="java.util.*" %>
-<%@ page import="jp.co.wordbook.*" %>
 <!DOCTYPE html>
 <html lang="ja">
     <%@ include file="header.jsp"%>

@@ -5,16 +5,61 @@
 // トップページ 出題スタートボタン
 function topStartButton() {
     
-    if (
-        // 難易度が増えた場合は、こちらにも追加
-        !document.getElementById("difficultyid1").checked &&
-        !document.getElementById("difficultyid2").checked &&
-        !document.getElementById("difficultyid3").checked
-    ) {
-        alert("出題範囲が１つも選択されていません。");
+    const checkboxes = document.getElementsByName("difficultyids");
+
+    // チェック済みがあるかを確認
+    let isChecked = false;
+    
+    for (let checkbox of checkboxes) {
+        if (checkbox.checked == true) {
+            isChecked = true;
+            break;
+        }
+    }
+
+    // チェックされていない → ページ遷移を中止
+    if (!isChecked) {
+        alert("出題範囲を1つ以上選択してください。");
         event.preventDefault();
     }
 }
+
+
+// トップページ チェックボックスを1つ以上選択させる
+//  [不採用] CSSでチェックボックスが display:none 指定され、警告を表示できないため
+// function addTopCheckBoxListener()
+// {
+//     const checkboxes = document.getElementsByName("difficultyids");
+//     const message = "出題範囲を1つ以上選択してください。"
+
+//     checkboxes.forEach(checkbox => {
+
+//         // 表示メッセージを設定
+//         checkbox.setCustomValidity(message);
+
+//         // イベントリスナーを設定
+//         checkbox.addEventListener("change", () => {
+
+//             // チェック済みがあるかを確認
+//             let isChecked = false;
+//             for (let c of checkboxes) {
+//                 if (c.checked == true) {
+//                     isChecked = true;
+//                     break;
+//                 }
+//             }
+
+//             console.log(isChecked);
+
+//             // チェック済み → requiredを外す、メッセージもなしにする
+//             for (let c of checkboxes) {
+//                 c.required = !isChecked;
+//                 checkbox.setCustomValidity(isChecked ? "" : message);
+//                 console.log(checkbox.setCustomValidity);
+//             }
+//         });
+//     });
+// }
 
 
 // 科目編集 保存ボタン
