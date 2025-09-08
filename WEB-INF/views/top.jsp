@@ -1,12 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="java.util.*" %>
-<%@ page import="jp.co.wordbook.models.*" %>
-<%
-    // リクエストから取得
-    List<Subject> subjects = (List<Subject>)request.getAttribute("subjects");
-    List<Difficulty> difficulties = (List<Difficulty>)request.getAttribute("difficulties");
-%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page isELIgnored="false" %>
 <!DOCTYPE html>
 <html lang="ja">
     <%@ include file="header.jsp"%>
@@ -23,12 +17,11 @@
                 <div>
                     科目<br>
                     <select id="subject-select" name="subjectid">
-                        <% for (Subject subject : subjects) { 
-                            int    id   = subject.id;
-                            String name = subject.name;
-                        %>
-                            <option value='<%= id %>'><%= name %></option>
-                        <% } %>
+
+                        <c:forEach var="subject" items="${subjects}">
+                            <option value='${subject.id}'>${subject.name}</option>
+                        </c:forEach>
+
                     </select>
                 </div>
                 <br>
@@ -36,20 +29,16 @@
                 <div>
                     出題範囲<br>
 
-                    <% for (Difficulty difficulty : difficulties) { 
-                        String diffId = "difficultyid" + difficulty.id;
-                        String checked = (2 <= difficulty.id)
-                            ? "checked" : "";
-                    %>
+                    <c:forEach var="difficulty" items="${difficulties}">
                         <label>
                             <input
                                 type="checkbox" name="difficultyids"
-                                value="<%= difficulty.id %>"
-                                id="<%= diffId %>" <%= checked %>
+                                value="${difficulty.id}" 
+                                <c:if test="${1 < difficulty.id}">checked</c:if>
                             >
-                            <span><%= difficulty.name %></span>
+                            <span>${difficulty.name}</span>
                         </label>
-                    <% } %>
+                    </c:forEach>
                 </div>
                 <br>
 

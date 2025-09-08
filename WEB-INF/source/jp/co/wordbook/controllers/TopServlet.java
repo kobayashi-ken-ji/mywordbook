@@ -5,7 +5,6 @@ import java.util.*;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-
 import jp.co.wordbook.models.*;
 
 // トップページ
@@ -16,8 +15,8 @@ public class TopServlet extends HttpServlet {
         throws ServletException, IOException
     {
         // データベースから取得
-        List<Subject> subjects = Subject.getRecords();
-        List<Difficulty> difficulties = Difficulty.getRecords();
+        List<SubjectBean> subjects = SubjectBean.getRecords();
+        List<DifficultyBean> difficulties = DifficultyBean.getRecords();
 
         // リクエストへ設定
         request.setAttribute("subjects", subjects);

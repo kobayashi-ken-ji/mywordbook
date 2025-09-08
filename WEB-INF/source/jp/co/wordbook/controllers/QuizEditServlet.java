@@ -5,7 +5,6 @@ import java.util.*;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-
 import jp.co.wordbook.models.*;
 
 // 問題編集ページ
@@ -21,13 +20,13 @@ public class QuizEditServlet extends HttpServlet {
             nonNull(request.getParameter("subjectid"), "0"));
 
         // データベースから取得;
-        List<Subject>    subjects    = Subject.getRecords();
-        List<Difficulty> difficulties = Difficulty.getRecords();
+        List<SubjectBean>    subjects    = SubjectBean.getRecords();
+        List<DifficultyBean> difficulties = DifficultyBean.getRecords();
         
         // 新規作成 or 編集
-        Quiz quiz = (quiz_id < 1)
-            ? new Quiz(0, subject_id, 2, "","", "")
-            : Quiz.getRecord(quiz_id);
+        QuizBean quiz = (quiz_id < 1)
+            ? new QuizBean(0, subject_id, 2, "","", "")
+            : QuizBean.getRecord(quiz_id);
 
         // リクエストへ設定
         request.setAttribute("quiz", quiz);

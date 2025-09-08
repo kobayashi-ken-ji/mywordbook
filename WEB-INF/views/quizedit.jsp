@@ -1,16 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="java.util.*" %>
-<%@ page import="jp.co.wordbook.models.*" %>
-<%
-    // リクエストから取得
-    Quiz quiz = (Quiz)request.getAttribute("quiz");
-    List<Subject>    subjects    = (List<Subject>)request.getAttribute("subjects");
-    List<Difficulty> difficulties = (List<Difficulty>)request.getAttribute("difficulties");
-
-    String quiz_id = (quiz.id == 0)
-        ? "- 新規作成 -"
-        : String.valueOf(quiz.id);
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page isELIgnored="false" %>
 <!DOCTYPE html>
 <html lang="ja">
     <%@ include file="header.jsp"%>
@@ -27,56 +17,63 @@
                 <table class="td-align-left ">
                     <tr>
                         <th>ID</th>
-                        <td><%= quiz_id %></td>
+                        <td>
+                            <c:if test="${quiz.id == 0}">- 新規作成 -</c:if>
+                            <c:if test="${quiz.id != 0}">${quiz_id}</c:if>
+                        </td>
                     </tr>
                     <tr>
                         <th>科目</th>
                         <td>
                             <select id="subject-select" name="subjectid">
-                                <% for (Subject subject : subjects) {
-                                    String selected = (subject.id == quiz.subject_id)
-                                        ? "selected" : "";
-                                %>
-                                    <option value='<%= subject.id %>' <%= selected %>>
-                                        <%= subject.name %>
+                                
+                                <c:forEach var="subject" items="${subjects}">
+                                    <option
+                                        value='${subject.id}'
+                                        <c:if test="${subject.id == quiz.subject_id}">selected</c:if>
+                                    >
+                                        ${subject.name}
                                     </option>
-                                <% } %>
+                                </c:forEach>
+
                             </select>
                         </td>
                     </tr>
                     <tr>
                         <th>問題文</th>
-                        <td><input type="text" name="question" value="<%= quiz.question %>"></td>
+                        <td><input type="text" name="question" value="${quiz.question}"></td>
                     </tr>
                     <tr>
                         <th>正解文</th>
-                        <td><input type="text" name="answer" value="<%= quiz.answer %>"></td>
+                        <td><input type="text" name="answer" value="${quiz.answer}"></td>
                     </tr>
                     <tr>
                         <th>説明文</th>
-                        <td><textarea name="explanation"><%= quiz.explanation %></textarea></td>
+                        <td><textarea name="explanation">${quiz.explanation}</textarea></td>
                     </tr>
                     <tr>
                         <th>難易度</th>
                         <td class="buttonlike">
-                            <% for (Difficulty difficulty : difficulties) { 
-                                String checked = (difficulty.id == quiz.difficulty_id)
-                                    ? "checked" : "";
-                            %>
+
+                            <c:forEach var="difficulty" items="${difficulties}">
                                 <label>
                                     <input
                                         type="radio" name="difficultyid"
-                                        value="<%= difficulty.id %>" <%= checked %>
+                                        value="${difficulty.id}" 
+                                        <c:if test="${difficulty.id == quiz.difficulty_id}">
+                                            checked
+                                        </c:if>
                                     >
-                                    <span><%= difficulty.name %></span>
+                                    <span>${difficulty.name}</span>
                                 </label>
-                            <% } %>
+                            </c:forEach>
+
                         </td>
                     </tr>
                 </table>
                 <br>
                 
-                <input  type="hidden" name="quizid" value="<%= quiz.id %>">
+                <input  type="hidden" name="quizid" value="${quiz.id}">
                 <button type="submit" onclick="quizSaveButton()">保存</button>
                 <a class="button red" onclick="history.back()">キャンセル</a>
             </form>

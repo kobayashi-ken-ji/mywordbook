@@ -6,12 +6,10 @@
     <body class="bg-main">
         <div class="hedder">単語帳アプリ</div>
 
-
         <div class="window-width align-center">
             <div class="white-area">
 
                 <h1>結果</h1>
-
                 <table>
                     <tr>
                         <th>科目</th>
@@ -28,9 +26,7 @@
                 </table>
             </div>
 
-            <a class="button red wide" href="top">
-                トップ画面へ
-            </a>
+            <a class="button red wide" href="top">トップ画面へ</a>
         </div>
     </body>
 </html>
