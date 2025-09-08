@@ -19,9 +19,15 @@
 コンソール文字化け対策 (UTF8化)
 chcp 65001
 
+
+パッケージが1つ
 cd WEB-INF
 javac -cp "lib/servlet-api.jar;classes" -d classes source/jp/co/wordbook/*.java
 
+
+パッケージを分割 (25/09/08以降)
+cd WEB-INF
+javac -cp "lib/servlet-api.jar;classes" -d classes source/jp/co/wordbook/controllers/*.java source/jp/co/wordbook/models/*.java
 
 ================================================================================
 warファイルを生成

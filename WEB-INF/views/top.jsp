@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.util.*" %>
-<%@ page import="jp.co.wordbook.*" %>
+<%@ page import="jp.co.wordbook.models.*" %>
 <%
     // リクエストから取得
     List<Subject> subjects = (List<Subject>)request.getAttribute("subjects");
