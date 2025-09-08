@@ -17,10 +17,10 @@ public class QuizDestroyServlet extends HttpServlet {
         int quiz_id = Integer.parseInt(request.getParameter("id"));
 
         // データベースから取得
-        Quiz quiz = Quiz.getRecord(quiz_id);
+        QuizBean quiz = QuizBean.getRecord(quiz_id);
         quiz.destroyRecord();
 
         // ページ遷移
-        response.sendRedirect("./quizlist?subjectid=" + quiz.subject_id);
+        response.sendRedirect("./quizlist?subjectid=" + quiz.getSubject_id());
     }
 }

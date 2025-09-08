@@ -1,16 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="java.util.*" %>
-<%@ page import="jp.co.wordbook.models.*" %>
-<%
-    // 問題
-    Quiz quiz = (Quiz)request.getAttribute("quiz");
-    int    id              = quiz.id;               // クイズID
-    int    subject_id      = quiz.subject_id;       // 科目ID
-    int    difficulty_id   = quiz.difficulty_id;    // 難易度
-    String explanation     = quiz.explanation;      // 説明文
-    String question        = quiz.question;         // 問題文
-    String answer          = quiz.answer;           // 正解文
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page isELIgnored="false" %>
 <!DOCTYPE html>
 <html lang="ja">
     <%@ include file="header.jsp"%>
@@ -28,7 +18,7 @@
                 <table class="td-align-left ">
                     <tr>
                         <th>ID</th>
-                        <td><%= id %></td>
+                        <td>${quiz.idString}</td>
                     </tr>
                     <tr>
                         <th>科目</th>
@@ -36,17 +26,15 @@
                     </tr>
                     <tr>
                         <th>問題</th>
-                        <td><%= question %></td>
+                        <td>${quiz.question}</td>
                     </tr>
                     <tr>
                         <th>正解</th>
-                        <td><%= answer %></td>
+                        <td>${quiz.answer}</td>
                     </tr>
                     <tr>
                         <th>説明</th>
-                        <td>
-                            <%= explanation %><br>
-                        </td>
+                        <td>${quiz.explanation}</td>
                     </tr>
                     <tr>
                         <th>難易度</th>
@@ -55,11 +43,11 @@
                 </table>
                 <br>
                 
-                <a class="button" href="quizedit?id=<%= id %>">編集</a>
-                <a class="button" href="quizdestroy?id=<%= id %>" onclick="quizDeleteButton()">削除</a>
+                <a class="button" href="quizedit?id=${quiz.id}">編集</a>
+                <a class="button" href="quizdestroy?id=${quiz.id}" onclick="quizDeleteButton()">削除</a>
             </div>
 
-            <a class="button red wide" href="quizlist?subjectid=<%= subject_id %>">
+            <a class="button red wide" href="quizlist?subjectid=${quiz.subject_id}">
                 戻る
             </a>
         </div>

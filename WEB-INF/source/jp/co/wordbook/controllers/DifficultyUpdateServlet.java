@@ -4,7 +4,6 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-
 import jp.co.wordbook.models.*;
 
 // 1つの問題の難易度を上書き (ページ遷移なし)
@@ -19,7 +18,7 @@ public class DifficultyUpdateServlet  extends HttpServlet {
         int difficulty_id = Integer.parseInt(request.getParameter("difficultyid"));
 
         // データベースへ難易度を上書き
-        Quiz.updateDifficulty(quiz_id, difficulty_id);
+        QuizBean.updateDifficulty(quiz_id, difficulty_id);
 
         return;
     }

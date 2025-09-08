@@ -1,28 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="java.util.*" %>
-<%@ page import="jp.co.wordbook.models.*" %>
-<%
-    // 科目リスト
-    List<Subject> subjects = (List<Subject>)request.getAttribute("subjects");
-
-    // 問題編集モードか否か
-    boolean isQuizEdit = "quiz".equals((String)request.getParameter("edit"));
-
-    // 見出し
-    String heading = isQuizEdit
-        ? "科目を選択してください"
-        : "科目一覧";
-
-    // 説明文
-    String explanation = isQuizEdit
-        ? "問題を編集します。"
-        : "科目を編集します。";
-
-    // 科目を追加ボタン の非表示
-    String displaynone = (isQuizEdit)
-        ? "style=\"display: none;\""
-        : "";
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page isELIgnored="false" %>
 <!DOCTYPE html>
 <html lang="ja">
     <%@ include file="header.jsp"%>
@@ -33,30 +11,28 @@
         <div class="window-width align-center">
             <div class="white-area">
                 
-                <h1><%= heading %></h1>
-                <p><%= explanation %></p>
+                <h1>${heading}</h1>
+                <p>${paragraph}</p>
 
                 <table>
                     <tr>
                         <th>ID</th><th>科目</th>
                     </tr>
-                    
-                    <% for (Subject subject : subjects) { 
-                        int     id   = subject.id;
-                        String  name = subject.name;
-                        String  link = (isQuizEdit)
-                            ? "quizlist?subjectid="    + id
-                            : "subjectedit?subjectid=" + id;
-                    %>
+                    <c:forEach var="subject" items="${subjects}">
                         <tr>
-                            <th><%= id %></td>
-                            <td><a href="<%= link %>"><%= name %></a></td>
+                            <th>${subject.id}</td>
+                            <td>
+                                <a href="${url}?subjectid=${subject.id}">
+                                    ${subject.name}
+                                </a>
+                            </td>
                         </tr>
-                    <% } %>
+                    </c:forEach>
                 </table>
 
-                <a class="button" href="subjectedit?subjectid=0" <%= displaynone %>>
-                    科目を追加</a>
+                <a class="button" href="subjectedit?subjectid=0" 
+                    <c:if test="${isQuizEdit}">style="display:none;"</c:if>
+                >科目を追加</a>
             </div>
 
             <a class="button red wide" href="top">戻る</a>

@@ -1,14 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="java.util.*" %>
-<%@ page import="jp.co.wordbook.models.*" %>
-<%
-    // 科目名
-    Subject subject = (Subject)request.getAttribute("subject");
-
-    // 問題セット
-    List<Quiz> quizzes = (List<Quiz>)request.getAttribute("quizzes");
-    int quizListSize = quizzes.size();
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page isELIgnored="false" %>
 <!DOCTYPE html>
 <html lang="ja">
     <%@ include file="header.jsp"%>
@@ -20,10 +12,10 @@
         <div class="window-width align-center">
             <div class="white-area">
 
-                <h1><%= subject.name %></h1>
-                <p>問題数 : <%= quizListSize %></p>
+                <h1>${subject.name}</h1>
+                <p>問題数 : ${quizList.size()}</p>
 
-                <a class="button" href="quizedit?id=0&subjectid=<%= subject.id %>">
+                <a class="button" href="quizedit?id=0&subjectid=${subject.id}">
                     問題を追加</a>
                 <br><br><br>
 
@@ -36,16 +28,17 @@
                     <tr>
                         <th>ID</th><th>問題文</th>
                     </tr>
-                    <% for (Quiz quiz : quizzes) { 
-                        int    id       = quiz.id;
-                        String question = quiz.question;
-                        String link     = "quizdetails?quizid=" + id;
-                    %>
+
+                    <c:forEach var="quiz" items="${quizzes}">
                         <tr>
-                            <th><%= id %></td>
-                            <td><a href="<%= link %>"><%= question %></a></td>
+                            <th>${quiz.idString}</td>
+                            <td>
+                                <a href="quizdetails?quizid=${quiz.id}">
+                                    ${quiz.question}
+                                </a>
+                            </td>
                         </tr>
-                    <% } %>
+                    </c:forEach>
                 </table>
 
             </div>

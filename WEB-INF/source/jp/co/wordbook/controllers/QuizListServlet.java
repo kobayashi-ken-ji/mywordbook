@@ -5,7 +5,6 @@ import java.util.*;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-
 import jp.co.wordbook.models.*;
 
 // 問題一覧ページ
@@ -19,8 +18,8 @@ public class QuizListServlet extends HttpServlet {
         int subject_id = Integer.parseInt(request.getParameter("subjectid"));
 
         // データベースから取得
-        Subject subject = Subject.getRecord(subject_id);
-        List<Quiz> quizzes = Quiz.getRecords(subject_id);
+        SubjectBean subject = SubjectBean.getRecord(subject_id);
+        List<QuizBean> quizzes = QuizBean.getRecords(subject_id);
 
         // リクエストへ設定
         request.setAttribute("subject", subject);

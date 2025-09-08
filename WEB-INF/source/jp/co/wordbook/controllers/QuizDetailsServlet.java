@@ -4,7 +4,6 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-
 import jp.co.wordbook.models.*;
 
 // 問題詳細ページ
@@ -17,14 +16,14 @@ public class QuizDetailsServlet extends HttpServlet {
         int quiz_id = Integer.parseInt(request.getParameter("quizid"));
 
         // データベースから取得
-        Quiz quiz = Quiz.getRecord(quiz_id);
-        Subject subject = Subject.getRecord(quiz.subject_id);
-        Difficulty difficulty = Difficulty.getRecord(quiz.difficulty_id);
+        QuizBean quiz = QuizBean.getRecord(quiz_id);
+        SubjectBean subject = SubjectBean.getRecord(quiz.getSubject_id());
+        DifficultyBean difficulty = DifficultyBean.getRecord(quiz.getDifficulty_id());
 
         // リクエストへ設定
         request.setAttribute("quiz", quiz);
-        request.setAttribute("subject_name", subject.name);
-        request.setAttribute("difficulty_name", difficulty.name);
+        request.setAttribute("subject_name", subject.getName());
+        request.setAttribute("difficulty_name", difficulty.getName());
 
         // JSPへ送信
         String view = "/WEB-INF/views/quizdetails.jsp";

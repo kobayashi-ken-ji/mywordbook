@@ -8,18 +8,19 @@ import javax.servlet.*;
 /**
  * quizテーブルのレコードを扱うクラス
  */
-public class Quiz {
+public class QuizBean implements Serializable {
 
-    public int    id;               // クイズID
-    public int    subject_id;       // 科目ID
-    public int    difficulty_id;    // 難易度
-    public String explanation;      // 説明文
-    public String question;         // 問題文
-    public String answer;           // 正解文
+    private int    id;               // クイズID
+    private int    subject_id;       // 科目ID
+    private int    difficulty_id;    // 難易度
+    private String explanation;      // 説明文
+    private String question;         // 問題文
+    private String answer;           // 正解文
 
 
     // コンストラクタ
-    public Quiz(
+    public QuizBean() {}
+    public QuizBean(
         int id, int subject_id, int difficulty_id,
         String explanation, String question, String answer
     ) {
@@ -33,9 +34,9 @@ public class Quiz {
 
 
     // データベース接続を実装
-    private static final DatabaseAccess<Quiz> database =
+    private static final DatabaseAccess<QuizBean> database =
         results -> {
-            return new Quiz(
+            return new QuizBean(
                 results.getInt("id"),
                 results.getInt("subject_id"),
                 results.getInt("difficulty_id"),
@@ -45,6 +46,31 @@ public class Quiz {
             );
         };
     
+    //-------------------------------------------------------------------------
+    // ゲッター / セッター
+    //-------------------------------------------------------------------------
+    
+    public void setId(int id)                       { this.id = id; }
+    public void setSubject_id(int subject_id)       { this.subject_id = subject_id; }
+    public void setDifficulty_id(int difficulty_id) { this.difficulty_id = difficulty_id; }
+    public void setExplanation(String explanation)  { this.explanation = explanation; }
+    public void setQuestion(String question)        { this.question = question; }
+    public void setAnswer(String answer)            { this.answer = answer; }
+
+    public int getId()              { return id; }
+    public int getSubject_id()      { return subject_id; }
+    public int getDifficulty_id()   { return difficulty_id; }
+    public String getExplanation()  { return explanation; }
+    public String getQuestion()     { return question; }
+    public String getAnswer()       { return answer; }
+    
+    // idを文字列化して返す
+    public String getIdString() {
+        return (id == 0) 
+            ? "- 新規作成 -"
+            : Integer.toString(id);
+    }
+
     //-------------------------------------------------------------------------
     // 出題時の処理
     //-------------------------------------------------------------------------
@@ -59,14 +85,14 @@ public class Quiz {
 
 
     // インスタンスリストからJSONテキストを生成
-    public static String getJson(List<Quiz> quizzes) {
+    public static String getJson(List<QuizBean> quizzes) {
 
         final String DELIM = ", ";
         final String QUOUT = "\"";
         StringJoiner joiner = new StringJoiner(",\n");
 
         // JSONへ変換
-        for (Quiz quiz : quizzes) {
+        for (QuizBean quiz : quizzes) {
 
             // "[クイズid, 難易度id, 問題文, 正解文, 説明文]"
             joiner.add(
@@ -88,11 +114,11 @@ public class Quiz {
     //-------------------------------------------------------------------------
 
     // レコードからインスタンスを生成
-    public static Quiz getRecord(int quiz_id)
+    public static QuizBean getRecord(int quiz_id)
         throws ServletException, IOException
     {
         final String sql = "SELECT * FROM quizzes WHERE id = ?;";
-        List<Quiz> list = database.createList(sql, quiz_id);
+        List<QuizBean> list = database.createList(sql, quiz_id);
         
         return (list.isEmpty())
             ? null
@@ -101,17 +127,17 @@ public class Quiz {
 
 
     // テーブルからインスタンスリストを生成
-    public static List<Quiz> getRecords(int subject_id)
+    public static List<QuizBean> getRecords(int subject_id)
         throws ServletException, IOException
     {
         final String sql = "SELECT * FROM quizzes WHERE subject_id = ?;";
-        List<Quiz> list = database.createList(sql, subject_id);
+        List<QuizBean> list = database.createList(sql, subject_id);
         return list;
     }
 
 
     // テーブルからインスタンスリストを生成 (難易度を指定版)
-    public static List<Quiz> getRecords(int subject_id, String[] difficulty_ids)
+    public static List<QuizBean> getRecords(int subject_id, String[] difficulty_ids)
         throws ServletException, IOException
     {
         // SQLの検索条件を作成
@@ -132,7 +158,7 @@ public class Quiz {
             "SELECT * FROM quizzes " +
             "WHERE subject_id = ? " + difficultiesSql + ";";
 
-        List<Quiz> list = database.createList(sql, subject_id);
+        List<QuizBean> list = database.createList(sql, subject_id);
         return list;
     }
 

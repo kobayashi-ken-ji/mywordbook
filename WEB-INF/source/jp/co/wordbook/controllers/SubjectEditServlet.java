@@ -4,7 +4,6 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-
 import jp.co.wordbook.models.*;
 
 // 科目編集ページ
@@ -15,14 +14,16 @@ public class SubjectEditServlet extends HttpServlet {
         throws ServletException, IOException
     {
         int subjectid = Integer.parseInt(request.getParameter("subjectid"));
+        boolean isNew = (subjectid == 0);
 
         // データベースから取得 or 新規作成
-        Subject subject = (subjectid == 0)
-            ? new Subject(0, "")
-            : Subject.getRecord(subjectid);
+        SubjectBean subject = (isNew)
+            ? new SubjectBean(0, "")
+            : SubjectBean.getRecord(subjectid);
 
         // リクエストへ設定
         request.setAttribute("subject", subject);
+        request.setAttribute("isNew", isNew);
         
         // JSPへ送信
         String view = "/WEB-INF/views/subjectedit.jsp";
