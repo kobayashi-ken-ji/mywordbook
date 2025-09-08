@@ -1,21 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="java.util.*" %>
-<%@ page import="jp.co.wordbook.models.*" %>
-<%
-    Subject subject = (Subject)request.getAttribute("subject");
-    boolean isNew = (subject.id <= 0);
-
-    // 科目ID
-    String id = (isNew)
-        ? "- 新規作成 -"
-        : String.valueOf(subject.id);
-
-    // 削除ボタン、削除説明の非表示
-    String displaynone = (isNew)
-        ? "style=\"display: none;\""
-        : "";
-%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page isELIgnored="false" %>
 <!DOCTYPE html>
 <html lang="ja">
     <%@ include file="header.jsp"%>
@@ -31,25 +16,28 @@
                 <table class="td-align-left ">
                     <tr>
                         <th>ID</th>
-                        <td><%= id %></td>
+                        <td>${subject.idString}</td>
                     </tr>
                     <tr>
                         <th>科目名</th>
-                        <td><input type="text" name="subjectname" value="<%= subject.name %>"></td>
+                        <td><input type="text" name="subjectname" value="${subject.name}"></td>
                     </tr>
                 </table>
                 
-                <input  type="hidden" name="subjectid" value="<%= subject.id %>">
+                <input  type="hidden" name="subjectid" value="${subject.id}">
                 <button type="submit" name="button" value="save"   onclick="subjectSaveButton()">保存</button>
-                <button type="submit" name="button" value="delete" onclick="subjectDeleteButton()" <%= displaynone %>>削除</button>
+                <button type="submit" name="button" value="delete" onclick="subjectDeleteButton()"
+                    <c:if test="${isNew}">style="display:none;"</c:if>>削除</button>
                 
-                <div <%= displaynone %>>
-                    <hr>
-                    <p class="destroy-alert" >
-                        [ 削除時の注意点 ]<br>
-                        科目内の問題も全て削除されます。
-                    </p>
-                </div>
+                <c:if test="${!isNew}">
+                    <div>
+                        <hr>
+                        <p class="destroy-alert" >
+                            [ 削除時の注意点 ]<br>
+                            科目内の問題も全て削除されます。
+                        </p>
+                    </div>
+                </c:if>
             </form>
             
             <a class="button red wide" onclick="history.back()">キャンセル</a>

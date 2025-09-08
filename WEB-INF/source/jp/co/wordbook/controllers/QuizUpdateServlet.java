@@ -4,7 +4,6 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-
 import jp.co.wordbook.models.*;
 
 // 問題の新規作成、上書き
@@ -25,10 +24,11 @@ public class QuizUpdateServlet extends HttpServlet {
         String explanation   = request.getParameter("explanation");
 
         // レコードを 上書き or 挿入
-        Quiz quiz = new Quiz(quiz_id, subject_id, difficulty_id, explanation, question, answer);
+        QuizBean quiz = new QuizBean(
+            quiz_id, subject_id, difficulty_id, explanation, question, answer);
         quiz.updateRecord();
 
         // ページ遷移
-        response.sendRedirect("./quizdetails?quizid=" + quiz.id);
+        response.sendRedirect("./quizdetails?quizid=" + quiz.getId());
     }
 }

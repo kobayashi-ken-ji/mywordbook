@@ -5,7 +5,6 @@ import java.util.*;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-
 import jp.co.wordbook.models.*;
 
 // 出題ページ
@@ -23,9 +22,9 @@ public class ToQuizServlet extends HttpServlet {
         String[] difficulty_ids = request.getParameterValues("difficultyids");
 
         // データベースから取得
-        List<Quiz> quizzes = Quiz.getRecords(subject_id, difficulty_ids);
-        List<Difficulty> difficulties = Difficulty.getRecords();
-        Subject subject = Subject.getRecord(subject_id);
+        List<QuizBean> quizzes = QuizBean.getRecords(subject_id, difficulty_ids);
+        List<DifficultyBean> difficulties = DifficultyBean.getRecords();
+        SubjectBean subject = SubjectBean.getRecord(subject_id);
 
         // 問題数が0 → 情報ページへ
         if (quizzes.size() == 0) {
@@ -46,20 +45,23 @@ public class ToQuizServlet extends HttpServlet {
 
         // 問題文 ⇔ 正解文 の入れ替え
         if (isSwap) {
-            for (Quiz quiz : quizzes)
+            for (QuizBean quiz : quizzes)
                 quiz.swapQuestionAndAnswer();
         }
 
         // Javascriptでクイズデータ(JSON)を使用できるようにする
+        //      JSP内javascriptにもEL式で渡せるが、
+        //      エディタがjavascript内のEL式を解釈できずに警告を出すため、
+        //      スクリプトごと送る
         String jsonscript = 
             "<script charset=\"utf-8\">\n" +
-                "let quizJson = " + Quiz.getJson(quizzes) + ";\n" +
-                "let subjectName = \"" + subject.name + "\";\n" +
+                "let quizJson = " + QuizBean.getJson(quizzes) + ";\n" +
+                "let subjectName = \"" + subject.getName() + "\";\n" +
             "</script>";
 
         // リクエストへ設定
         request.setAttribute("difficulties", difficulties);
-        request.setAttribute("subjectname", subject.name);
+        request.setAttribute("subjectname", subject.getName());
         request.setAttribute("jsonscript", jsonscript);
 
         // JSPへ送信
