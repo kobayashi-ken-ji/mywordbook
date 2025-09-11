@@ -4,8 +4,9 @@ import java.sql.*;
 import java.util.*;
 
 /**
- * 各DAOの共通処理
- * 継承時は<T>にBeanクラスを指定
+ * DAOの共通処理
+ * 継承先は、各テーブルのDAO
+ * TにはBeanを指定
  */
 public abstract class DataAccessObject<T> {
 
@@ -139,5 +140,4 @@ public abstract class DataAccessObject<T> {
         disconnect();
         return list;
     }
-
 }
