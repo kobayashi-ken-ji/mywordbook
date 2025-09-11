@@ -110,10 +110,16 @@ public abstract class DataAccessObject<T> {
     }
 
     
-    // レコードを新規作成 (自動生成されたキー値(int)を取得)
-    protected List<Integer> executeInsert(int columnIndex, String sql, Object... parameters) {
+    /**
+     * レコードを新規作成
+     * @param columnIndex   自動生成されるカラムの番号
+     * @param sql           SQL文
+     * @param parameters    SQL文の?に設定する値
+     * @return 最初に自動生成されたキー値を取得 (Long, String などへのキャストが必要)
+     */
+    protected Object executeInsert(int columnIndex, String sql, Object... parameters) {
 
-        List<Integer> list = new ArrayList<>();
+        Object generatedValue = null;
         connect();
 
         try (
@@ -130,14 +136,14 @@ public abstract class DataAccessObject<T> {
 
             // 自動生成されたキー値を取得
             ResultSet result = statement.getGeneratedKeys();
-            while (result.next())
-                list.add(result.getInt(columnIndex));
+            if (result.next())
+                generatedValue = result.getObject(columnIndex);
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
         disconnect();
-        return list;
+        return generatedValue;
     }
 }

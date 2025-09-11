@@ -41,26 +41,31 @@ public class SubjectDAO extends DataAccessObject<SubjectBean> {
 
 
     // レコードの上書き(id>0)、新規作成(id==0)
-    public int updateRecord(int id, String name) {
+    public boolean updateRecord(int id, String name) {
+
+        int rowCount = 0;
 
         // 新規作成
         if (id == 0) {
             String sql = "INSERT INTO subjects(name) VALUES (?)";
-            return executeUpdate(sql, name);
+            rowCount = executeUpdate(sql, name);
         }
 
         // 上書き
         else {
             String sql = "UPDATE subjects SET name = ? WHERE id = ?;";
-            return executeUpdate(sql, name, id);
+            rowCount = executeUpdate(sql, name, id);
         }
+
+        return (rowCount != 0);
     }
 
 
     // レコードの削除
-    public int destroyRecord(int id) {
+    public boolean deleteRecord(int id) {
 
         String sql = "DELETE FROM subjects WHERE id = ?";
-        return executeUpdate(sql, id);
+        int rowCount = executeUpdate(sql, id);
+        return (rowCount != 0);
     }
 }
