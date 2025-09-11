@@ -25,15 +25,15 @@
                         <td>${subject_name}</td>
                     </tr>
                     <tr>
-                        <th>問題</th>
+                        <th>問題文</th>
                         <td>${quiz.question}</td>
                     </tr>
                     <tr>
-                        <th>正解</th>
+                        <th>正解文</th>
                         <td>${quiz.answer}</td>
                     </tr>
                     <tr>
-                        <th>説明</th>
+                        <th>説明文</th>
                         <td>${quiz.explanation}</td>
                     </tr>
                     <tr>

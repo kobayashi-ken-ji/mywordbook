@@ -18,15 +18,15 @@ public class ToQuizServlet extends HttpServlet {
         int subject_id = Integer.parseInt(request.getParameter("subjectid"));
         boolean isSwap = "swap".equals(request.getParameter("format"));
 
-        // 難易度(チェックボタン) は複数のため、配列で取得
+        // 難易度チェックボタンは複数のため、配列で取得
         String[] difficulty_ids = request.getParameterValues("difficultyids");
 
         // データベースから取得
-        List<QuizBean> quizzes = QuizBean.getRecords(subject_id, difficulty_ids);
-        List<DifficultyBean> difficulties = DifficultyBean.getRecords();
-        SubjectBean subject = SubjectBean.getRecord(subject_id);
+        List<QuizBean> quizzes = new QuizDAO().getAllRecords(subject_id, difficulty_ids);
+        List<DifficultyBean> difficulties = new DifficultyDAO().getAllRecords();
+        SubjectBean subject = new SubjectDAO().getRecord(subject_id);
 
-        // 問題数が0 → 情報ページへ
+        // 問題数が0 → インフォメーションページへ
         if (quizzes.size() == 0) {
 
             // リクエストへ設定

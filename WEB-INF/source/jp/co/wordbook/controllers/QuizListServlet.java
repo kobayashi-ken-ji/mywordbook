@@ -18,8 +18,8 @@ public class QuizListServlet extends HttpServlet {
         int subject_id = Integer.parseInt(request.getParameter("subjectid"));
 
         // データベースから取得
-        SubjectBean subject = SubjectBean.getRecord(subject_id);
-        List<QuizBean> quizzes = QuizBean.getRecords(subject_id);
+        SubjectBean subject = new SubjectDAO().getRecord(subject_id);
+        List<QuizBean> quizzes = new QuizDAO().getAllRecords(subject_id);
 
         // リクエストへ設定
         request.setAttribute("subject", subject);

@@ -16,9 +16,10 @@ public class QuizDestroyServlet extends HttpServlet {
     {
         int quiz_id = Integer.parseInt(request.getParameter("id"));
 
-        // データベースから取得
-        QuizBean quiz = QuizBean.getRecord(quiz_id);
-        quiz.destroyRecord();
+        // データベースから取得、削除
+        QuizDAO quizDAO = new QuizDAO();
+        QuizBean quiz = quizDAO.getRecord(quiz_id);
+        quizDAO.destroyRecord(quiz_id);
 
         // ページ遷移
         response.sendRedirect("./quizlist?subjectid=" + quiz.getSubject_id());

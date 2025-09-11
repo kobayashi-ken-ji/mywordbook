@@ -16,9 +16,9 @@ public class QuizDetailsServlet extends HttpServlet {
         int quiz_id = Integer.parseInt(request.getParameter("quizid"));
 
         // データベースから取得
-        QuizBean quiz = QuizBean.getRecord(quiz_id);
-        SubjectBean subject = SubjectBean.getRecord(quiz.getSubject_id());
-        DifficultyBean difficulty = DifficultyBean.getRecord(quiz.getDifficulty_id());
+        QuizBean quiz = new QuizDAO().getRecord(quiz_id);
+        SubjectBean subject = new SubjectDAO().getRecord(quiz.getSubject_id());
+        DifficultyBean difficulty = new DifficultyDAO().getRecord(quiz.getDifficulty_id());
 
         // リクエストへ設定
         request.setAttribute("quiz", quiz);

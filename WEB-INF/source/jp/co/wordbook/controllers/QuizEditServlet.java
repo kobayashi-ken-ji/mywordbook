@@ -19,14 +19,14 @@ public class QuizEditServlet extends HttpServlet {
         int subject_id = Integer.parseInt(
             nonNull(request.getParameter("subjectid"), "0"));
 
-        // データベースから取得;
-        List<SubjectBean>    subjects    = SubjectBean.getRecords();
-        List<DifficultyBean> difficulties = DifficultyBean.getRecords();
+        // データベースから取得
+        List<SubjectBean>    subjects     = new SubjectDAO().getAllRecords();
+        List<DifficultyBean> difficulties = new DifficultyDAO().getAllRecords();
         
-        // 新規作成 or 編集
+        // 問題を新規作成 or 編集
         QuizBean quiz = (quiz_id < 1)
             ? new QuizBean(0, subject_id, 2, "","", "")
-            : QuizBean.getRecord(quiz_id);
+            : new QuizDAO().getRecord(quiz_id);
 
         // リクエストへ設定
         request.setAttribute("quiz", quiz);
