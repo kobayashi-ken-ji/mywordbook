@@ -15,8 +15,11 @@ public class TopServlet extends HttpServlet {
         throws ServletException, IOException
     {
         // データベースから取得
-        List<SubjectBean> subjects = SubjectBean.getRecords();
-        List<DifficultyBean> difficulties = DifficultyBean.getRecords();
+        SubjectDAO subjectDAO = new SubjectDAO();
+        DifficultyDAO difficultyDAO = new DifficultyDAO();
+
+        List<SubjectBean> subjects = subjectDAO.getAllRecords();
+        List<DifficultyBean> difficulties = difficultyDAO.getAllRecords();
 
         // リクエストへ設定
         request.setAttribute("subjects", subjects);

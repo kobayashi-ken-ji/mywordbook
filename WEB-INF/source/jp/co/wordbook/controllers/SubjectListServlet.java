@@ -15,10 +15,12 @@ public class SubjectListServlet extends HttpServlet {
         throws ServletException, IOException
     {
         // データベースから取得
-        List<SubjectBean> subjects = SubjectBean.getRecords();
-        boolean isQuizEdit = "quiz".equals(request.getParameter("edit"));
+        SubjectDAO subjectDAO = new SubjectDAO();
+        List<SubjectBean> subjects = subjectDAO.getAllRecords();
 
         // 科目/問題 のどちらを編集するかで、JSPを変更する
+        boolean isQuizEdit = "quiz".equals(request.getParameter("edit"));
+
         String heading = (isQuizEdit)
             ? "科目を選択してください"
             : "科目一覧";

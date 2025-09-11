@@ -20,16 +20,15 @@ public class SubjectChangeServlet extends HttpServlet {
         boolean isDelete    = "delete".equals(request.getParameter("button"));
         int     id          = Integer.parseInt(request.getParameter("subjectid"));
         String  name        = request.getParameter("subjectname");
-        SubjectBean subject = new SubjectBean(id, name);
 
-        // レコードから削除 (この科目のidが設定されている問題も削除)
+        // レコードから削除 (この科目が設定されている問題も削除)
         if (isDelete) {
-            QuizBean.destroyRecords(subject.getId());
-            subject.destroyRecord();
+            new QuizDAO().destroyRecords(id);
+            new SubjectDAO().destroyRecord(id);
         }
 
         // レコードを 上書き or 挿入
-        else subject.updateRecord();
+        else new SubjectDAO().updateRecord(id, name);
 
         // ページ遷移
         response.sendRedirect("./subjectlist?edit=subject");

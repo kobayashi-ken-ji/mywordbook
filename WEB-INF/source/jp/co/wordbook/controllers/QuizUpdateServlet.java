@@ -24,11 +24,11 @@ public class QuizUpdateServlet extends HttpServlet {
         String explanation   = request.getParameter("explanation");
 
         // レコードを 上書き or 挿入
-        QuizBean quiz = new QuizBean(
+        QuizDAO quizDAO = new QuizDAO();
+        quiz_id = quizDAO.updateRecord(
             quiz_id, subject_id, difficulty_id, explanation, question, answer);
-        quiz.updateRecord();
 
         // ページ遷移
-        response.sendRedirect("./quizdetails?quizid=" + quiz.getId());
+        response.sendRedirect("./quizdetails?quizid=" + quiz_id);
     }
 }
