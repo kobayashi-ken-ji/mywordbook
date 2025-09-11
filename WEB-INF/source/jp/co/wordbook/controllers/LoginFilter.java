@@ -6,7 +6,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.*;
 
 // 未ログインの場合、ログインページへ遷移させるフィルタ
-@WebFilter
+@WebFilter(urlPatterns="/*")
 public class LoginFilter implements Filter {
     
     public void doFilter
@@ -14,28 +14,27 @@ public class LoginFilter implements Filter {
         throws IOException, ServletException
     {
         // 型変換
-        HttpServletRequest request2 = (HttpServletRequest)request;
-        HttpServletResponse response2 = (HttpServletResponse)response;
+        HttpServletRequest hRequest = (HttpServletRequest)request;
+        HttpServletResponse hResponse = (HttpServletResponse)response;
 
         // ログイン済みか否か
-        HttpSession session = request2.getSession(false);
+        HttpSession session = hRequest.getSession(false);
         boolean loggedIn = 
             (session != null && session.getAttribute("userid") != null); 
 
         // リクエストがログイン画面か否か
         // (ログイン画面はセッションが無くても遷移可)
-        String loginURI = request2.getContextPath() + "/login";
+        String uri = hRequest.getRequestURI();
         boolean loginRequest =
-            request2.getRequestURI().equals(loginURI) ||
-            request2.getRequestURI().endsWith("/login") ||
-            request2.getRequestURI().endsWith("style.css");
+            uri.endsWith("/login") ||
+            uri.endsWith("style.css");
 
         // ログイン済 → 次のフィルター、またはサーブレットへ
         if (loggedIn || loginRequest)
             chain.doFilter(request, response);
         
         // 未ログイン → ログイン画面へ
-        else response2.sendRedirect(loginURI);
+        else hResponse.sendRedirect("./login");
     }
 
     public void init(FilterConfig config) throws ServletException {}

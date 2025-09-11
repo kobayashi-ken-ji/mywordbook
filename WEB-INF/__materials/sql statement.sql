@@ -24,7 +24,7 @@ CREATE TABLE subjects (
 -- 難易度テーブル
 CREATE TABLE difficulties (
     id      INT NOT NULL PRIMARY KEY,   -- 1, 2, 3
-    name    VARCHAR(15)                 -- 簡単, 普通, 難しい
+    name    VARCHAR(15)                 -- 得意, 普通, 苦手
 );
 
 -- ユーザーテーブル
@@ -41,9 +41,9 @@ CREATE TABLE users (
 INSERT
     INTO difficulties(id, name)
     VALUES
-        (1, "簡単"),
+        (1, "苦手"),
         (2, "普通"),
-        (3, "難しい");
+        (3, "得意");
 
 -- 科目名
 INSERT
