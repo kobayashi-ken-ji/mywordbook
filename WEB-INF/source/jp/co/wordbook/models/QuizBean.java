@@ -2,8 +2,6 @@ package jp.co.wordbook.models;
 
 import java.util.*;
 import java.io.*;
-import java.sql.*;
-import javax.servlet.*;
 
 /**
  * quizテーブルのレコードを扱うクラス
@@ -32,24 +30,7 @@ public class QuizBean implements Serializable {
         this.answer         = answer;
     }
 
-
-    // データベース接続を実装
-    private static final DatabaseAccess<QuizBean> database =
-        results -> {
-            return new QuizBean(
-                results.getInt("id"),
-                results.getInt("subject_id"),
-                results.getInt("difficulty_id"),
-                results.getString("explanation"),
-                results.getString("question"),
-                results.getString("answer")
-            );
-        };
-    
-    //-------------------------------------------------------------------------
-    // ゲッター / セッター
-    //-------------------------------------------------------------------------
-    
+    // セッター
     public void setId(int id)                       { this.id = id; }
     public void setSubject_id(int subject_id)       { this.subject_id = subject_id; }
     public void setDifficulty_id(int difficulty_id) { this.difficulty_id = difficulty_id; }
@@ -57,6 +38,7 @@ public class QuizBean implements Serializable {
     public void setQuestion(String question)        { this.question = question; }
     public void setAnswer(String answer)            { this.answer = answer; }
 
+    // ゲッター
     public int getId()              { return id; }
     public int getSubject_id()      { return subject_id; }
     public int getDifficulty_id()   { return difficulty_id; }
@@ -64,7 +46,7 @@ public class QuizBean implements Serializable {
     public String getQuestion()     { return question; }
     public String getAnswer()       { return answer; }
     
-    // idを文字列化して返す
+    // idを文字列で取得
     public String getIdString() {
         return (id == 0) 
             ? "- 新規作成 -"
@@ -107,171 +89,5 @@ public class QuizBean implements Serializable {
         }
 
         return "[\n" + joiner.toString() + "\n]";
-    }
-
-    //-------------------------------------------------------------------------
-    // インスタンスの生成
-    //-------------------------------------------------------------------------
-
-    // レコードからインスタンスを生成
-    public static QuizBean getRecord(int quiz_id)
-        throws ServletException, IOException
-    {
-        final String sql = "SELECT * FROM quizzes WHERE id = ?;";
-        List<QuizBean> list = database.createList(sql, quiz_id);
-        
-        return (list.isEmpty())
-            ? null
-            : list.get(0);
-    }
-
-
-    // テーブルからインスタンスリストを生成
-    public static List<QuizBean> getRecords(int subject_id)
-        throws ServletException, IOException
-    {
-        final String sql = "SELECT * FROM quizzes WHERE subject_id = ?;";
-        List<QuizBean> list = database.createList(sql, subject_id);
-        return list;
-    }
-
-
-    // テーブルからインスタンスリストを生成 (難易度を指定版)
-    public static List<QuizBean> getRecords(int subject_id, String[] difficulty_ids)
-        throws ServletException, IOException
-    {
-        // SQLの検索条件を作成
-        //      クイズ難易度は複数選択できる
-        //      例:  配列 {"2","3"}  →  文字列 "difficulty_id=2 OR difficulty_id=3"
-        String difficultiesSql = 
-            Arrays.stream(difficulty_ids)
-                .map(id -> "difficulty_id=" + Integer.parseInt(id))
-                .reduce((String joined, String element) -> joined + " OR " + element)
-                .orElse(null);
-        
-        // 難易度指定がない場合は、ANDも不要
-        difficultiesSql = (difficultiesSql == null)
-            ? ""
-            : "AND (" + difficultiesSql + ")";
-
-        final String sql = 
-            "SELECT * FROM quizzes " +
-            "WHERE subject_id = ? " + difficultiesSql + ";";
-
-        List<QuizBean> list = database.createList(sql, subject_id);
-        return list;
-    }
-
-    //-------------------------------------------------------------------------
-    // レコードの 新規作成、上書き、削除
-    //-------------------------------------------------------------------------
-
-    // レコードの上書き(id>=0)、新規作成(id==0)
-    public void updateRecord() throws ServletException, IOException {
-
-        // 改行コードを LF に限定
-        explanation = explanation.replace("\r\n", "\n");
-
-        // 新規作成
-        if (id == 0) {
-            String sql = 
-                "INSERT INTO quizzes(subject_id, difficulty_id, explanation, question, answer) " +
-                "VALUES (?, ?, ?, ?, ?)";
-
-            database.access(sql, statement -> {
-                try {
-                    statement.setInt(1, subject_id);
-                    statement.setInt(2, difficulty_id);
-                    statement.setString(3, explanation);
-                    statement.setString(4, question);
-                    statement.setString(5, answer);
-                    statement.executeUpdate();
-
-                    // 生成したIDを取得
-                    ResultSet result = statement.getGeneratedKeys();
-                    if(result.next())
-                        this.id = result.getInt(1);
-
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            });
-        }
-
-        // 上書き
-        else {
-            String sql = 
-                "UPDATE quizzes " +
-                "SET subject_id=?, difficulty_id=?, explanation=?, question=?, answer=? " +
-                "WHERE id = ?;";
-
-            database.access(sql, statement -> {
-                try {
-                    statement.setInt(1, subject_id);
-                    statement.setInt(2, difficulty_id);
-                    statement.setString(3, explanation);
-                    statement.setString(4, question);
-                    statement.setString(5, answer);
-                    statement.setInt(6, id);
-                    statement.executeUpdate();
-
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            });
-        }
-    }
-
-    // レコードの削除
-    public void destroyRecord() throws ServletException, IOException {
-
-        String sql = "DELETE FROM quizzes WHERE id = ?";
-
-        database.access(sql, statement -> {
-            try {
-                statement.setInt(1, id);
-                statement.executeUpdate();
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        });
-    }
-
-
-    // レコードの削除 (指定した科目のものを全て)
-    public static void destroyRecords(int subject_id)
-        throws ServletException, IOException
-    {
-        String sql = "DELETE FROM quizzes WHERE subject_id = ?";
-
-        database.access(sql, statement -> {
-            try {
-                statement.setInt(1, subject_id);
-                statement.executeUpdate();
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        });
-    }
-
-    
-    // 難易度のみ変更
-    public static void updateDifficulty(int quiz_id, int difficulty_id)
-        throws ServletException, IOException
-    {
-        String sql = "UPDATE quizzes SET difficulty_id = ? WHERE id = ?;";
-
-        database.access(sql, statement -> {
-            try {
-                statement.setInt(1, difficulty_id);
-                statement.setInt(2, quiz_id);
-                statement.executeUpdate();
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        });
     }
 }

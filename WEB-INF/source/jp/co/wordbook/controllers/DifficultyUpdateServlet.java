@@ -18,9 +18,7 @@ public class DifficultyUpdateServlet  extends HttpServlet {
         int difficulty_id = Integer.parseInt(request.getParameter("difficultyid"));
 
         // データベースへ難易度を上書き
-        QuizBean.updateDifficulty(quiz_id, difficulty_id);
-
-        return;
+        new QuizDAO().updateDifficulty(quiz_id, difficulty_id);
     }
 }
 

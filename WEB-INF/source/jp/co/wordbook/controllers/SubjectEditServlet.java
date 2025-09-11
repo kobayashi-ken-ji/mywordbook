@@ -19,7 +19,7 @@ public class SubjectEditServlet extends HttpServlet {
         // データベースから取得 or 新規作成
         SubjectBean subject = (isNew)
             ? new SubjectBean(0, "")
-            : SubjectBean.getRecord(subjectid);
+            : new SubjectDAO().getRecord(subjectid);
 
         // リクエストへ設定
         request.setAttribute("subject", subject);
