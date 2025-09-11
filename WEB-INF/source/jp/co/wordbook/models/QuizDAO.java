@@ -99,15 +99,13 @@ public class QuizDAO extends DataAccessObject<QuizBean> {
                 "INSERT INTO quizzes(subject_id, difficulty_id, explanation, question, answer) " +
                 "VALUES (?, ?, ?, ?, ?)";
 
-            List<Integer> list = executeInsert(
+            // 自動生成されたIDを取得
+            Long generatedId = (Long)executeInsert(
                 1, sql, 
                 subject_id, difficulty_id, explanation, question, answer
             );
 
-            // 自動生成されたIDを返す
-            return (!list.isEmpty())
-                ? list.get(0)
-                : 0;
+            return (generatedId == null) ? 0 : generatedId.intValue();
         }
 
         // 上書き
@@ -124,8 +122,13 @@ public class QuizDAO extends DataAccessObject<QuizBean> {
         }
     }
 
-    // レコードの削除
-    public boolean destroyRecord(int id) {
+    
+    /**
+     * レコードの削除
+     * @param id  問題ID
+     * @return 削除の成否
+     */
+    public boolean deleteRecord(int id) {
 
         String sql = "DELETE FROM quizzes WHERE id = ?";
         int rowCount = executeUpdate(sql, id);
@@ -133,8 +136,12 @@ public class QuizDAO extends DataAccessObject<QuizBean> {
     }
 
 
-    // レコードの削除 (指定した科目のものを全て)
-    public int destroyRecords(int subject_id) {
+    /**
+     * レコードの削除 (指定した科目のものを全て)
+     * @param subject_id 科目ID
+     * @return 削除したレコード数 (0は削除失敗)
+     */
+    public int deleteRecords(int subject_id) {
     
         String sql = "DELETE FROM quizzes WHERE subject_id = ?";
         int rowCount = executeUpdate(sql, subject_id);

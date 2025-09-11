@@ -27,8 +27,22 @@ public class QuizUpdateServlet extends HttpServlet {
         QuizDAO quizDAO = new QuizDAO();
         quiz_id = quizDAO.updateRecord(
             quiz_id, subject_id, difficulty_id, explanation, question, answer);
+        
+        // 保存に失敗 → インフォメーションを表示
+        if (quiz_id == 0) {
+            request.setAttribute("heading", "問題を保存できませんでした");
+            request.setAttribute("paragraph", "");
+            request.setAttribute("buttonname", "問題一覧へ");
+            request.setAttribute("url", "quizlist?subjectid=" + subject_id);
+
+            // JSPへ送信
+            String view = "/WEB-INF/views/information.jsp";
+            RequestDispatcher dispatcher = request.getRequestDispatcher(view);
+            dispatcher.forward(request, response);
+            return;
+        }
 
         // ページ遷移
-        response.sendRedirect("./quizdetails?quizid=" + quiz_id);
+        response.sendRedirect("./quizdetails?quizid=" + quiz_id + "&state=update");
     }
 }

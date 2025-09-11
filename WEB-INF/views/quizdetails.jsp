@@ -12,7 +12,7 @@
         <div class="window-width align-center">
             <div class="white-area">
 
-                <h1>問題詳細</h1>
+                <h1>${heading}</h1>
 
                 <!-- テーブルヘッダーを縦並べ -->
                 <table class="td-align-left ">
@@ -44,7 +44,7 @@
                 <br>
                 
                 <a class="button" href="quizedit?id=${quiz.id}">編集</a>
-                <a class="button" href="quizdestroy?id=${quiz.id}" onclick="quizDeleteButton()">削除</a>
+                <a class="button" href="quizdelete?id=${quiz.id}" onclick="quizDeleteButton()">削除</a>
             </div>
 
             <a class="button red wide" href="quizlist?subjectid=${quiz.subject_id}">

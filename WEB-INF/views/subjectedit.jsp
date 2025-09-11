@@ -9,7 +9,7 @@
         <div class="hedder">単語帳アプリ</div>
 
         <div class="window-width align-center">
-            <form class="white-area" action="subjectchange" method="post" name="form">
+            <form class="white-area" action="subjectupdate" method="post" name="form">
 
                 <h1>科目編集</h1>
 

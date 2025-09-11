@@ -14,6 +14,12 @@ public class QuizDetailsServlet extends HttpServlet {
         throws ServletException, IOException
     {
         int quiz_id = Integer.parseInt(request.getParameter("quizid"));
+        String state = request.getParameter("state");
+
+        // 見出し
+        String heading = ("update".equals(state))
+            ? "問題を保存しました"
+            : "問題詳細";
 
         // データベースから取得
         QuizBean quiz = new QuizDAO().getRecord(quiz_id);
@@ -21,6 +27,7 @@ public class QuizDetailsServlet extends HttpServlet {
         DifficultyBean difficulty = new DifficultyDAO().getRecord(quiz.getDifficulty_id());
 
         // リクエストへ設定
+        request.setAttribute("heading", heading);
         request.setAttribute("quiz", quiz);
         request.setAttribute("subject_name", subject.getName());
         request.setAttribute("difficulty_name", difficulty.getName());
