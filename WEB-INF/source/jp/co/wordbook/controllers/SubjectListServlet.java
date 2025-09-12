@@ -14,9 +14,12 @@ public class SubjectListServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException
     {
+        // ユーザーIDを取得
+        String userId = Session.getUserId(request);
+        
         // データベースから取得
         SubjectDAO subjectDAO = new SubjectDAO();
-        List<SubjectBean> subjects = subjectDAO.getAllRecords();
+        List<SubjectBean> subjects = subjectDAO.getAllRecords(userId);
 
         // 科目/問題 のどちらを編集するかで、JSPを変更する
         boolean isQuizEdit = "quiz".equals(request.getParameter("edit"));

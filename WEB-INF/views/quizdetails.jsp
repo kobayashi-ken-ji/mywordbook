@@ -14,7 +14,6 @@
 
                 <h1>${heading}</h1>
 
-                <!-- テーブルヘッダーを縦並べ -->
                 <table class="td-align-left ">
                     <tr>
                         <th>ID</th>
@@ -43,14 +42,20 @@
                 </table>
                 <br>
                 
-                <a class="button" href="quizedit?id=${quiz.id}">編集</a>
-                <a class="button" href="quizdelete?id=${quiz.id}" onclick="quizDeleteButton()">削除</a>
+                <a class="button" href="quizedit?id=${quiz.id}&subjectid=${quiz.subject_id}">編集</a>
+                <a class="button" href="quizdelete?id=${quiz.id}" onclick="deleteButton()">削除</a>
             </div>
 
             <a class="button red wide" href="quizlist?subjectid=${quiz.subject_id}">
                 戻る
             </a>
         </div>
-        <script src="script/onclick.js" charset="utf-8"></script>
+
+        <script>
+            function deleteButton() {
+                if (!confirm("この問題を削除しますか？"))
+                    event.preventDefault();
+            }
+        </script>
     </body>
 </html>

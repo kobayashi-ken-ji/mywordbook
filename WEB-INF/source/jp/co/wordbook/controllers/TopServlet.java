@@ -14,14 +14,18 @@ public class TopServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException
     {
+        // セッションから取得
+        String userId = Session.getUserId(request);
+
         // データベースから取得
         SubjectDAO subjectDAO = new SubjectDAO();
         DifficultyDAO difficultyDAO = new DifficultyDAO();
 
-        List<SubjectBean> subjects = subjectDAO.getAllRecords();
+        List<SubjectBean> subjects = subjectDAO.getAllRecords(userId);
         List<DifficultyBean> difficulties = difficultyDAO.getAllRecords();
 
         // リクエストへ設定
+        request.setAttribute("nosubjects", (subjects.size() == 0));
         request.setAttribute("subjects", subjects);
         request.setAttribute("difficulties", difficulties);
 

@@ -14,16 +14,34 @@ public class SubjectDAO extends DataAccessObject<SubjectBean> {
 
         return new SubjectBean(
             results.getInt("id"),
-            results.getString("name")
+            results.getString("name"),
+            results.getString("user_id")
         );
     }
     
 
-    // レコードからインスタンスを生成
-    public SubjectBean getRecord(int subject_id) {
+    /**
+     * 科目とユーザーが紐づいているかを確認
+     * @param subject_id    科目ID
+     * @param user_id       セッションから取り出したユーザーID
+     * @return              ユーザーはこの科目を持っているか否か
+     */
+    public boolean userHasSubject(int subject_id, String user_id) {
+        
+        return (getRecord(subject_id, user_id) != null);
+    }
+
+
+    /**
+     * レコードからインスタンスを生成
+     * @param subject_id    科目ID
+     * @param user_id       ユーザーID
+     * @return              レコードのデータ (存在しない場合はnull)
+     */
+    public SubjectBean getRecord(int subject_id, String user_id) {
     
-        final String sql = "SELECT * FROM subjects WHERE id = ?";
-        List<SubjectBean> list = executeQuery(sql, subject_id);
+        final String sql = "SELECT * FROM subjects WHERE id=? AND user_id=?;";
+        List<SubjectBean> list = executeQuery(sql, subject_id, user_id);
 
         return (list.isEmpty())
             ? null
@@ -32,29 +50,35 @@ public class SubjectDAO extends DataAccessObject<SubjectBean> {
 
 
     // テーブルからインスタンスリストを生成
-    public List<SubjectBean> getAllRecords() {
+    public List<SubjectBean> getAllRecords(String user_id) {
 
-        final String sql = "SELECT * FROM subjects";
-        List<SubjectBean> list = executeQuery(sql);
+        final String sql = "SELECT * FROM subjects WHERE user_id = ?";
+        List<SubjectBean> list = executeQuery(sql, user_id);
         return list;
     }
 
 
-    // レコードの上書き(id>0)、新規作成(id==0)
-    public boolean updateRecord(int id, String name) {
+    /**
+     * レコードの上書き、新規作成
+     * @param id        科目ID (新規作成の場合は0)
+     * @param name      科目名
+     * @param user_id   ユーザーID
+     * @return          レコードへの書き込みの成否
+     */
+    public boolean updateRecord(int id, String name, String user_id) {
 
         int rowCount = 0;
 
         // 新規作成
         if (id == 0) {
-            String sql = "INSERT INTO subjects(name) VALUES (?)";
-            rowCount = executeUpdate(sql, name);
+            String sql = "INSERT INTO subjects(name, user_id) VALUES (?, ?)";
+            rowCount = executeUpdate(sql, name, user_id);
         }
 
         // 上書き
         else {
-            String sql = "UPDATE subjects SET name = ? WHERE id = ?;";
-            rowCount = executeUpdate(sql, name, id);
+            String sql = "UPDATE subjects SET name = ? WHERE id=? AND user_id=?;";
+            rowCount = executeUpdate(sql, name, id, user_id);
         }
 
         return (rowCount != 0);
@@ -62,10 +86,10 @@ public class SubjectDAO extends DataAccessObject<SubjectBean> {
 
 
     // レコードの削除
-    public boolean deleteRecord(int id) {
+    public boolean deleteRecord(int id, String user_id) {
 
-        String sql = "DELETE FROM subjects WHERE id = ?";
-        int rowCount = executeUpdate(sql, id);
+        String sql = "DELETE FROM subjects WHERE id=? AND user_id=?;";
+        int rowCount = executeUpdate(sql, id, user_id);
         return (rowCount != 0);
     }
 }
