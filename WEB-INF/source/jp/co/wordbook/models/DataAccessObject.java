@@ -6,7 +6,7 @@ import java.util.*;
 /**
  * DAOの共通処理
  * 継承先は、各テーブルのDAO
- * TにはBeanを指定
+ * TにはEntityを指定
  */
 public abstract class DataAccessObject<T> {
 
@@ -56,7 +56,12 @@ public abstract class DataAccessObject<T> {
     // SQLの実行
     //-------------------------------------------------------------------------
 
-    // レコードを取得
+    /**
+     * レコードを取得
+     * @param sql           SQL文
+     * @param parameters    SQLの?に設定する値
+     * @return              Entityのリスト
+     */
     protected List<T> executeQuery(String sql, Object... parameters) {
 
         List<T> list = new ArrayList<>();
@@ -85,7 +90,12 @@ public abstract class DataAccessObject<T> {
     }
 
 
-    // レコードを新規作成、上書き、削除
+    /**
+     * レコードを新規作成、上書き、削除
+     * @param sql           SQL文
+     * @param parameters    SQLの?に設定する値
+     * @return              操作したレコード数
+     */
     protected int executeUpdate(String sql, Object... parameters) {
 
         int rowCount = 0;

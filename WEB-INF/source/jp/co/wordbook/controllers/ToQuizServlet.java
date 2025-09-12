@@ -14,37 +14,49 @@ public class ToQuizServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException
     {
-        // パラメータから取得
-        int subject_id = Integer.parseInt(request.getParameter("subjectid"));
-        boolean isSwap = "swap".equals(request.getParameter("format"));
+        // ユーザーIDを取得
+        String userId = Session.getUserId(request);
 
-        // 難易度チェックボタンは複数のため、配列で取得
+        // パラメータから取得
         String[] difficulty_ids = request.getParameterValues("difficultyids");
+        String format           = request.getParameter("format");
+        String subjectIdString  = request.getParameter("subjectid");
+
+        // 不正な入力 → インフォメーションページへ
+        if (difficulty_ids == null  ||
+            subjectIdString == null ||
+            format == null
+        ) {
+            Information.forwardDataWasIncorrect(request, response);
+            return;
+        }
 
         // データベースから取得
+        int subject_id = Integer.parseInt(subjectIdString);
+        SubjectBean subject = new SubjectDAO().getRecord(subject_id, userId);
         List<QuizBean> quizzes = new QuizDAO().getAllRecords(subject_id, difficulty_ids);
         List<DifficultyBean> difficulties = new DifficultyDAO().getAllRecords();
-        SubjectBean subject = new SubjectDAO().getRecord(subject_id);
+
+        // 科目レコードがない → インフォメーションページへ
+        if (subject == null) {
+            Information.forwardDataWasIncorrect(request, response);
+            return;
+        }
 
         // 問題数が0 → インフォメーションページへ
         if (quizzes.size() == 0) {
-
-            // リクエストへ設定
-            request.setAttribute("heading", "出題範囲の問題数は<br>0問でした。");
-            request.setAttribute("paragraph", "出題設定 (科目、難易度) をご確認ください。");
-            request.setAttribute("url", "top");
-            request.setAttribute("buttonname", "トップ画面へ");
-
-            // JSPへ送信
-            String view = "/WEB-INF/views/information.jsp";
-            RequestDispatcher dispatcher = request.getRequestDispatcher(view);
-            dispatcher.forward(request, response);
-
+            Information.forward(
+                request, response,
+                "出題範囲の問題数は<br>0問でした。",
+                "出題設定 (科目、出題範囲) をご確認ください。",
+                "トップ画面へ",
+                "top"
+            );
             return;
         }
 
         // 問題文 ⇔ 正解文 の入れ替え
-        if (isSwap) {
+        if ("swap".equals(format)) {
             for (QuizBean quiz : quizzes)
                 quiz.swapQuestionAndAnswer();
         }

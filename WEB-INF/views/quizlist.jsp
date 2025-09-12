@@ -13,7 +13,7 @@
             <div class="white-area">
 
                 <h1>${subject.name}</h1>
-                <p>問題数 : ${quizList.size()}</p>
+                <p>問題数 : ${quizzes.size()}</p>
 
                 <a class="button" href="quizedit?id=0&subjectid=${subject.id}">
                     問題を追加</a>

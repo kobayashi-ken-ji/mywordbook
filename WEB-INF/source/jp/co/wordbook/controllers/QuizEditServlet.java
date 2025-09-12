@@ -14,35 +14,56 @@ public class QuizEditServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException
     {
-        // パラメータから取得
-        int quiz_id    = Integer.parseInt(request.getParameter("id"));
-        int subject_id = Integer.parseInt(
-            nonNull(request.getParameter("subjectid"), "0"));
+        final int IRREG = -1;
+        SubjectDAO subjectDAO = new SubjectDAO();
+        DifficultyDAO difficultyDAO = new DifficultyDAO();
 
-        // データベースから取得
-        List<SubjectBean>    subjects     = new SubjectDAO().getAllRecords();
-        List<DifficultyBean> difficulties = new DifficultyDAO().getAllRecords();
+        // パラメータから取得
+        int quiz_id    = NoNull.parseInt(request.getParameter("id"), IRREG);
+        int subject_id = NoNull.parseInt(request.getParameter("subjectid"), IRREG);
+
+        // 不正な入力 → インフォメーションページへ
+        if (quiz_id == IRREG  ||  subject_id == IRREG) {
+            Information.forwardDataWasIncorrect(request, response);
+            return;
+        }
+
+        // セッション、データベースから取得
+        String userId = Session.getUserId(request);
+        List<SubjectBean>    subjects     = subjectDAO.getAllRecords(userId);
+        List<DifficultyBean> difficulties = difficultyDAO.getAllRecords();
         
         // 問題を新規作成 or 編集
-        QuizBean quiz = (quiz_id < 1)
+        boolean isNew = (quiz_id == 0);
+        QuizBean quiz = (isNew)
             ? new QuizBean(0, subject_id, 2, "","", "")
             : new QuizDAO().getRecord(quiz_id);
+
+            
+        // 問題が取得できない、ユーザーと紐づいていない 
+        //  → 不正入力のインフォメーションページへ
+        if (quiz == null ||
+            !subjectDAO.userHasSubject(quiz.getSubject_id(), userId)
+        ) {
+            Information.forwardDataWasIncorrect(request, response);
+            return;
+        }
+
+        // キャンセルボタンの遷移先
+        String cancelURL = (isNew)
+            ? "quizlist?subjectid=" + quiz.getSubject_id()  // 新規作成 → 問題一覧へ
+            : "quizdetails?quizid=" + quiz.getId();         // 編集 → 問題詳細へ
 
         // リクエストへ設定
         request.setAttribute("quiz", quiz);
         request.setAttribute("subjects", subjects);
         request.setAttribute("difficulties", difficulties);
+        request.setAttribute("cancelurl", cancelURL);
 
         // JSPへ送信
         String view = "/WEB-INF/views/quizedit.jsp";
         RequestDispatcher dispatcher = request.getRequestDispatcher(view);
         dispatcher.forward(request, response);
-    }
-
-    
-    // nullの場合は指定値を返す
-    private <T> T nonNull(T value, T valueWhenNull) {
-        return (value != null) ? value : valueWhenNull;
     }
 }
 
