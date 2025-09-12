@@ -14,31 +14,46 @@ public class QuizUpdateServlet extends HttpServlet {
         throws ServletException, IOException
     {
         request.setCharacterEncoding("utf-8");
+        final int IRREG = -1;
         
         // パラメータから取得
-        int    quiz_id       = Integer.parseInt(request.getParameter("quizid"));
-        int    subject_id    = Integer.parseInt(request.getParameter("subjectid"));
-        int    difficulty_id = Integer.parseInt(request.getParameter("difficultyid"));
+        int    quiz_id       = NoNull.parseInt(request.getParameter("quizid"), IRREG);
+        int    subject_id    = NoNull.parseInt(request.getParameter("subjectid"), IRREG);
+        int    difficulty_id = NoNull.parseInt(request.getParameter("difficultyid"), IRREG);
         String question      = request.getParameter("question");
         String answer        = request.getParameter("answer");
         String explanation   = request.getParameter("explanation");
 
+        // 科目とユーザーが紐づいているか否か
+        String userId = Session.getUserId(request);
+        boolean userHasSubject = new SubjectDAO().userHasSubject(subject_id, userId);
+
+        // 不正な入力 → インフォメーションページへ
+        if (quiz_id       == IRREG ||
+            subject_id    == IRREG ||
+            difficulty_id == IRREG ||
+            question      == null  ||
+            answer        == null  ||
+            explanation   == null  ||
+            !userHasSubject 
+        ) {
+            Information.forwardDataWasIncorrect(request, response);
+            return;
+        }
+
         // レコードを 上書き or 挿入
-        QuizDAO quizDAO = new QuizDAO();
-        quiz_id = quizDAO.updateRecord(
+        quiz_id = new QuizDAO().updateRecord(
             quiz_id, subject_id, difficulty_id, explanation, question, answer);
         
         // 保存に失敗 → インフォメーションを表示
         if (quiz_id == 0) {
-            request.setAttribute("heading", "問題を保存できませんでした");
-            request.setAttribute("paragraph", "");
-            request.setAttribute("buttonname", "問題一覧へ");
-            request.setAttribute("url", "quizlist?subjectid=" + subject_id);
-
-            // JSPへ送信
-            String view = "/WEB-INF/views/information.jsp";
-            RequestDispatcher dispatcher = request.getRequestDispatcher(view);
-            dispatcher.forward(request, response);
+            Information.forward(
+                request, response,
+                "問題を保存できませんでした",
+                "",
+                "問題一覧へ",
+                "quizlist?subjectid=" + subject_id
+            );
             return;
         }
 

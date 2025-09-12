@@ -41,11 +41,11 @@
                     </tr>
                     <tr>
                         <th>問題文</th>
-                        <td><input type="text" name="question" value="${quiz.question}"></td>
+                        <td><input type="text" name="question" value="${quiz.question}" required></td>
                     </tr>
                     <tr>
                         <th>正解文</th>
-                        <td><input type="text" name="answer" value="${quiz.answer}"></td>
+                        <td><input type="text" name="answer" value="${quiz.answer}" required></td>
                     </tr>
                     <tr>
                         <th>説明文</th>
@@ -74,10 +74,9 @@
                 <br>
                 
                 <input  type="hidden" name="quizid" value="${quiz.id}">
-                <button type="submit" onclick="quizSaveButton()">保存</button>
-                <a class="button red" onclick="history.back()">キャンセル</a>
+                <button type="submit">保存</button>
+                <a class="button red" href="${cancelurl}">キャンセル</a>
             </form>
         </div>
-        <script src="script/onclick.js" charset="utf-8"></script>
     </body>
 </html>

@@ -14,12 +14,19 @@ public class QuizListServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException
     {
-        // 科目IDを取得
-        int subject_id = Integer.parseInt(request.getParameter("subjectid"));
+        // セッション、パラメータから取得
+        String userId = Session.getUserId(request);
+        int subject_id = NoNull.parseInt(request.getParameter("subjectid"), -1);
 
         // データベースから取得
-        SubjectBean subject = new SubjectDAO().getRecord(subject_id);
+        SubjectBean subject = new SubjectDAO().getRecord(subject_id, userId);
         List<QuizBean> quizzes = new QuizDAO().getAllRecords(subject_id);
+
+        // 科目とユーザーが紐づいていない → 不正入力のインフォメーションページへ
+        if (subject == null) {
+            Information.forwardDataWasIncorrect(request, response);
+            return;
+        }
 
         // リクエストへ設定
         request.setAttribute("subject", subject);

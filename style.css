@@ -29,7 +29,8 @@ h1 {
     margin      : 5px 0px;
 }
 
-h1 + p {
+h1 + p,
+.small-font {
     font-size   : 85%;
     color       : var(--font-blue);
     margin      : 0px;
@@ -177,6 +178,14 @@ button.red:hover,
 a.button.red:hover  {
   background-color  : rgb(255, 120, 120);
   color             : white;
+}
+
+/* 無効の場合はグレー */
+button:disabled,
+a.button:disabled,
+button:hover:disabled,
+a.button:hover:disabled {
+    background-color  : rgb(204, 204, 204);
 }
 
 
@@ -337,7 +346,7 @@ button.search {
 /* 科目編集 */
 /*=============================================*/
 
-.destroy-alert {
+.alert-red {
     color       : red;
     font-size   : 90%;
     margin      : 6px auto;

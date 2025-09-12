@@ -16,13 +16,22 @@
 
                 <div>
                     科目<br>
-                    <select id="subject-select" name="subjectid">
+                    <c:if test="${nosubjects}">
+                        <p class="alert-red">
+                            科目がありません。<br>
+                            新しく作成してください。
+                        </p>
+                    </c:if>
 
-                        <c:forEach var="subject" items="${subjects}">
-                            <option value='${subject.id}'>${subject.name}</option>
-                        </c:forEach>
+                    <c:if test="${!nosubjects}">
+                        <select id="subject-select" name="subjectid">
 
-                    </select>
+                            <c:forEach var="subject" items="${subjects}">
+                                <option value='${subject.id}'>${subject.name}</option>
+                            </c:forEach>
+
+                        </select>
+                    </c:if>
                 </div>
                 <br>
 
@@ -55,7 +64,11 @@
                 </div>
                 <br>
 
-                <button type="submit" class="red wide" onclick="topStartButton()">
+
+                <button
+                    type="submit" class="red wide" onclick="topStartButton()"
+                    <c:if test="${nosubjects}">disabled</c:if>
+                >
                     出題スタート
                 </button>
                 <br>

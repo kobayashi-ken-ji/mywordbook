@@ -14,28 +14,34 @@ public class SubjectUpdateServlet extends HttpServlet {
         throws ServletException, IOException
     {
         request.setCharacterEncoding("utf-8");
+        SubjectDAO subjectDAO = new SubjectDAO();
 
-        // パラメータ取得、インスタンス生成
+        // セッションから取得
+        String userId = Session.getUserId(request);
+
+        // パラメータから取得
         boolean isDelete    = "delete".equals(request.getParameter("button"));
-        int     subject_id  = Integer.parseInt(request.getParameter("subjectid"));
+        int     subject_id  = NoNull.parseInt(request.getParameter("subjectid"), -1);
         String  name        = request.getParameter("subjectname");
-
 
         // 見出し
         String heading = "";
 
-        // レコードから削除 (この科目が設定されている問題も削除)
+        // レコードから削除
         if (isDelete) {
-            new QuizDAO().deleteRecords(subject_id);
-            boolean success = new SubjectDAO().deleteRecord(subject_id);
+            boolean success = subjectDAO.deleteRecord(subject_id, userId);
             heading = (success)
                 ? "科目を削除しました"
                 : "科目を削除できませんでした";
+
+            // この科目が設定されている問題も削除
+            if (success)
+                new QuizDAO().deleteRecords(subject_id);
         }
 
         // レコードを 上書き or 挿入
         else {
-            boolean success = new SubjectDAO().updateRecord(subject_id, name);
+            boolean success = subjectDAO.updateRecord(subject_id, name, userId);
             heading = (success)
                 ? "科目を保存しました"
                 : "科目を保存できませんでした";

@@ -26,7 +26,11 @@ public class QuizDAO extends DataAccessObject<QuizBean> {
     // レコードを取得
     //-------------------------------------------------------------------------
 
-    // レコードからEntityを生成
+    /**
+     * レコードからEntityを生成
+     * @param quiz_id   問題ID
+     * @return          レコード情報 (存在しない場合は null)
+     */
     public QuizBean getRecord(int quiz_id) {
     
         String sql = "SELECT * FROM quizzes WHERE id = ?;";
@@ -38,7 +42,11 @@ public class QuizDAO extends DataAccessObject<QuizBean> {
     }
 
 
-    // 全レコードからEntityリストを生成
+    /**
+     * 全レコードからEntityリストを生成
+     * @param subject_id    検索する科目ID
+     * @return              レコードが1つもない場合は .size() が0になる
+     */
     public List<QuizBean> getAllRecords(int subject_id)
     {
         final String sql = "SELECT * FROM quizzes WHERE subject_id = ?;";
@@ -47,7 +55,12 @@ public class QuizDAO extends DataAccessObject<QuizBean> {
     }
 
 
-    // 全レコードからEntityリストを生成 (難易度を指定版)
+    /**
+     * 全レコードからEntityリストを生成 (難易度を指定版)
+     * @param subject_id        検索する科目ID
+     * @param difficulty_ids    難易度IDの配列 (サーブレットのパラメータから取得)
+     * @return
+     */
     public List<QuizBean> getAllRecords(int subject_id, String[] difficulty_ids) {
 
         // SQLの検索条件を作成

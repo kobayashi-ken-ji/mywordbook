@@ -4,6 +4,7 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.WebServlet;
+import jp.co.wordbook.models.*;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
@@ -30,17 +31,11 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         // 認証処理
-        boolean isAuthenticated = ("a".equals(userId) && "b".equals(password));
+        boolean isAuthenticated = new UserDAO().searchUser(userId, password);
 
-        // 認証成功 → トップ画面へ
+        // 認証成功 → セッションを設定 / トップ画面へ
         if (isAuthenticated) {
-
-            // セッションを設定
-            HttpSession session = request.getSession();
-            session.setMaxInactiveInterval(3600); // 単位：秒 → 1時間に設定
-            session.setAttribute("userid", userId);
-
-            // リダイレクト
+            Session.setSession(request, userId);
             response.sendRedirect("top");
         }
         

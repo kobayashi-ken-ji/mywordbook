@@ -6,16 +6,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import jp.co.wordbook.models.*;
 
-// 1つの問題の難易度を上書き (ページ遷移なし)
+// 問題の難易度を上書き (出題ページからの簡易設定のため、遷移なし)
 @WebServlet("/difficultyupdate")
 public class DifficultyUpdateServlet  extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException
     {
+        final int IRREG = -1;
+
         // パラメータから取得
-        int quiz_id       = Integer.parseInt(request.getParameter("quizid"));
-        int difficulty_id = Integer.parseInt(request.getParameter("difficultyid"));
+        int quiz_id       = NoNull.parseInt(request.getParameter("quizid"), IRREG);
+        int difficulty_id = NoNull.parseInt(request.getParameter("difficultyid"), IRREG);
+
+        // 不正入力 → 遷移しないため、処理なし
+        if (quiz_id == IRREG  ||  difficulty_id == IRREG)
+            return;
 
         // データベースへ難易度を上書き
         new QuizDAO().updateDifficulty(quiz_id, difficulty_id);

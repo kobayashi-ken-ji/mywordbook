@@ -18,7 +18,8 @@ CREATE TABLE quizzes (
 -- 科目テーブル
 CREATE TABLE subjects (
     id      INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    name    VARCHAR(255)                -- 科目名
+    name    VARCHAR(255) NOT NULL,  -- 科目名
+    user_id VARCHAR(255) NOT NULL   -- ユーザーID
 );
 
 -- 難易度テーブル
@@ -29,8 +30,8 @@ CREATE TABLE difficulties (
 
 -- ユーザーテーブル
 CREATE TABLE users (
-    id       VARCHAR(63) NOT NULL PRIMARY KEY,  -- ユーザーID
-    password VARCHAR(63)                        -- パスワード
+    id       VARCHAR(255) NOT NULL PRIMARY KEY,  -- ユーザーID
+    password VARCHAR(255) NOT NULL               -- パスワード
 );
 
 ------------------------------------------------------------------------------
@@ -62,6 +63,10 @@ INSERT
         (1, 2, "January" , "1月", ""),
         (1, 2, "February", "2月", "");
 
+-- ユーザー
+INSERT
+    INTO users(id, password)
+    VALUES ("a", "b");
 
 ------------------------------------------------------------------------------
 -- データ取得
