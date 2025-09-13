@@ -19,7 +19,7 @@
                         <th>ID</th>
                         <td>
                             <c:if test="${quiz.id == 0}">- 新規作成 -</c:if>
-                            <c:if test="${quiz.id != 0}">${quiz_id}</c:if>
+                            <c:if test="${quiz.id != 0}">${quiz.id}</c:if>
                         </td>
                     </tr>
                     <tr>

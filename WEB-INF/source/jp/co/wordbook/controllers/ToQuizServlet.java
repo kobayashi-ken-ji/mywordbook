@@ -14,31 +14,30 @@ public class ToQuizServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException
     {
-        // ユーザーIDを取得
+        // セッションから取得
         String userId = Session.getUserId(request);
 
-        // パラメータから取得
-        String[] difficulty_ids = request.getParameterValues("difficultyids");
-        String format           = request.getParameter("format");
-        String subjectIdString  = request.getParameter("subjectid");
+        String[] difficulty_ids;
+        String format;
+        SubjectBean subject;
+        List<QuizBean> quizzes;
+        List<DifficultyBean> difficulties;
 
-        // 不正な入力 → インフォメーションページへ
-        if (difficulty_ids == null  ||
-            subjectIdString == null ||
-            format == null
-        ) {
-            Information.forwardDataWasIncorrect(request, response);
-            return;
+        try {
+            // リクエストから取得
+            difficulty_ids  = Parameter.getStringArray(request, "difficultyids");
+            format          = Parameter.getString(request, "format");
+            int subject_id  = Parameter.getInt(request, "subjectid");
+
+            // データベースから取得
+            subject      = new SubjectDAO().getRecord(subject_id, userId);  // ユーザーを照合
+            quizzes      = new QuizDAO().getAllRecords(subject_id, difficulty_ids);
+            difficulties = new DifficultyDAO().getAllRecords();
         }
-
-        // データベースから取得
-        int subject_id = Integer.parseInt(subjectIdString);
-        SubjectBean subject = new SubjectDAO().getRecord(subject_id, userId);
-        List<QuizBean> quizzes = new QuizDAO().getAllRecords(subject_id, difficulty_ids);
-        List<DifficultyBean> difficulties = new DifficultyDAO().getAllRecords();
-
-        // 科目レコードがない → インフォメーションページへ
-        if (subject == null) {
+        
+        // パラメータが不正 → インフォメーションページへ
+        catch (ParameterException e) {
+            e.printStackTrace();
             Information.forwardDataWasIncorrect(request, response);
             return;
         }

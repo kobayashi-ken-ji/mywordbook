@@ -14,29 +14,32 @@ public class QuizUpdateServlet extends HttpServlet {
         throws ServletException, IOException
     {
         request.setCharacterEncoding("utf-8");
-        final int IRREG = -1;
-        
-        // パラメータから取得
-        int    quiz_id       = NoNull.parseInt(request.getParameter("quizid"), IRREG);
-        int    subject_id    = NoNull.parseInt(request.getParameter("subjectid"), IRREG);
-        int    difficulty_id = NoNull.parseInt(request.getParameter("difficultyid"), IRREG);
-        String question      = request.getParameter("question");
-        String answer        = request.getParameter("answer");
-        String explanation   = request.getParameter("explanation");
-
-        // 科目とユーザーが紐づいているか否か
         String userId = Session.getUserId(request);
-        boolean userHasSubject = new SubjectDAO().userHasSubject(subject_id, userId);
 
-        // 不正な入力 → インフォメーションページへ
-        if (quiz_id       == IRREG ||
-            subject_id    == IRREG ||
-            difficulty_id == IRREG ||
-            question      == null  ||
-            answer        == null  ||
-            explanation   == null  ||
-            !userHasSubject 
-        ) {
+        int    quiz_id;
+        int    subject_id;
+        int    difficulty_id;
+        String question;
+        String answer;
+        String explanation;
+
+        try {
+            // リクエストから取得
+            quiz_id       = Parameter.getInt(request, "quizid");
+            subject_id    = Parameter.getInt(request, "subjectid");
+            difficulty_id = Parameter.getInt(request, "difficultyid");
+            question      = Parameter.getString(request, "question");
+            answer        = Parameter.getString(request, "answer");
+            explanation   = Parameter.getString(request, "explanation");
+
+            // データベースから取得
+            // 科目とユーザーが紐づいているか否か
+            new SubjectDAO().userHasSubject(subject_id, userId);
+        }
+        
+        // パラメータが不正 → インフォメーションページへ
+        catch (ParameterException e) {
+            e.printStackTrace();
             Information.forwardDataWasIncorrect(request, response);
             return;
         }
