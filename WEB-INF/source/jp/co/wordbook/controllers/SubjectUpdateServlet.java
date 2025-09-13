@@ -19,16 +19,29 @@ public class SubjectUpdateServlet extends HttpServlet {
         // セッションから取得
         String userId = Session.getUserId(request);
 
-        // パラメータから取得
-        boolean isDelete    = "delete".equals(request.getParameter("button"));
-        int     subject_id  = NoNull.parseInt(request.getParameter("subjectid"), -1);
-        String  name        = request.getParameter("subjectname");
+        int    subject_id;
+        String subject_name;
+        String buttonValue;
+
+        // リクエストから取得
+        try {
+            subject_id   = Parameter.getInt(request, "subjectid");
+            subject_name = Parameter.getString(request, "subjectname");
+            buttonValue  = Parameter.getString(request, "button");
+        }
+
+        // パラメータが不正 → インフォメーションページへ
+        catch (ParameterException e) {
+            e.printStackTrace();
+            Information.forwardDataWasIncorrect(request, response);
+            return;
+        }
 
         // 見出し
         String heading = "";
 
         // レコードから削除
-        if (isDelete) {
+        if ("delete".equals(buttonValue)) {
             boolean success = subjectDAO.deleteRecord(subject_id, userId);
             heading = (success)
                 ? "科目を削除しました"
@@ -41,7 +54,7 @@ public class SubjectUpdateServlet extends HttpServlet {
 
         // レコードを 上書き or 挿入
         else {
-            boolean success = subjectDAO.updateRecord(subject_id, name, userId);
+            boolean success = subjectDAO.updateRecord(subject_id, subject_name, userId);
             heading = (success)
                 ? "科目を保存しました"
                 : "科目を保存できませんでした";
@@ -49,7 +62,7 @@ public class SubjectUpdateServlet extends HttpServlet {
 
         // リクエストへ設定
         request.setAttribute("heading", heading);
-        request.setAttribute("paragraph", "科目名 : " + name);
+        request.setAttribute("paragraph", "科目名 : " + subject_name);
         request.setAttribute("buttonname", "科目一覧へ");
         request.setAttribute("url", "subjectlist?edit=subject");
 

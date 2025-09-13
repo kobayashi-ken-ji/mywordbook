@@ -13,35 +13,37 @@ public class QuizDetailsServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException
     {
-        SubjectDAO subjectDAO = new SubjectDAO();
-        DifficultyDAO difficultyDAO = new DifficultyDAO();
+        String state;
+        QuizBean quiz;
+        SubjectBean subject;
+        DifficultyBean difficulty;
 
-        // セッション、パラメータから取得
+        // セッションから取得
         String userId = Session.getUserId(request);
-        int quiz_id   = NoNull.parseInt(request.getParameter("quizid"), -1);
-        String state  = request.getParameter("state");
+
+        try {
+            // リクエストから取得
+            int quiz_id = Parameter.getInt(request, "quizid");
+            state       = Parameter.getString(request, "state");
+
+            // データベースから取得
+            quiz       = new QuizDAO().getRecord(quiz_id);
+            subject    = new SubjectDAO().getRecord(quiz.getSubject_id(), userId);  // ユーザーを照合
+            difficulty = new DifficultyDAO().getRecord(quiz.getDifficulty_id());
+        }
+        
+        // パラメータが不正 → インフォメーションページへ
+        catch (ParameterException e) {
+            e.printStackTrace();
+            Information.forwardDataWasIncorrect(request, response);
+            return;
+        }
 
         // 見出し
         String heading = ("update".equals(state))
             ? "問題を保存しました"
             : "問題詳細";
 
-
-        // データベースから取得
-        //      取得できない、ユーザーと紐づいていない場合は
-        //      不正入力のインフォメーションページへ
-        QuizBean quiz = new QuizDAO().getRecord(quiz_id);
-        if (quiz == null) {
-            Information.forwardDataWasIncorrect(request, response);
-            return;
-        }
-
-        DifficultyBean difficulty = difficultyDAO.getRecord(quiz.getDifficulty_id());
-        SubjectBean subject = subjectDAO.getRecord(quiz.getSubject_id(), userId);
-        if (subject == null) {
-            Information.forwardDataWasIncorrect(request, response);
-            return;
-        }
 
         // リクエストへ設定
         request.setAttribute("heading", heading);

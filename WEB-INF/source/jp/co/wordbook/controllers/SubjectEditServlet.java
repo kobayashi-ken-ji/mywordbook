@@ -16,17 +16,23 @@ public class SubjectEditServlet extends HttpServlet {
         // セッションから取得
         String userId = Session.getUserId(request);
 
-        // パラメータから取得
-        int subjectid = NoNull.parseInt(request.getParameter("subjectid"), -1);
-        boolean isNew = (subjectid == 0);
+        boolean isNew;
+        SubjectBean subject;
 
-        // データベースから取得 or 新規作成
-        SubjectBean subject = (isNew)
-            ? new SubjectBean(0, "", "")
-            : new SubjectDAO().getRecord(subjectid, userId);
-        
-        // 科目が取得できない → 不正入力インフォメーションページへ
-        if (subject == null) {
+        try {
+            // リクエストから取得
+            int subjectid = Parameter.getInt(request, "subjectid");
+            isNew = (subjectid == 0);
+
+            // データベースから取得 or 新規作成
+            subject = (isNew)
+                ? new SubjectBean(0, "", "")
+                : new SubjectDAO().getRecord(subjectid, userId);
+        }
+                
+        // パラメータが不正 → インフォメーションページへ
+        catch (ParameterException e) {
+            e.printStackTrace();
             Information.forwardDataWasIncorrect(request, response);
             return;
         }
