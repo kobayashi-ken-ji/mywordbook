@@ -27,25 +27,46 @@ public class QuizDAO extends DataAccessObject<QuizBean> {
     //-------------------------------------------------------------------------
 
     /**
-     * レコードからEntityを生成
-     * @param quiz_id   問題ID
-     * @return          レコード情報 (存在しない場合は null)
+     * レコードからEntityを生成 (ログインセキュア版)
+     * @param quiz_id               問題ID
+     * @param subject_id            科目ID (ユーザーIDと照合したもの)
+     * @return                      レコード情報
+     * @throws ParameterException   レコードが取得できない場合に発生
      */
-    public QuizBean getRecord(int quiz_id) {
-    
+    public QuizBean getRecord(int quiz_id, int subject_id) throws ParameterException {
+
+        String sql = "SELECT * FROM quizzes WHERE id=? AND subject_id=?;";
+        List<QuizBean> list = executeQuery(sql, quiz_id);
+        
+        if (list.isEmpty())
+            throw new ParameterException("Quizレコードが取得できません。");
+
+        return list.get(0);
+    }
+
+
+    /**
+     * レコードからEntityを生成
+     * @param quiz_id               問題ID
+     * @return                      レコード情報
+     * @throws ParameterException   レコードが取得できない場合に発生
+     */
+    public QuizBean getRecord(int quiz_id) throws ParameterException {
+
         String sql = "SELECT * FROM quizzes WHERE id = ?;";
         List<QuizBean> list = executeQuery(sql, quiz_id);
         
-        return (list.isEmpty())
-            ? null
-            : list.get(0);
+        if (list.isEmpty())
+            throw new ParameterException("Quizレコードが取得できません。");
+
+        return list.get(0);
     }
 
 
     /**
      * 全レコードからEntityリストを生成
-     * @param subject_id    検索する科目ID
-     * @return              レコードが1つもない場合は .size() が0になる
+     * @param subject_id    科目ID (ユーザーIDと照合したもの)
+     * @return              問題リスト (nullなし)
      */
     public List<QuizBean> getAllRecords(int subject_id)
     {
@@ -57,9 +78,9 @@ public class QuizDAO extends DataAccessObject<QuizBean> {
 
     /**
      * 全レコードからEntityリストを生成 (難易度を指定版)
-     * @param subject_id        検索する科目ID
+     * @param subject_id        科目ID (ユーザーIDと照合したもの)
      * @param difficulty_ids    難易度IDの配列 (サーブレットのパラメータから取得)
-     * @return
+     * @return                  難易度リスト (nullなし)
      */
     public List<QuizBean> getAllRecords(int subject_id, String[] difficulty_ids) {
 
@@ -91,8 +112,8 @@ public class QuizDAO extends DataAccessObject<QuizBean> {
 
     /**
      * レコードの上書き、新規作成
-     * @param quiz_id           問題id, 新規作成は0を指定
-     * @param subject_id        科目id
+     * @param quiz_id           問題ID, 新規作成は0を指定
+     * @param subject_id        科目ID (ユーザーIDと照合したもの)
      * @param difficulty_id     難易度id
      * @param explanation       説明文
      * @param question          問題文
@@ -138,8 +159,8 @@ public class QuizDAO extends DataAccessObject<QuizBean> {
     
     /**
      * レコードの削除
-     * @param id  問題ID
-     * @return 削除の成否
+     * @param id    問題ID (ユーザーIDと科目が照合済みのもの)
+     * @return      削除の成否
      */
     public boolean deleteRecord(int id) {
 
@@ -151,8 +172,8 @@ public class QuizDAO extends DataAccessObject<QuizBean> {
 
     /**
      * レコードの削除 (指定した科目のものを全て)
-     * @param subject_id 科目ID
-     * @return 削除したレコード数 (0は削除失敗)
+     * @param subject_id    科目ID (ユーザーIDと照合したもの)
+     * @return              削除したレコード数 (0は削除失敗)
      */
     public int deleteRecords(int subject_id) {
     
@@ -162,7 +183,11 @@ public class QuizDAO extends DataAccessObject<QuizBean> {
     }
 
     
-    // 難易度のみ変更
+    /**
+     * 問題の難易度のみ変更
+     * @param quiz_id       問題ID
+     * @return              変更の成否
+     */
     public boolean updateDifficulty(int quiz_id, int difficulty_id) {
     
         String sql = "UPDATE quizzes SET difficulty_id = ? WHERE id = ?;";

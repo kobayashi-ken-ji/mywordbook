@@ -17,9 +17,8 @@ public class SubjectListServlet extends HttpServlet {
         // ユーザーIDを取得
         String userId = Session.getUserId(request);
         
-        // データベースから取得
-        SubjectDAO subjectDAO = new SubjectDAO();
-        List<SubjectBean> subjects = subjectDAO.getAllRecords(userId);
+        // データベースから取得 (ユーザーも照合される)
+        List<SubjectBean> subjects = new SubjectDAO().getAllRecords(userId);
 
         // 科目/問題 のどちらを編集するかで、JSPを変更する
         boolean isQuizEdit = "quiz".equals(request.getParameter("edit"));

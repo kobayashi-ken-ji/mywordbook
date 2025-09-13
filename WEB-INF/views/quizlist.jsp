@@ -33,7 +33,7 @@
                         <tr>
                             <th>${quiz.idString}</td>
                             <td>
-                                <a href="quizdetails?quizid=${quiz.id}">
+                                <a href="quizdetails?quizid=${quiz.id}&state=normal">
                                     ${quiz.question}
                                 </a>
                             </td>

@@ -19,19 +19,29 @@ public class DifficultyDAO extends DataAccessObject<DifficultyBean> {
     }
     
 
-    // レコードからインスタンスを生成
-    public DifficultyBean getRecord(int subject_id) {
+    /**
+     * レコードからインスタンスを生成
+     * @param difficulty_id         難易度ID
+     * @return                      レコード情報 (nullなし)
+     * @throws ParameterException   レコードが存在しない場合に発生
+     */
+    public DifficultyBean getRecord(int difficulty_id) throws ParameterException {
     
         final String sql = "SELECT * FROM difficulties WHERE id = ?";
-        List<DifficultyBean> list = executeQuery(sql, subject_id);
+        List<DifficultyBean> list = executeQuery(sql, difficulty_id);
 
-        return (list.isEmpty())
-            ? null
-            : list.get(0);
+        // 例外を投げる
+        if (list.isEmpty())
+            throw new ParameterException("Difficultyレコードが存在しません。");
+
+        return list.get(0);
     }
 
 
-    // テーブルからインスタンスリストを生成
+    /**
+     * テーブルからインスタンスリストを生成
+     * @return 難易度リスト (nullなし)
+     */
     public List<DifficultyBean> getAllRecords() {
 
         final String sql = "SELECT * FROM difficulties";

@@ -41,7 +41,7 @@ public class Information {
 
 
     /**
-     * 「送信されたデータが正しくありませんでした。」ページへ遷移
+     * 「正しくないデータが送信されました。」ページへ遷移
      * @param request   サーブレットが受け取るリクエスト
      * @param response  サーブレットが受け取るレスポンス
      */
@@ -50,37 +50,10 @@ public class Information {
     ) {
         Information.forward(
             request, response,
-            "送信されたデータが正しくありませんでした。",
+            "正しくないデータが送信されました。",
             "",
             "トップページへ",
             "top"
         );
     }
 }
-
-/*
-        // パラメータから取得
-        int quiz_id;
-        int subject_id;
-        try {
-            quiz_id    = Integer.parseInt(request.getParameter("id"));
-            subject_id = Integer.parseInt(request.getParameter("subjectid"));
-        }
-
-        // 不正な入力 → インフォメーションページへ
-        catch (NumberFormatException e) {
-            e.printStackTrace();
-            Information.forwardDataWasIncorrect(request, response);
-            return;
-        }
-
-
-        // 科目とユーザーが紐づいていない → 不正入力のインフォメーションページへ
-        if (! subjectDAO.userHasSubject(subject_id, userId)) {
-            Information.forwardDataWasIncorrect(request, response);
-            return;
-        }
-            
-        // セッションから取得
-        String userId = Session.getUserId(request);
- */

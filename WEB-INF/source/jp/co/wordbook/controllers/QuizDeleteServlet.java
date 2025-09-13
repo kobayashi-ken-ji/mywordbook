@@ -13,28 +13,25 @@ public class QuizDeleteServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException
     {
-        final int IRREG = -1;
-        
-        // セッション、パラメータから取得
-        String userId = Session.getUserId(request);
-        int quiz_id = NoNull.parseInt(request.getParameter("id"), IRREG);
-
-        // 不正な入力 → インフォメーションページへ
-        if (quiz_id == IRREG) {
-            Information.forwardDataWasIncorrect(request, response);
-            return;
-        }
-
-        // データベースから取得
+        int quiz_id;
+        QuizBean quiz;
         QuizDAO quizDAO = new QuizDAO();
-        QuizBean quiz = quizDAO.getRecord(quiz_id);
 
+        // セッションから取得
+        String userId = Session.getUserId(request);
 
-        // 問題が取得できない、ユーザーと紐づいていない 
-        //  → 不正入力のインフォメーションページへ
-        if (quiz == null ||
-            !new SubjectDAO().userHasSubject(quiz.getSubject_id(), userId)
-        ) {
+        try {
+            // リクエスト、データベースから取得
+            quiz_id = Parameter.getInt(request, "id");
+            quiz    = quizDAO.getRecord(quiz_id);
+
+            // ユーザーと紐づいているかチェック
+            new SubjectDAO().userHasSubject(quiz.getSubject_id(), userId);
+        }
+        
+        // パラメータが不正 → インフォメーションページへ
+        catch (ParameterException e) {
+            e.printStackTrace();
             Information.forwardDataWasIncorrect(request, response);
             return;
         }

@@ -35,49 +35,50 @@ public class UserDAO extends DataAccessObject<UserBean> {
     
 
     // レコードからインスタンスを生成
-    public UserBean getRecord(String id) {
+    // public UserBean getRecord(String id) throws ParameterException {
     
-        final String sql = "SELECT * FROM users WHERE id = ?";
-        List<UserBean> list = executeQuery(sql, id);
+    //     final String sql = "SELECT * FROM users WHERE id = ?";
+    //     List<UserBean> list = executeQuery(sql, id);
 
-        return (list.isEmpty())
-            ? null
-            : list.get(0);
-    }
+    //     if (list.isEmpty())
+    //         throw new ParameterException("userレコードを取得できません。");
+
+    //     return list.get(0);
+    // }
 
 
     // 全レコードからインスタンスリストを生成
-    public List<UserBean> getAllRecords() {
+    // public List<UserBean> getAllRecords() {
 
-        final String sql = "SELECT * FROM users";
-        List<UserBean> list = executeQuery(sql);
-        return list;
-    }
+    //     final String sql = "SELECT * FROM users";
+    //     List<UserBean> list = executeQuery(sql);
+    //     return list;
+    // }
 
 
     // レコードの新規作成
-    public boolean insertRecord(String id, String password) {
+    // public boolean insertRecord(String id, String password) {
 
-        String sql = "INSERT INTO users(id, password) VALUES (?, ?)";
-        int rowCount = executeUpdate(sql, id, password);
-        return (rowCount != 0);
-    }
+    //     String sql = "INSERT INTO users(id, password) VALUES (?, ?)";
+    //     int rowCount = executeUpdate(sql, id, password);
+    //     return (rowCount != 0);
+    // }
 
 
     // レコードの上書き
-    public boolean updateRecord(String id, String password) {
+    // public boolean updateRecord(String id, String password) {
 
-        String sql = "UPDATE users SET password = ? WHERE id = ?;";
-        int rowCount = executeUpdate(sql, password, id);
-        return (rowCount != 0);
-    }
+    //     String sql = "UPDATE users SET password = ? WHERE id = ?;";
+    //     int rowCount = executeUpdate(sql, password, id);
+    //     return (rowCount != 0);
+    // }
 
 
     // レコードの削除
-    public boolean deleteRecord(int id) {
+    // public boolean deleteRecord(int id) {
 
-        String sql = "DELETE FROM users WHERE id = ?";
-        int rowCount = executeUpdate(sql, id);
-        return (rowCount != 0);
-    }
+    //     String sql = "DELETE FROM users WHERE id = ?";
+    //     int rowCount = executeUpdate(sql, id);
+    //     return (rowCount != 0);
+    // }
 }

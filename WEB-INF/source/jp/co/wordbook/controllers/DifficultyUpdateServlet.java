@@ -13,18 +13,33 @@ public class DifficultyUpdateServlet  extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException
     {
-        final int IRREG = -1;
+        QuizDAO quizDAO = new QuizDAO();
+        SubjectDAO subjectDAO = new SubjectDAO();
+        int quiz_id;
+        int difficulty_id;
 
-        // パラメータから取得
-        int quiz_id       = NoNull.parseInt(request.getParameter("quizid"), IRREG);
-        int difficulty_id = NoNull.parseInt(request.getParameter("difficultyid"), IRREG);
+        // セッションから取得
+        String userId = Session.getUserId(request);
 
-        // 不正入力 → 遷移しないため、処理なし
-        if (quiz_id == IRREG  ||  difficulty_id == IRREG)
+        try {
+            // リクエストから取得
+            quiz_id       = Parameter.getInt(request, "quizid");
+            difficulty_id = Parameter.getInt(request, "difficultyid");
+
+            // データベースから取得
+            // ユーザーと科目が結びついているかチェック
+            QuizBean quiz = quizDAO.getRecord(quiz_id);
+            subjectDAO.userHasSubject(quiz.getSubject_id(), userId);
+        }
+        
+        // パラメータが不正  →  ページ遷移なし、エラー告知無し のためreturn
+        catch (ParameterException e) {
+            e.printStackTrace();
             return;
+        }
 
         // データベースへ難易度を上書き
-        new QuizDAO().updateDifficulty(quiz_id, difficulty_id);
+        quizDAO.updateDifficulty(quiz_id, difficulty_id);
     }
 }
 
