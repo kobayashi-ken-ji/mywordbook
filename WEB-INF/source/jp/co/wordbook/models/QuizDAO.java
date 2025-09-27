@@ -27,10 +27,10 @@ public class QuizDAO extends DataAccessObject<QuizBean> {
     //-------------------------------------------------------------------------
 
     /**
-     * レコードからEntityを生成 (ログインセキュア版)
+     * レコードを取得 (ログインセキュア版)
      * @param quiz_id               問題ID
      * @param subject_id            科目ID (ユーザーIDと照合したもの)
-     * @return                      レコード情報
+     * @return                      レコード情報 (nullなし)
      * @throws ParameterException   レコードが取得できない場合に発生
      */
     public QuizBean getRecord(int quiz_id, int subject_id) throws ParameterException {
@@ -46,9 +46,9 @@ public class QuizDAO extends DataAccessObject<QuizBean> {
 
 
     /**
-     * レコードからEntityを生成
+     * レコードを取得
      * @param quiz_id               問題ID
-     * @return                      レコード情報
+     * @return                      レコード情報 (nullなし)
      * @throws ParameterException   レコードが取得できない場合に発生
      */
     public QuizBean getRecord(int quiz_id) throws ParameterException {
@@ -64,7 +64,7 @@ public class QuizDAO extends DataAccessObject<QuizBean> {
 
 
     /**
-     * 全レコードからEntityリストを生成
+     * 全レコードからリストを生成
      * @param subject_id    科目ID (ユーザーIDと照合したもの)
      * @return              問題リスト (nullなし)
      */
@@ -77,7 +77,7 @@ public class QuizDAO extends DataAccessObject<QuizBean> {
 
 
     /**
-     * 全レコードからEntityリストを生成 (難易度を指定版)
+     * 全レコードからリストを生成 (難易度を指定版)
      * @param subject_id        科目ID (ユーザーIDと照合したもの)
      * @param difficulty_ids    難易度IDの配列 (サーブレットのパラメータから取得)
      * @return                  難易度リスト (nullなし)
