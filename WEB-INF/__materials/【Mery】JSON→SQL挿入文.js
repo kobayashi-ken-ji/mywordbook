@@ -38,12 +38,20 @@ const INSERT_HEADER =
 
 // 科目ID, 難易度ID [変更可]
 const SUBJECT_ID    = 1;
-const DIFFICULTY_ID = 2;    // 1 簡単, 2 普通, 3 難しい
+const DIFFICULTY_ID = 2;    // 1 得意, 2 普通, 3 苦手
 
 
 // オブジェクト → SQL挿入文
 function getSqlStatements(json)
 {
+    // 科目IDを取得
+    const subject_id = Prompt(
+        "科目IDを指定してください。",
+        ""
+    );
+    if (!subject_id) return;
+
+
     var lines = [];
 
     // 各問題をSQL文へ変換
@@ -58,7 +66,7 @@ function getSqlStatements(json)
         lines.push(
             "        " +
             "(" +
-            SUBJECT_ID          + ", " +
+            subject_id          + ", " +
             DIFFICULTY_ID       + ", " +
             "\"" + question     + "\", " +
             "\"" + answer       + "\", " +

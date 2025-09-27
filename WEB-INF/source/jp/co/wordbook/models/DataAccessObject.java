@@ -27,7 +27,10 @@ public abstract class DataAccessObject<T> {
     // データベースへの接続/切断
     //-------------------------------------------------------------------------
 
-    // データベースに接続
+    /**
+     * データベースに接続
+     * 使用後は必ず disconnect() を実行
+     */
     protected void connect() {
 
         try {
@@ -40,7 +43,9 @@ public abstract class DataAccessObject<T> {
     }
 
 
-    // データベース接続を切断
+    /**
+     * データベース接続を切断
+     */
     protected void disconnect() {
 
         try {
@@ -60,7 +65,7 @@ public abstract class DataAccessObject<T> {
      * レコードを取得
      * @param sql           SQL文
      * @param parameters    SQLの?に設定する値
-     * @return              Entityのリスト
+     * @return              レコード情報のリスト (nullなし)
      */
     protected List<T> executeQuery(String sql, Object... parameters) {
 

@@ -12,14 +12,16 @@
                 <h1>ログイン</h1>
                 <p>${message}</p>
                 <br>
-                <div>
-                    <label for="userid">ユーザーID</label>
-                    <input type="text" id="userid" name="userid" required> 
-                </div>
-                <div>
-                    <label for="password">パスワード</label>
-                    <input type="text" id="password" name="password" required> 
-                </div>
+                <table class="login">
+                    <tr>
+                        <th><label for="userid">ユーザーID</label></th>
+                        <td><input type="text" id="userid" name="userid" required></td>
+                    </tr>
+                    <tr>
+                        <th><label for="password">パスワード</label></th>
+                        <td><input type="text" id="password" name="password" required> </td>
+                    </tr>
+                </table>
                 <br>
                 <button type="submit" class="red">ログイン</button>
 

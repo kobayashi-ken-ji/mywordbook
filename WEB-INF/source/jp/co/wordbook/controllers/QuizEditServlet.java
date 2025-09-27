@@ -51,7 +51,7 @@ public class QuizEditServlet extends HttpServlet {
 
         // キャンセルボタンの遷移先
         String cancelURL = (isNew)
-            ? "quizlist?subjectid=" + quiz.getSubject_id()            // 新規作成 → 問題一覧へ
+            ? "quizlist?subjectid=" + quiz.getSubject_id()             // 新規作成 → 問題一覧へ
             : "quizdetails?quizid=" + quiz.getId() + "&state=normal";  // 編集 → 問題詳細へ
 
         // リクエストへ設定
