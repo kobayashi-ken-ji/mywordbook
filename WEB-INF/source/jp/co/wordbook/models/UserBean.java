@@ -33,7 +33,7 @@ public class UserBean implements Serializable
 
     /**
      * ログイン済みか否か
-     * @param request   サーブレットが受け取るリクエスト
+     * @param request   サーブレットのリクエスト
      * @return          true ログイン済み, false 未ログイン
      */
     public static boolean checkLoggedIn(HttpServletRequest request) {
@@ -47,7 +47,7 @@ public class UserBean implements Serializable
 
     /**
      * セッションを設定
-     * @param request   サーブレットが受け取るリクエスト
+     * @param request   サーブレットのリクエスト
      * @param userId    usersテーブルのidカラム
      */
     public static void setSession(HttpServletRequest request, String userId) {
@@ -60,7 +60,7 @@ public class UserBean implements Serializable
 
     /**
      * ユーザーIDを取得
-     * @param request   サーブレットが受け取るリクエスト
+     * @param request   サーブレットのリクエスト
      * @return          usersテーブルのidカラム
      */
     public static String getUserId(HttpServletRequest request) {

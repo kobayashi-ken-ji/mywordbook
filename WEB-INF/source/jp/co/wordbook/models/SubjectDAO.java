@@ -23,8 +23,8 @@ public class SubjectDAO extends DataAccessObject<SubjectBean> {
     /**
      * 科目とユーザーが紐づいているかを確認
      * @param subject_id            科目ID
-     * @param user_id               セッションから取り出したユーザーID
-     * @return                      例外が発生しなければ必ずtrue
+     * @param user_id               セッションから取得したユーザーID
+     * @return                      必ずtrue (falseの場合は例外が発生)
      * @throws ParameterException   科目とユーザーが紐づいていない場合
      */
     public boolean userHasSubject(int subject_id, String user_id) 

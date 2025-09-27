@@ -17,9 +17,9 @@
 
                 <a class="button" href="quizedit?id=0&subjectid=${subject.id}">
                     問題を追加</a>
-                <br><br><br>
+                <br><br>
 
-                <div class="search-box">
+                <div class="search-box" style="display:none">
                     <input type="text" placeholder="ID、単語など">
                     <button>検索</button>
                 </div>

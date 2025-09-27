@@ -180,7 +180,7 @@ a.button.red:hover  {
   color             : white;
 }
 
-/* 無効の場合はグレー */
+/* ボタン無効時 グレー */
 button:disabled,
 a.button:disabled,
 button:hover:disabled,
@@ -204,6 +204,7 @@ table {
     margin      : 15px auto;
     padding     : 0px 0px;
     box-sizing  : border-box;
+    /* width : 90%; */
     min-width   : var(--window-width);
 }
 
@@ -212,7 +213,6 @@ table th {
     color           : white;
     background      : rgb(174, 188, 250);
     border-radius   : 3px;
-    min-width       : 70px;
 }
 
 table td {
@@ -241,6 +241,18 @@ table textarea {
 table.td-align-left  td {
     text-align  : left;
     padding-left: 5px;
+}
+
+table th:first-of-type {
+  width: 70px;
+}
+
+table.login {
+    border-spacing : 2px 10px;
+}
+
+table.login th:first-of-type {
+  width: 100px;
 }
 
 /*=============================================*/
@@ -343,7 +355,7 @@ button.search {
 }
 
 /*=============================================*/
-/* 科目編集 */
+/* 警告赤文字 */
 /*=============================================*/
 
 .alert-red {

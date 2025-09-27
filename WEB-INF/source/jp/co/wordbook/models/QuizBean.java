@@ -57,7 +57,9 @@ public class QuizBean implements Serializable {
     // 出題時の処理
     //-------------------------------------------------------------------------
 
-    // 問題文と正解文を入れ替える (出題方式の変更用)
+    /**
+     * 問題文と正解文を入れ替える (出題方式の変更用)
+     */
     public void swapQuestionAndAnswer() {
 
         String tmp = question;
@@ -66,7 +68,11 @@ public class QuizBean implements Serializable {
     }
 
 
-    // インスタンスリストからJSONテキストを生成
+    /**
+     * インスタンスリストからJSONテキストを生成
+     * @param quizzes   JSON化する問題のリスト
+     * @return          JSONテキスト (nullなし)
+     */
     public static String getJson(List<QuizBean> quizzes) {
 
         final String DELIM = ", ";

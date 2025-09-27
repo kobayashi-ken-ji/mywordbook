@@ -2,6 +2,16 @@
 --      SQL文のバックアップ
 
 ------------------------------------------------------------------------------
+-- データベースを作成
+------------------------------------------------------------------------------
+
+CREATE DATABASE mywordbook CHARACTER SET utf8 COLLATE utf8_general_ci;
+SHOW DATABASES;     -- DB一覧
+USE mywordbook;     -- DBを選択
+SELECT DATABASE();  -- 選択中のDBを表示
+DROP DATABASE  mywordbook;  -- 削除
+
+------------------------------------------------------------------------------
 -- テーブルを作成
 ------------------------------------------------------------------------------
 
@@ -48,12 +58,12 @@ INSERT
 
 -- 科目名
 INSERT
-    INTO subjects(id, name)
+    INTO subjects(id, name, user_id)
     VALUES
-        (1, "英語 - 単語"),
-        (2, "英語 - 熟語"),
-        (3, "英語 - 構文"),
-        (4, "英語 - 活用");
+        (1, "英語 - 単語", "a"),
+        (2, "英語 - 熟語", "a"),
+        (3, "英語 - 構文", "a"),
+        (4, "英語 - 活用", "a");
 
 -- 問題
 --  【Mery】JSON→SQL挿入文.js  を使用してINSERT文を作成
@@ -66,11 +76,20 @@ INSERT
 -- ユーザー
 INSERT
     INTO users(id, password)
-    VALUES ("a", "b");
+    VALUES
+    ("a", "a"),
+    ("b", "b");
 
 ------------------------------------------------------------------------------
 -- データ取得
 ------------------------------------------------------------------------------
+
+-- 一覧
+SELECT * FROM difficulties;
+SELECT * FROM subjects;
+SELECT * FROM quizzes;
+SELECT * FROM users;
+
 
 -- ID, 問題文, 正解文, 説明文, 科目名, 難易度名
 SELECT quizzes.id, question, answer, explanation, subjects.name, difficulties.name
