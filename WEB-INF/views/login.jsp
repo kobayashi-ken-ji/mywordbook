@@ -11,6 +11,15 @@
 
                 <h1>ログイン</h1>
                 <p>${message}</p>
+
+                <div class="small-font">
+                    <br>
+                    現在、ポートフォリオとして公開しております。<br>
+                    以下の共用アカウントでログインが可能です。<br><br>
+
+                    ユーザーID : guest<br>
+                    パスワード : guest<br>
+                </div>
                 <br>
                 <table class="login">
                     <tr>
