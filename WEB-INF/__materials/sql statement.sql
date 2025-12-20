@@ -48,13 +48,13 @@ CREATE TABLE users (
 -- データ挿入
 ------------------------------------------------------------------------------
 
--- 難易度
+-- 難易度 (25.09.30 修正)
 INSERT
     INTO difficulties(id, name)
     VALUES
-        (1, "苦手"),
+        (1, "得意"),
         (2, "普通"),
-        (3, "得意");
+        (3, "苦手");
 
 -- 科目名
 INSERT
@@ -64,6 +64,14 @@ INSERT
         (2, "英語 - 熟語", "a"),
         (3, "英語 - 構文", "a"),
         (4, "英語 - 活用", "a");
+
+INSERT
+    INTO subjects(name, user_id)
+    VALUES
+        ("英語 - 単語", "guest"),
+        ("英語 - 熟語", "guest"),
+        ("英語 - 構文", "guest"),
+        ("英語 - 活用", "guest");
 
 -- 問題
 --  【Mery】JSON→SQL挿入文.js  を使用してINSERT文を作成
@@ -77,8 +85,8 @@ INSERT
 INSERT
     INTO users(id, password)
     VALUES
-    ("a", "a"),
-    ("b", "b");
+    ("test", "test"),
+    ("guest", "guest");
 
 ------------------------------------------------------------------------------
 -- データ取得
@@ -104,3 +112,18 @@ FROM quizzes
 	LEFT JOIN subjects ON subjects.id = quizzes.subject_id
     LEFT JOIN difficulties ON difficulties.id = quizzes.difficulty_id
 WHERE quizzes.id = 1;
+
+------------------------------------------------------------------------------
+-- データ削除
+------------------------------------------------------------------------------
+
+DELETE FROM quizzes WHERE subject_id = 2;
+DELETE FROM difficulties;
+
+------------------------------------------------------------------------------
+-- データ変更
+------------------------------------------------------------------------------
+
+UPDATE users SET id="b" WHERE id="a";
+UPDATE users SET password="b" WHERE password="a";
+UPDATE subjects SET user_id="konata" WHERE user_id="a";
