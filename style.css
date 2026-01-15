@@ -104,43 +104,6 @@ hr {
 } */
 
 /*=============================================*/
-/* ボタン化 (ラジオボタン、チェックボックス) */
-/*=============================================*/
-
-.buttonlike label {
-    margin: 0px 0px;
-}
-
-/* デフォルトのinputを非表示 */
-.buttonlike label input {
-    display: none;
-}
-
-/* チェックされていない状態 */
-.buttonlike label span {
-    color           : var(--button-dark);
-    margin-top      : 5px;
-    margin-bottom   : 5px;
-    font-size       : 14px;
-    border-radius   : 15px;
-    padding         : 3px 0px;
-    background      : var(--button-bright);
-    border          : 1px solid var(--button-dark);
-
-    /* 幅固定のため */
-    display         : inline-block;
-    text-align      : center;
-    width           : 95px;
-}
-
-/* チェックされている状態 */
-.buttonlike label input:checked + span {
-    color           : white;
-    background      : var(--button-dark);
-    border          : 1px solid var(--button-dark);
-}
-
-/*=============================================*/
 /* ボタン */
 /* リンク <a class="button">で適用可 */
 /*=============================================*/
@@ -268,6 +231,60 @@ select {
 table select {
     width       : 100%;
     box-sizing  : border-box;
+}
+
+/*=============================================*/
+/* ボタン化 (ラジオボタン、チェックボックス) */
+/*=============================================*/
+
+.buttonlike label {
+    margin: 0px 0px;
+}
+
+/* デフォルトのinputを非表示 */
+.buttonlike label input {
+    display: none;
+}
+
+/* チェックされていない状態 */
+.buttonlike label span {
+    color           : var(--button-dark);
+    margin-top      : 5px;
+    margin-bottom   : 5px;
+    font-size       : 14px;
+    border-radius   : 15px;
+    padding         : 3px 0px;
+    background      : var(--button-bright);
+    border          : 1px solid var(--button-dark);
+
+    /* 幅固定のため */
+    display         : inline-block;
+    text-align      : center;
+    width           : 95px;
+}
+
+/* チェックされている状態 */
+.buttonlike label input:checked + span {
+    color           : white;
+    background      : var(--button-dark);
+    border          : 1px solid var(--button-dark);
+}
+
+/* 3連ボタンの中に 通常のボタンを混ぜる */
+.quit-button {
+    color           : white;
+    margin-top      : 5px;
+    margin-bottom   : 5px;
+    font-size       : 14px;
+    border-radius   : 3px;
+    padding         : 3px 0px;
+    background      : var(--button-dark);
+    border          : none;
+
+    /* 幅固定のため */
+    display         : inline-block;
+    text-align      : center;
+    width           : 95px;
 }
 
 /*=============================================*/
