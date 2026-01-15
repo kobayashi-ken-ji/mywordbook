@@ -1,4 +1,35 @@
 //=============================================================================
+// 音声読み上げ
+//=============================================================================
+
+class Speech extends SpeechSynthesisUtterance
+{
+    isValid;            // 読み上げAPIが有効か否か
+    enable = false;     // speak()の有効/無効
+
+    constructor() {
+        super();
+        this.lang = "en-US";
+        this.rate = 0.9;    // 速度
+        this.pitch = 1;     // 高さ
+        this.volume = 1;    // 音量
+
+        this.isValid = ('speechSynthesis' in window);
+    }
+
+    /**
+     * テキスト読み上げ
+     * @param {string} text 省略時は前回の内容を読み上げる
+     */
+    speak(text = null) {
+        if (!this.isValid) return;
+        if (!this.enable) return;
+        if (text) this.text = text;
+        window.speechSynthesis.speak(this);
+    }
+}
+
+//=============================================================================
 // 問題データ クラス
 //=============================================================================
 
@@ -12,8 +43,7 @@ class Quiz
      * @param {string} answer           正解文
      * @param {string} explanation      説明文
      */
-    constructor(id, difficulty_id, question, answer, explanation)
-    {
+    constructor(id, difficulty_id, question, answer, explanation) {
         this.id            = id;
         this.difficulty_id = difficulty_id;
         this.question      = question;
@@ -31,6 +61,7 @@ class ToQuiz
     // HTMLの要素を取得
     elements = {
         inputEnable   : document.getElementById("input-enable"),
+        speakEnable   : document.getElementById("speak-enable"),
         count         : document.getElementById("count"),
         question      : document.getElementById("question"),
         input         : document.getElementById("input"),
@@ -51,13 +82,15 @@ class ToQuiz
     quiz          = null;   // 現在出題中の問題
     isAnswered    = false;  // すでに回答済みの問題かどうか
 
+    // 読み上げ機能
+    speech = new Speech();
 
     /**
      * 出題を開始する
      * @param {array} quizJson 
      */
-    constructor(quizJson, subjectName)
-    {
+    constructor(quizJson, subjectName) {
+
         this.subjectName = subjectName;
 
         // JSONから、Quizリストを生成
@@ -71,11 +104,19 @@ class ToQuiz
         }
 
         // イベントリスナーを設定
-        const e = this.elements;
-        e.inputEnable .addEventListener("change", () => this.applyInputEnable());
-        e.answerButton.addEventListener("click" , () => this.displayAnswer());
-        e.nextButton  .addEventListener("click" , () => this.displayNextQuiz());
-        e.quitButton  .addEventListener("click" , () => this.goToResult());
+        {
+            const e = this.elements;
+            e.inputEnable .addEventListener("change", () => this.applyInputEnable());
+            e.speakEnable .addEventListener("change", () => this.speech.enable = e.speakEnable.checked);
+            e.quitButton  .addEventListener("click" , () => this.goToResult());
+            e.answerButton.addEventListener("click" , () => this.displayAnswer(true));
+
+            // クリック時に答えを表示、離した時に次の問題へ
+            // e.nextButton  .addEventListener("mousedown" , () => this.displayAnswer(false));
+            // e.nextButton  .addEventListener("mouseup"   , () => this.displayNextQuiz());
+
+            e.nextButton  .addEventListener("click" , () => this.displayNextQuiz());
+        }
 
         // 難易度ボタン (複数のラジオボタン)
         for (let element of this.elements.difficultyids) {
@@ -92,8 +133,7 @@ class ToQuiz
 
 
     // リザルト画面へ移行
-    goToResult()
-    {
+    goToResult() {
         // URLを生成
         const rate = this.correctCount / this.quizCount * 100;
         const url =
@@ -107,8 +147,8 @@ class ToQuiz
 
 
     // 次の問題を表示
-    displayNextQuiz()
-    {
+    displayNextQuiz() {
+
         // 全問終了 → 結果ページへ
         if (!this.quizzes.length) {
             this.goToResult();
@@ -148,12 +188,23 @@ class ToQuiz
         // フォーカスを回答欄へ
         if (e.inputEnable.value == "true")
             e.input.focus();
+
+        // 読み上げ
+        this.speech.text = quiz.question; 
+        this.speech.speak();
     }
 
 
-    // 正解文を表示
-    displayAnswer()
-    {
+    /**
+     * 正解文を表示
+     * @param {*} isSpeak 読み上げするか否か
+     */
+    displayAnswer(isSpeak = true) {
+
+        // 読み上げ
+        if (isSpeak)
+            this.speech.speak();
+
         const e = this.elements;
         const inputValue = e.input.value;
         const isCorrect  = (inputValue == this.quiz.answer);
@@ -175,23 +226,24 @@ class ToQuiz
         // 正解を表示
         e.answer.innerText = mark + this.quiz.answer;
         e.answer.classList.remove('opacity_0');
+        
     }
 
 
     // 回答欄を表示/非表示 を反映
-    applyInputEnable()
-    {
+    applyInputEnable() {
+
         // <input>内の class="display-none" を付与/削除
         const e = this.elements;
-        (e.inputEnable.value == "true")
+        (e.inputEnable.checked)
             ? e.input.classList.remove("display-none")
             : e.input.classList.add   ("display-none");
     }
 
 
     // 難易度の変更を送信 (onclick用)
-    sendDifficultyid(difficulty_id)
-    {
+    sendDifficultyid(difficulty_id) {
+        
         // URLを作成
         const query = `?quizid=${this.quiz.id}&difficultyid=${difficulty_id}`;
         const url = "difficultyupdate" + query;

@@ -10,13 +10,16 @@
 
         <div class="window-width align-center">
 
-            <div class="quiz-menu">
-                <select id="input-enable">
-                    <option value="true" >回答欄を表示</option>
-                    <option value="false">回答欄を非表示</option>
-                </select>
-
-                <button id="quit-button">出題終了</button> 
+            <div class="buttonlike">
+                <label>
+                    <input type="checkbox" id="input-enable" checked>
+                    <span>回答欄 表示</span>
+                </label>
+                <label>
+                    <input type="checkbox" id="speak-enable">
+                    <span>英語読み上げ</span>
+                </label>
+                <button class="quit-button" id="quit-button">出題終了</button> 
             </div>
 
             <div class="white-area quiz">
