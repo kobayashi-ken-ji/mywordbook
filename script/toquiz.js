@@ -197,7 +197,7 @@ class ToQuiz
 
     /**
      * 正解文を表示
-     * @param {*} isSpeak 読み上げするか否か
+     * @param {boolean} isSpeak 読み上げするか否か
      */
     displayAnswer(isSpeak = true) {
 

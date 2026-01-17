@@ -13,12 +13,12 @@ public abstract class DataAccessObject<T> {
     private Connection connection;
 
     // データベース情報
+    // [!] LinuxではURLにUTF8と明記する必要がある
     private static final String
-        URL      = "jdbc:mysql://localhost/mywordbook",
+        URL      = "jdbc:mysql://localhost/mywordbook?useUnicode=true&characterEncoding=UTF-8",
         USER     = "root",
         PASSWORD = "",
         JDBC     = "com.mysql.jdbc.Driver";
-
 
     // T型のインスタンスを生成
     protected abstract T createEntity(ResultSet results) throws SQLException;

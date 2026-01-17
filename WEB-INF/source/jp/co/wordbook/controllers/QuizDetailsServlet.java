@@ -13,6 +13,8 @@ public class QuizDetailsServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException
     {
+        request.setCharacterEncoding("utf-8");
+
         String state;
         QuizBean quiz;
         SubjectBean subject;
