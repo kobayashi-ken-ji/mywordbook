@@ -26,12 +26,12 @@ javac -cp "lib/servlet-api.jar;classes" -d classes source/jp/co/wordbook/*.java
 
 
 パッケージ分割後 (25/09/08以降)
-cd WEB-INF
+cd WEB-INF  ※ 移動してからコンパイル
 javac -cp "lib/servlet-api.jar;classes" -d classes source/jp/co/wordbook/controllers/*.java source/jp/co/wordbook/models/*.java
 
 ================================================================================
 warファイルを生成
 ================================================================================
 
-カレントディレクトリ mywordbook
+cd mywordbook  ※ 移動してから実行 
 jar cvf mywordbook.war -C . .
