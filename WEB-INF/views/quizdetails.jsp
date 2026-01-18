@@ -33,7 +33,7 @@
                     </tr>
                     <tr>
                         <th>説明文</th>
-                        <td>${quiz.explanation}</td>
+                        <td class="pre-wrap">${quiz.explanation}</td>
                     </tr>
                     <tr>
                         <th>難易度</th>
