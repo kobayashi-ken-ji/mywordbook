@@ -22,9 +22,9 @@ public class ToQuizServlet extends HttpServlet {
 
         String[] difficulty_ids;
         String format;
-        SubjectBean subject;
-        List<QuizBean> quizzes;
-        List<DifficultyBean> difficulties;
+        SubjectDTO subject;
+        List<QuizDTO> quizzes;
+        List<DifficultyDTO> difficulties;
 
         try {
             // リクエストから取得
@@ -59,7 +59,7 @@ public class ToQuizServlet extends HttpServlet {
 
         // 問題文 ⇔ 正解文 の入れ替え
         if ("swap".equals(format)) {
-            for (QuizBean quiz : quizzes) {
+            for (QuizDTO quiz : quizzes) {
                 String newAnswer   = quiz.getQuestion();
                 String newQuestion = quiz.getAnswer();
                 quiz.setQuestion(newQuestion);
@@ -94,30 +94,24 @@ public class ToQuizServlet extends HttpServlet {
      * @param list  問題のリスト
      * @return      JSONテキスト
      */
-    public static String quizlistToJson(List<QuizBean> list) 
+    private static String quizlistToJson(List<QuizDTO> list) 
         throws JsonProcessingException {
 
-        // 2次元配列を生成
-        final int ELEMENT_LENGTH = 6;
-        final int size = list.size();
-        Object[][] arrays = new Object[size][ELEMENT_LENGTH];
-
-        // リスト側 → 配列側 へ値をコピー
-        for (int i=0; i<size; ++i) {
-
-            QuizBean bean = list.get(i);
-            arrays[i] = new Object[] {
-                bean.getId(),
-                bean.getDifficulty_id(),
-                bean.getQuestion(),
-                bean.getAnswer(),
-                bean.getExplanation(),
-            };
-        }
+        // List → 2次元配列 へ変換
+        // {{id, question, answer, explanation}, ...}
+        final Object[][] quizArray = list.stream()
+            .map(quiz -> new Object[] {
+                quiz.getId(),
+                quiz.getDifficulty_id(),
+                quiz.getQuestion(),
+                quiz.getAnswer(),
+                quiz.getExplanation(),
+            })
+            .toArray(Object[][]::new);
 
         // 配列 → JSON化
         ObjectMapper mapper = new ObjectMapper();
-        String json = mapper.writeValueAsString(arrays);
+        String json = mapper.writeValueAsString(quizArray);
         return json;
     }
 }

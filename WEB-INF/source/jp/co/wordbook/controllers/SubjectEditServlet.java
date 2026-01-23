@@ -17,7 +17,7 @@ public class SubjectEditServlet extends HttpServlet {
         String userId = Session.getUserId(request);
 
         boolean isNew;
-        SubjectBean subject;
+        SubjectDTO subject;
 
         try {
             // リクエストから取得
@@ -26,7 +26,7 @@ public class SubjectEditServlet extends HttpServlet {
 
             // データベースから取得 or 新規作成
             subject = (isNew)
-                ? new SubjectBean(0, "", "")
+                ? new SubjectDTO(0, "", "")
                 : new SubjectDAO().getRecord(subjectid, userId);
         }
                 

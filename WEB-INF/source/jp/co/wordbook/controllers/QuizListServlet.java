@@ -17,8 +17,8 @@ public class QuizListServlet extends HttpServlet {
         // セッションから取得
         String userId = Session.getUserId(request);
 
-        SubjectBean subject;
-        List<QuizBean> quizzes;
+        SubjectDTO subject;
+        List<QuizDTO> quizzes;
 
         try {
             // リクエストから取得

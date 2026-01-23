@@ -14,7 +14,7 @@ public class QuizDeleteServlet extends HttpServlet {
         throws ServletException, IOException
     {
         int quiz_id;
-        QuizBean quiz;
+        QuizDTO quiz;
         QuizDAO quizDAO = new QuizDAO();
 
         // セッションから取得

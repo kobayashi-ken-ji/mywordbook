@@ -6,13 +6,13 @@ import java.util.List;
 /**
  * usersテーブルへアクセスするクラス
  */
-public class UserDAO extends DataAccessObject<UserBean> {
+public class UserDAO extends DataAccessObject<UserDTO> {
 
     // Entityを生成
     @Override
-    protected UserBean createEntity(ResultSet results) throws SQLException {
+    protected UserDTO createEntity(ResultSet results) throws SQLException {
 
-        return new UserBean(
+        return new UserDTO(
             results.getString("id"),
             results.getString("password")
         );
@@ -28,7 +28,7 @@ public class UserDAO extends DataAccessObject<UserBean> {
     public boolean searchUser(String id, String password) {
 
         final String sql = "SELECT * FROM users WHERE id=? AND password=?";
-        List<UserBean> list = executeQuery(sql, id, password);
+        List<UserDTO> list = executeQuery(sql, id, password);
 
         return (!list.isEmpty());
     }

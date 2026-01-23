@@ -17,7 +17,7 @@
                 <table class="td-align-left ">
                     <tr>
                         <th>ID</th>
-                        <td>${quiz.idString}</td>
+                        <td>${quiz.id}</td>
                     </tr>
                     <tr>
                         <th>科目</th>
