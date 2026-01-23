@@ -3,16 +3,16 @@ package jp.co.wordbook.models;
 import java.io.*;
 
 /**
- * difficultiesテーブルへアクセスするクラス
+ * difficultiesテーブルの値転送用オブジェクト
  */
-public class DifficultyBean implements Serializable
+public class DifficultyDTO implements Serializable
 {
     private int id;
     private String name;
 
     // コンストラクタ
-    public DifficultyBean() {}
-    public DifficultyBean(int id, String name) {
+    public DifficultyDTO() {}
+    public DifficultyDTO(int id, String name) {
         this.id   = id;
         this.name = name;
     }

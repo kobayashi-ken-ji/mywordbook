@@ -28,7 +28,7 @@ public class DifficultyUpdateServlet  extends HttpServlet {
 
             // データベースから取得
             // ユーザーと科目が結びついているかチェック
-            QuizBean quiz = quizDAO.getRecord(quiz_id);
+            QuizDTO quiz = quizDAO.getRecord(quiz_id);
             subjectDAO.userHasSubject(quiz.getSubject_id(), userId);
         }
         

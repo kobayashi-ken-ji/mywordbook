@@ -6,13 +6,13 @@ import java.sql.*;
 /**
  * quizzesテーブルへアクセスするクラス
  */
-public class QuizDAO extends DataAccessObject<QuizBean> {
+public class QuizDAO extends DataAccessObject<QuizDTO> {
     
     // Entityを生成
     @Override
-    protected QuizBean createEntity(ResultSet results) throws SQLException {
+    protected QuizDTO createEntity(ResultSet results) throws SQLException {
 
-        return new QuizBean(
+        return new QuizDTO(
             results.getInt("id"),
             results.getInt("subject_id"),
             results.getInt("difficulty_id"),
@@ -33,10 +33,10 @@ public class QuizDAO extends DataAccessObject<QuizBean> {
      * @return                      レコード情報 (nullなし)
      * @throws ParameterException   レコードが取得できない場合に発生
      */
-    public QuizBean getRecord(int quiz_id, int subject_id) throws ParameterException {
+    public QuizDTO getRecord(int quiz_id, int subject_id) throws ParameterException {
 
         String sql = "SELECT * FROM quizzes WHERE id=? AND subject_id=?;";
-        List<QuizBean> list = executeQuery(sql, quiz_id);
+        List<QuizDTO> list = executeQuery(sql, quiz_id);
         
         if (list.isEmpty())
             throw new ParameterException("Quizレコードが取得できません。");
@@ -51,10 +51,10 @@ public class QuizDAO extends DataAccessObject<QuizBean> {
      * @return                      レコード情報 (nullなし)
      * @throws ParameterException   レコードが取得できない場合に発生
      */
-    public QuizBean getRecord(int quiz_id) throws ParameterException {
+    public QuizDTO getRecord(int quiz_id) throws ParameterException {
 
         String sql = "SELECT * FROM quizzes WHERE id = ?;";
-        List<QuizBean> list = executeQuery(sql, quiz_id);
+        List<QuizDTO> list = executeQuery(sql, quiz_id);
         
         if (list.isEmpty())
             throw new ParameterException("Quizレコードが取得できません。");
@@ -68,10 +68,10 @@ public class QuizDAO extends DataAccessObject<QuizBean> {
      * @param subject_id    科目ID (ユーザーIDと照合したもの)
      * @return              問題リスト (nullなし)
      */
-    public List<QuizBean> getAllRecords(int subject_id) {
+    public List<QuizDTO> getAllRecords(int subject_id) {
 
         final String sql = "SELECT * FROM quizzes WHERE subject_id = ?;";
-        List<QuizBean> list = executeQuery(sql, subject_id);
+        List<QuizDTO> list = executeQuery(sql, subject_id);
         return list;
     }
 
@@ -82,7 +82,7 @@ public class QuizDAO extends DataAccessObject<QuizBean> {
      * @param difficulty_ids    難易度IDの配列 (サーブレットのパラメータから取得)
      * @return                  難易度リスト (nullなし)
      */
-    public List<QuizBean> getAllRecords(int subject_id, String[] difficulty_ids) {
+    public List<QuizDTO> getAllRecords(int subject_id, String[] difficulty_ids) {
 
         // SQLの検索条件を作成
         //      クイズ難易度は複数選択できる
@@ -102,7 +102,7 @@ public class QuizDAO extends DataAccessObject<QuizBean> {
             "SELECT * FROM quizzes " +
             "WHERE subject_id = ? " + difficultiesSql + ";";
 
-        List<QuizBean> list = executeQuery(sql, subject_id);
+        List<QuizDTO> list = executeQuery(sql, subject_id);
         return list;
     }
 

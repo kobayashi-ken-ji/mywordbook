@@ -21,8 +21,8 @@ public class TopServlet extends HttpServlet {
         SubjectDAO subjectDAO = new SubjectDAO();
         DifficultyDAO difficultyDAO = new DifficultyDAO();
 
-        List<SubjectBean> subjects = subjectDAO.getAllRecords(userId);  // ユーザーを照合
-        List<DifficultyBean> difficulties = difficultyDAO.getAllRecords();
+        List<SubjectDTO> subjects = subjectDAO.getAllRecords(userId);  // ユーザーを照合
+        List<DifficultyDTO> difficulties = difficultyDAO.getAllRecords();
 
         // リクエストへ設定
         request.setAttribute("nosubjects", (subjects.size() == 0));

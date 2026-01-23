@@ -3,9 +3,9 @@ package jp.co.wordbook.models;
 import java.io.*;
 
 /**
- * quizテーブルのレコードを扱うクラス
+ * quizテーブルの値転送用オブジェクト
  */
-public class QuizBean implements Serializable {
+public class QuizDTO implements Serializable {
 
     private int    id;               // クイズID
     private int    subject_id;       // 科目ID
@@ -16,8 +16,8 @@ public class QuizBean implements Serializable {
 
 
     // コンストラクタ
-    public QuizBean() {}
-    public QuizBean(
+    public QuizDTO() {}
+    public QuizDTO(
         int id, int subject_id, int difficulty_id,
         String explanation, String question, String answer
     ) {
@@ -44,11 +44,4 @@ public class QuizBean implements Serializable {
     public String getExplanation()  { return explanation; }
     public String getQuestion()     { return question; }
     public String getAnswer()       { return answer; }
-    
-    // idを文字列で取得
-    public String getIdString() {
-        return (id == 0) 
-            ? "- 新規作成 -"
-            : Integer.toString(id);
-    }
 }

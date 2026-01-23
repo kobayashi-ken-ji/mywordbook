@@ -16,9 +16,9 @@ public class QuizDetailsServlet extends HttpServlet {
         request.setCharacterEncoding("utf-8");
 
         String state;
-        QuizBean quiz;
-        SubjectBean subject;
-        DifficultyBean difficulty;
+        QuizDTO quiz;
+        SubjectDTO subject;
+        DifficultyDTO difficulty;
 
         // セッションから取得
         String userId = Session.getUserId(request);

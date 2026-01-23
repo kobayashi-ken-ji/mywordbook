@@ -6,13 +6,13 @@ import java.util.List;
 /**
  * subjectsテーブルへアクセスするクラス
  */
-public class SubjectDAO extends DataAccessObject<SubjectBean> {
+public class SubjectDAO extends DataAccessObject<SubjectDTO> {
 
     // Entityを生成
     @Override
-    protected SubjectBean createEntity(ResultSet results) throws SQLException {
+    protected SubjectDTO createEntity(ResultSet results) throws SQLException {
 
-        return new SubjectBean(
+        return new SubjectDTO(
             results.getInt("id"),
             results.getString("name"),
             results.getString("user_id")
@@ -41,11 +41,11 @@ public class SubjectDAO extends DataAccessObject<SubjectBean> {
      * @return                      レコードの情報 (nullなし)
      * @throws ParameterException   レコードが取得できない場合
      */
-    public SubjectBean getRecord(int subject_id, String user_id) 
+    public SubjectDTO getRecord(int subject_id, String user_id) 
         throws ParameterException
     {
         final String sql = "SELECT * FROM subjects WHERE id=? AND user_id=?;";
-        List<SubjectBean> list = executeQuery(sql, subject_id, user_id);
+        List<SubjectDTO> list = executeQuery(sql, subject_id, user_id);
 
         if (list.isEmpty())
             throw new ParameterException("Subjectレコードが取得できません。");
@@ -59,10 +59,10 @@ public class SubjectDAO extends DataAccessObject<SubjectBean> {
      * @param user_id   ユーザーID
      * @return          科目リスト (nullなし)
      */
-    public List<SubjectBean> getAllRecords(String user_id) {
+    public List<SubjectDTO> getAllRecords(String user_id) {
 
         final String sql = "SELECT * FROM subjects WHERE user_id = ?";
-        List<SubjectBean> list = executeQuery(sql, user_id);
+        List<SubjectDTO> list = executeQuery(sql, user_id);
         return list;
     }
 

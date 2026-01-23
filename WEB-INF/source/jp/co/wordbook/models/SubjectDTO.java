@@ -3,17 +3,17 @@ package jp.co.wordbook.models;
 import java.io.*;
 
 /**
- * subjectテーブルのレコードを扱うクラス
+ * subjectテーブルの値転送用オブジェクト
  */
-public class SubjectBean implements Serializable
+public class SubjectDTO implements Serializable
 {
     private int id;
     private String name;
     private String user_id;
 
     // コンストラクタ
-    public SubjectBean() {}
-    public SubjectBean(int id, String name, String user_id) {
+    public SubjectDTO() {}
+    public SubjectDTO(int id, String name, String user_id) {
         this.id      = id;
         this.name    = name;
         this.user_id = user_id;
@@ -28,11 +28,4 @@ public class SubjectBean implements Serializable
     public int getId()         { return id; }
     public String getName()    { return name; }
     public String getUser_id() { return user_id; }
-
-    // idを文字列で取得
-    public String getIdString() {
-        return (id == 0) 
-            ? "- 新規作成 -"
-            : Integer.toString(id);
-    }
 }

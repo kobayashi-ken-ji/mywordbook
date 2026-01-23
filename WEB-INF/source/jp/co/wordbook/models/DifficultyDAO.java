@@ -6,13 +6,13 @@ import java.util.List;
 /**
  * difficultesテーブルへアクセスするクラス
  */
-public class DifficultyDAO extends DataAccessObject<DifficultyBean> {
+public class DifficultyDAO extends DataAccessObject<DifficultyDTO> {
 
     // Entityを生成
     @Override
-    protected DifficultyBean createEntity(ResultSet results) throws SQLException {
+    protected DifficultyDTO createEntity(ResultSet results) throws SQLException {
 
-        return new DifficultyBean(
+        return new DifficultyDTO(
             results.getInt("id"),
             results.getString("name")
         );
@@ -25,10 +25,10 @@ public class DifficultyDAO extends DataAccessObject<DifficultyBean> {
      * @return                      レコード情報 (nullなし)
      * @throws ParameterException   レコードが存在しない場合に発生
      */
-    public DifficultyBean getRecord(int difficulty_id) throws ParameterException {
+    public DifficultyDTO getRecord(int difficulty_id) throws ParameterException {
     
         final String sql = "SELECT * FROM difficulties WHERE id = ?";
-        List<DifficultyBean> list = executeQuery(sql, difficulty_id);
+        List<DifficultyDTO> list = executeQuery(sql, difficulty_id);
 
         // 例外を投げる
         if (list.isEmpty())
@@ -42,10 +42,10 @@ public class DifficultyDAO extends DataAccessObject<DifficultyBean> {
      * テーブルからインスタンスリストを生成
      * @return 難易度リスト (nullなし)
      */
-    public List<DifficultyBean> getAllRecords() {
+    public List<DifficultyDTO> getAllRecords() {
 
         final String sql = "SELECT * FROM difficulties";
-        List<DifficultyBean> list = executeQuery(sql);
+        List<DifficultyDTO> list = executeQuery(sql);
         return list;
     }
 }
