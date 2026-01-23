@@ -17,10 +17,10 @@ public class QuizEditServlet extends HttpServlet {
         SubjectDAO subjectDAO = new SubjectDAO();
         DifficultyDAO difficultyDAO = new DifficultyDAO();
 
-        List<SubjectBean>    subjects;
-        List<DifficultyBean> difficulties;
+        List<SubjectDTO>    subjects;
+        List<DifficultyDTO> difficulties;
         boolean isNew;
-        QuizBean quiz;
+        QuizDTO quiz;
 
         // セッションから取得
         String userId = Session.getUserId(request);
@@ -35,7 +35,7 @@ public class QuizEditServlet extends HttpServlet {
             subjects       = subjectDAO.getAllRecords(userId);
             difficulties   = difficultyDAO.getAllRecords();
             quiz = (isNew)
-                ? new QuizBean(0, subject_id, 2, "","", "")
+                ? new QuizDTO(0, subject_id, 2, "","", "")
                 : new QuizDAO().getRecord(quiz_id);
 
             // ユーザーと紐づいているかチェック

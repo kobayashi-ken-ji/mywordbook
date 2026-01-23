@@ -31,7 +31,7 @@
 
                     <c:forEach var="quiz" items="${quizzes}">
                         <tr>
-                            <th>${quiz.idString}</td>
+                            <th>${quiz.id}</td>
                             <td>
                                 <a href="quizdetails?quizid=${quiz.id}&state=normal">
                                     ${quiz.question}

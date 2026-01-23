@@ -16,7 +16,10 @@
                 <table class="td-align-left ">
                     <tr>
                         <th>ID</th>
-                        <td>${subject.idString}</td>
+                        <td>
+                            <c:if test="${subject.id == 0}">- 新規作成 -</c:if>
+                            <c:if test="${subject.id != 0}">${subject.id}</c:if>
+                        </td>
                     </tr>
                     <tr>
                         <th>科目名</th>
