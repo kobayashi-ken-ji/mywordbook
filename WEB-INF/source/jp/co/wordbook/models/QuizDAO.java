@@ -68,8 +68,8 @@ public class QuizDAO extends DataAccessObject<QuizBean> {
      * @param subject_id    科目ID (ユーザーIDと照合したもの)
      * @return              問題リスト (nullなし)
      */
-    public List<QuizBean> getAllRecords(int subject_id)
-    {
+    public List<QuizBean> getAllRecords(int subject_id) {
+
         final String sql = "SELECT * FROM quizzes WHERE subject_id = ?;";
         List<QuizBean> list = executeQuery(sql, subject_id);
         return list;

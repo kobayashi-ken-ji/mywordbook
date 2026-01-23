@@ -1,5 +1,5 @@
 //=============================================================================
-// 音声読み上げ
+// 音声読み上げ (英語)
 //=============================================================================
 
 class Speech extends SpeechSynthesisUtterance
@@ -186,7 +186,7 @@ class ToQuiz
         e.input.value = "";
 
         // フォーカスを回答欄へ
-        if (e.inputEnable.value == "true")
+        if (e.inputEnable.checked)
             e.input.focus();
 
         // 読み上げ

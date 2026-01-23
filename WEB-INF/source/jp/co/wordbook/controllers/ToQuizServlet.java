@@ -5,6 +5,9 @@ import java.util.*;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import jp.co.wordbook.models.*;
 
 // 出題ページ
@@ -56,8 +59,12 @@ public class ToQuizServlet extends HttpServlet {
 
         // 問題文 ⇔ 正解文 の入れ替え
         if ("swap".equals(format)) {
-            for (QuizBean quiz : quizzes)
-                quiz.swapQuestionAndAnswer();
+            for (QuizBean quiz : quizzes) {
+                String newAnswer   = quiz.getQuestion();
+                String newQuestion = quiz.getAnswer();
+                quiz.setQuestion(newQuestion);
+                quiz.setAnswer(newAnswer);
+            }
         }
 
         // Javascriptでクイズデータ(JSON)を使用できるようにする
@@ -66,7 +73,7 @@ public class ToQuizServlet extends HttpServlet {
         //      スクリプトごと送る
         String jsonscript = 
             "<script charset=\"utf-8\">\n" +
-                "let quizJson = " + QuizBean.getJson(quizzes) + ";\n" +
+                "let quizJson = " + quizlistToJson(quizzes) + ";\n" +
                 "let subjectName = \"" + subject.getName() + "\";\n" +
             "</script>";
 
@@ -79,5 +86,38 @@ public class ToQuizServlet extends HttpServlet {
         String view = "/WEB-INF/views/toquiz.jsp";
         RequestDispatcher dispatcher = request.getRequestDispatcher(view);
         dispatcher.forward(request, response);
+    }
+
+
+    /** 
+     * クイズリスト → JSONテキスト へ変換 (jacksonを使用)
+     * @param list  問題のリスト
+     * @return      JSONテキスト
+     */
+    public static String quizlistToJson(List<QuizBean> list) 
+        throws JsonProcessingException {
+
+        // 2次元配列を生成
+        final int ELEMENT_LENGTH = 6;
+        final int size = list.size();
+        Object[][] arrays = new Object[size][ELEMENT_LENGTH];
+
+        // リスト側 → 配列側 へ値をコピー
+        for (int i=0; i<size; ++i) {
+
+            QuizBean bean = list.get(i);
+            arrays[i] = new Object[] {
+                bean.getId(),
+                bean.getDifficulty_id(),
+                bean.getQuestion(),
+                bean.getAnswer(),
+                bean.getExplanation(),
+            };
+        }
+
+        // 配列 → JSON化
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(arrays);
+        return json;
     }
 }
