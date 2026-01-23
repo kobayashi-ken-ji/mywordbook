@@ -1,6 +1,5 @@
 package jp.co.wordbook.models;
 
-import java.util.*;
 import java.io.*;
 
 /**
@@ -51,49 +50,5 @@ public class QuizBean implements Serializable {
         return (id == 0) 
             ? "- 新規作成 -"
             : Integer.toString(id);
-    }
-
-    //-------------------------------------------------------------------------
-    // 出題時の処理
-    //-------------------------------------------------------------------------
-
-    /**
-     * 問題文と正解文を入れ替える (出題方式の変更用)
-     */
-    public void swapQuestionAndAnswer() {
-
-        String tmp = question;
-        question = answer;
-        answer = tmp;
-    }
-
-
-    /**
-     * インスタンスリストからJSONテキストを生成
-     * @param quizzes   JSON化する問題のリスト
-     * @return          JSONテキスト (nullなし)
-     */
-    public static String getJson(List<QuizBean> quizzes) {
-
-        final String DELIM = ", ";
-        final String QUOUT = "\"";
-        StringJoiner joiner = new StringJoiner(",\n");
-
-        // JSONへ変換
-        for (QuizBean quiz : quizzes) {
-
-            // "[クイズid, 難易度id, 問題文, 正解文, 説明文]"
-            joiner.add(
-                "    [" +
-                    quiz.id + DELIM +
-                    quiz.difficulty_id + DELIM +
-                    QUOUT + quiz.question + QUOUT + DELIM +
-                    QUOUT + quiz.answer + QUOUT + DELIM +
-                    QUOUT + quiz.explanation.replace("\n", "\\n") + QUOUT +
-                "]"
-            );
-        }
-
-        return "[\n" + joiner.toString() + "\n]";
     }
 }
