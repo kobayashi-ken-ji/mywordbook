@@ -17,8 +17,10 @@
                     <tr>
                         <th>ID</th>
                         <td>
-                            <c:if test="${subject.id == 0}">- 新規作成 -</c:if>
-                            <c:if test="${subject.id != 0}">${subject.id}</c:if>
+                            ${(subject.id == 0)
+                                ? "- 新規作成 -"
+                                : subject.id
+                            }
                         </td>
                     </tr>
                     <tr>
@@ -29,18 +31,16 @@
                 
                 <input  type="hidden" name="subjectid" value="${subject.id}">
                 <button type="submit" name="button" value="save">保存</button>
-                <button type="submit" name="button" value="delete" onclick="deleteButton()"
-                    <c:if test="${isNew}">style="display:none;"</c:if>>削除</button>
+                <button type="submit" name="button" value="delete" ${isNew ? "hidden" : "" }
+                    onclick="deleteButton()">削除</button>
                 
-                <c:if test="${!isNew}">
-                    <div>
+                    <div ${isNew ? "hidden" : "" }>
                         <hr>
                         <p class="alert-red" >
                             [ 削除時の注意点 ]<br>
                             科目内の問題も全て削除されます。
                         </p>
                     </div>
-                </c:if>
             </form>
             
             <a class="button red wide" onclick="history.back()">キャンセル</a>

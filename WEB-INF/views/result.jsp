@@ -17,16 +17,18 @@
                     </tr>
                     <tr>
                         <th>正解数</th>
-                        <td>${correctcount}問 / ${quizcount}問中</td>
+                        <td>${correctcount}問 / ${quizcount}問中 (${correctcount / quizcount * 100}%)</td>
                     </tr>
                     <tr>
-                        <th>正答率</th>
-                        <td>${rate}%</td>
+                        <th>再出題<br>不要数</th>
+                        <td>${noRetestCount}問 / ${quizcount}問中 (${noRetestCount / quizcount * 100}%)</td>
                     </tr>
                 </table>
             </div>
 
-            <a class="button red wide" href="top">トップ画面へ</a>
+            <a class="button wide ${completed ? 'red' : 'blue'}" href="top">トップ画面へ</a>
+            <a class="button wide red" ${completed ? 'hidden' : '' }
+                href="toquiz?action=continue&lot-size=0">次の出題へ</a>
         </div>
     </body>
 </html>

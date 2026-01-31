@@ -35,7 +35,7 @@ public class QuizEditServlet extends HttpServlet {
             subjects       = subjectDAO.getAllRecords(userId);
             difficulties   = difficultyDAO.getAllRecords();
             quiz = (isNew)
-                ? new QuizDTO(0, subject_id, 2, "","", "")
+                ? new QuizDTO(0, subject_id, 2, "","", "", false)
                 : new QuizDAO().getRecord(quiz_id);
 
             // ユーザーと紐づいているかチェック

@@ -24,6 +24,15 @@ function topStartButton() {
     }
 }
 
+// // トップページ 続きからボタン
+// function topContinueButton() {
+
+//     // 一度に出題する問題数
+//     const questionLotSize = document.getElementsByName("question_lot_size");
+
+    
+// }
+
 
 // トップページ チェックボックスを1つ以上選択させる
 //  [不採用] CSSでチェックボックスが display:none 指定され、警告を表示できないため
