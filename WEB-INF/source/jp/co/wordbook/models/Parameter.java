@@ -19,16 +19,22 @@ public class Parameter {
         throws ParameterException
     {
         int number = -1;
-        
+        String string = request.getParameter(parameterName);
+
+        // int変換 チェック
         try {
-            number = Integer.parseInt(request.getParameter(parameterName));
+            number = Integer.parseInt(string);
         } catch (NumberFormatException e) {
-            throw new ParameterException("Stringをintへ変換できません。");
+            throw new ParameterException(
+                "パラメータ [" + parameterName + "] (値: " + string + ") はintへ変換できません。"
+            );
         }
 
-        if (number < 0)
-            throw new ParameterException("数値が0未満です。");
-        
+        // 0以上かチェック
+        if (number < 0) {
+            throw new ParameterException(
+                "パラメータ [" + parameterName + "] (値: " + number + ") は0未満です。");
+        }
         return number;
     }
 
@@ -46,7 +52,7 @@ public class Parameter {
         String string = request.getParameter(parameterName);
 
         if (string == null)
-            throw new ParameterException("文字列がnullです。");
+            throw new ParameterException("パラメータ [" + parameterName + "] がnullです。");
 
         return string;
     }
@@ -65,8 +71,24 @@ public class Parameter {
         String[] strings = request.getParameterValues(parameterName);
 
         if (strings == null)
-            throw new ParameterException("文字列配列がnullです。");
+            throw new ParameterException("パラメータ [" + parameterName + "] がnullです。");
 
         return strings;
+    }
+
+
+    /**
+     * パラメータから文字列配列を取得 (nullの場合は空配列を返す)
+     * @param request               サーブレットのリクエスト
+     * @param parameterName         リクエストから取得するパラメータの名前
+     * @return                      文字列配列 (nullなし)
+     */
+    public static String[] getStringArrayOrEmpty(
+        HttpServletRequest request, String parameterName) {
+
+        String[] strings = request.getParameterValues(parameterName);
+        return (strings == null || strings.length == 0)
+            ? new String[0]
+            : strings;
     }
 }

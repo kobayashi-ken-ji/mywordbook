@@ -7,6 +7,7 @@ package jp.co.wordbook.models;
  * @see QuizDAO
  * @see SubjectDAO
  * @see DifficultyDAO
+ * @see QuizSettingDAO
  */
 public class ParameterException extends Exception {
     
