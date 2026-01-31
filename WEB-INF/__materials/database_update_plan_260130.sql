@@ -22,20 +22,6 @@ INSERT
 
 --------------------------------------------------------------
 
--- ユーザーテーブル 改修案 → 切り分けることで変更しなくてよくなった
-CREATE TABLE users (
-    id       VARCHAR(255) NOT NULL PRIMARY KEY,  -- ユーザーID
-    password VARCHAR(255) NOT NULL,              -- パスワード
-    
-    -- 現在出題中の情報
-    -- active_subject_id        INT,               -- 科目ID
-    -- active_difficulty_mask   TINYINT NOT,       -- 難易度id 立っているビット=難易度id
-    -- active_answered_count    INT NOT NULL,      -- 既出題数
-    -- active_question_lot_size INT NOT NULL       -- 一度に出題する問題数
-);
-
---------------------------------------------------------------
-
 -- 現在出題中の情報 テーブル
 CREATE TABLE user_quiz_settings (
     user_id           VARCHAR(255) NOT NULL PRIMARY KEY, 
@@ -112,14 +98,14 @@ WHERE
 
 -- -- カラムを挿入する場合は、DEFAULTが無いと NOT NULL にできない。
 -- SHOW TABLES;
--- ALTER TABLE quizzes ADD is_asked BOOLEAN NOT NULL DEFAULT FALSE;            -- 出題済みフラグ
+ALTER TABLE quizzes ADD is_asked BOOLEAN NOT NULL DEFAULT FALSE;            -- 出題済みフラグ
 -- ALTER TABLE users ADD active_subject_id INT;                                -- 科目ID
 -- ALTER TABLE users ADD active_difficulty_mask TINYINT NOT NULL DEFAULT 14;   -- 難易度id 立っているビット=難易度id
 -- ALTER TABLE users ADD active_answered_count INT NOT NULL DEFAULT 0;         -- 既出題数
 -- ALTER TABLE users ADD active_question_lot_size INT NOT NULL DEFAULT 10;     -- 一度に出題する問題数
 
 -- -- DEFAULTを削除
--- ALTER TABLE quizzes ALTER COLUMN is_asked DROP DEFAULT;
+ALTER TABLE quizzes ALTER COLUMN is_asked DROP DEFAULT;
 -- ALTER TABLE users ALTER COLUMN active_difficulty_mask DROP DEFAULT;
 -- ALTER TABLE users ALTER COLUMN active_answered_count DROP DEFAULT;
 -- ALTER TABLE users ALTER COLUMN active_question_lot_size DROP DEFAULT;
@@ -135,6 +121,12 @@ DELETE FROM difficulties;
 INSERT IGNORE
     INTO user_quiz_settings
     SELECT id, NULL, 4, FALSE, 20, 0 FROM users;
+
+-- 内容確認
+SELECT * FROM user_quiz_settings;
+
+------------------------------------------------------------------------------
+
 
 -- 出題設定を1レコード編集する
 UPDATE user_quiz_settings

@@ -70,7 +70,7 @@ public class ResultServlet extends HttpServlet {
             correctcount  = Parameter.getInt(request, "correctcount");
             quizcount     = Parameter.getInt(request, "quizcount");
             noRetestCount = Parameter.getInt(request, "no_retest_count");
-            stringQuizIds = Parameter.getStringArray(request, "quizIds");
+            stringQuizIds = Parameter.getStringArrayOrEmpty(request, "quizIds");
 
             // DBから取得
             quizSetting = quizSettingDAO.getRecord(userId);
@@ -83,8 +83,9 @@ public class ResultServlet extends HttpServlet {
             return;
         }
 
-        // 配列を受け取る
-        // String[] stringQuizIds = request.getParameterValues("quizIds");
+        // 
+        final int percentCorrect  = 100 * correctcount  / quizcount;
+        final int percentNoRetest = 100 * noRetestCount / quizcount;
 
         // String[] → List<Integer> 変換
         List<Integer> quizIds = Arrays.stream(stringQuizIds)
@@ -108,6 +109,8 @@ public class ResultServlet extends HttpServlet {
         request.setAttribute("correctcount", correctcount);
         request.setAttribute("quizcount", quizcount);
         request.setAttribute("noRetestCount", noRetestCount);
+        request.setAttribute("percentCorrect", percentCorrect);
+        request.setAttribute("percentNoRetest", percentNoRetest);
         request.setAttribute("completed", completed);
 
 

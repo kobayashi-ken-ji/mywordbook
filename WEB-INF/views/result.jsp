@@ -17,11 +17,11 @@
                     </tr>
                     <tr>
                         <th>正解数</th>
-                        <td>${correctcount}問 / ${quizcount}問中 (${correctcount / quizcount * 100}%)</td>
+                        <td>${correctcount}問 / ${quizcount}問中 (${percentCorrect}%)</td>
                     </tr>
                     <tr>
                         <th>再出題<br>不要数</th>
-                        <td>${noRetestCount}問 / ${quizcount}問中 (${noRetestCount / quizcount * 100}%)</td>
+                        <td>${noRetestCount}問 / ${quizcount}問中 (${percentNoRetest}%)</td>
                     </tr>
                 </table>
             </div>

@@ -69,11 +69,6 @@ hr {
     opacity: 0;
 }
 
-/* 要素を無効にする */
-.display-none {
-    display: none;
-}
-
 .bg-main {
     background  : var(--background);
 }
@@ -157,6 +152,14 @@ button.wide,
 a.button.wide {
     width       : 100%;
     box-sizing  : border-box;
+}
+
+/* ボタン2つと同じ幅 */
+button.double,
+a.button.double {
+    width       : 100%;
+    box-sizing  : border-box;
+    max-width   : 286px;
 }
 
 /*=============================================*/
@@ -387,6 +390,22 @@ button.search {
     color       : red;
     font-size   : 90%;
     margin      : 6px auto;
+}
+
+
+/* 要素を無効にする */
+.display-none {
+    display: none;
+}
+
+/* 要素を無効にする */
+.hide {
+    display: none  !important;
+}
+
+/* hidden を最重要化 */
+[hidden] {
+  display: none !important;
 }
 
 /*=============================================*/
