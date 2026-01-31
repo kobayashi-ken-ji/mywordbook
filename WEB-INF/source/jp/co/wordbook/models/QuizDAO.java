@@ -18,7 +18,8 @@ public class QuizDAO extends DataAccessObject<QuizDTO> {
             results.getInt("difficulty_id"),
             results.getString("explanation"),
             results.getString("question"),
-            results.getString("answer")
+            results.getString("answer"),
+            results.getBoolean("is_asked")
         );
     }
 
@@ -60,6 +61,84 @@ public class QuizDAO extends DataAccessObject<QuizDTO> {
             throw new ParameterException("Quizレコードが取得できません。");
 
         return list.get(0);
+    }
+
+
+    /**
+     * ユーザーの未出題問題を取得する
+     * @param quizSetting  出題設定
+     * @return 問題リスト (nullなし)
+     */
+    public List<QuizDTO> getUnaskedRecords(QuizSettingDTO quizSetting) {
+
+        // 難易度が未指定 → 空リストを返す
+        // ※ 基本的には難易度は必ず指定される設計
+        List<Integer> difficultyIds = quizSetting.getDifficultyIds();
+        if (difficultyIds.isEmpty()) {
+            System.err.println("Warning: activeDifficultyMask is empty.");
+            return new ArrayList<>();
+        }
+
+        // 難易度id要素数分の ? の文字列 ("?,?")
+        String placeholders = 
+            String.join(",", Collections.nCopies(difficultyIds.size(), "?"));
+
+        // 可変長引数に渡すために変数をまとめる
+        List<Integer> parameters = new ArrayList<Integer>();
+        parameters.add   (quizSetting.getSubjectId());
+        parameters.addAll(difficultyIds);
+        parameters.add   (quizSetting.getLotSize());
+
+        // ※ Java11環境のため、テキストブロックは使用不可
+        // 問題テーブルから、ユーザーの未出題問題を取得する
+        final String sql = 
+            "SELECT * FROM quizzes INNER JOIN ( " +
+
+                //  IDだけを高速にランダム抽出
+                "SELECT id FROM quizzes " +
+                "WHERE subject_id = ? AND is_asked = FALSE AND " + 
+                    "difficulty_id IN (" + placeholders +") " +
+                "ORDER BY RAND() LIMIT ? " +
+
+            ") AS random_ids ON quizzes.id = random_ids.id;";
+
+        List<QuizDTO> list = executeQuery(sql, parameters.toArray());
+        return list;
+    }
+
+
+    /**
+     * ユーザーの未出題問題の件数 を取得する
+     * @param quizSetting  出題設定
+     * @return 問題リスト (nullなし)
+     */
+    public int getUnaskedCount(QuizSettingDTO quizSetting) {
+
+        // 難易度が未指定 → 空リストを返す
+        // ※ 基本的には難易度は必ず指定される設計
+        List<Integer> difficultyIds = quizSetting.getDifficultyIds();
+        if (difficultyIds.isEmpty()) {
+            System.err.println("Warning: activeDifficultyMask is empty.");
+            return 0;
+        }
+
+        // 難易度id要素数分の ? の文字列 ("?,?")
+        String placeholders = 
+            String.join(",", Collections.nCopies(difficultyIds.size(), "?"));
+
+        // 可変長引数に渡すために変数をまとめる
+        List<Integer> parameters = new ArrayList<Integer>();
+        parameters.add   (quizSetting.getSubjectId());
+        parameters.addAll(difficultyIds);
+
+        // ※ Java11環境のため、テキストブロックは使用不可
+        // 問題テーブルから、ユーザーの未出題問題の件数を取得
+        final String sql = 
+            "SELECT COUNT(*) FROM quizzes WHERE " + 
+            "subject_id = ? AND is_asked = FALSE AND difficulty_id IN ("+ placeholders +");";
+
+        int count = executeQueryGetCount(sql, parameters.toArray());
+        return count;
     }
 
 
@@ -130,13 +209,13 @@ public class QuizDAO extends DataAccessObject<QuizDTO> {
         // 新規作成
         if (quiz_id == 0) {
             String sql = 
-                "INSERT INTO quizzes(subject_id, difficulty_id, explanation, question, answer) " +
-                "VALUES (?, ?, ?, ?, ?)";
+                "INSERT INTO quizzes(subject_id, difficulty_id, explanation, question, answer, is_asked) " +
+                "VALUES (?, ?, ?, ?, ?, ?)";
 
             // 自動生成されたIDを取得
             Long generatedId = (Long)executeInsert(
                 1, sql, 
-                subject_id, difficulty_id, explanation, question, answer
+                subject_id, difficulty_id, explanation, question, answer, 0
             );
 
             return (generatedId == null) ? 0 : generatedId.intValue();
@@ -193,5 +272,47 @@ public class QuizDAO extends DataAccessObject<QuizDTO> {
         String sql = "UPDATE quizzes SET difficulty_id = ? WHERE id = ?;";
         int rowCount = executeUpdate(sql, difficulty_id, quiz_id);
         return (0 < rowCount);
+    }
+
+
+    /**
+     * 指定した全ての問題を出題済みにする (is_asked = true)
+     * @param quizIds 問題IDリスト
+     * @return        変更したレコード数
+     */
+    public int setAsked(List<Integer> quizIds) {
+
+        if (quizIds.isEmpty())
+            return 0;
+
+        // 難易度id要素数分の ? の文字列 ("?,?")
+        String placeholders = 
+            String.join(",", Collections.nCopies(quizIds.size(), "?"));
+
+        String sql =
+            "UPDATE quizzes " +
+            "SET is_asked = TRUE " +
+            "WHERE id IN (" + placeholders + ");";
+
+        int rowCount = executeUpdate(sql, quizIds.toArray());
+        return rowCount;
+    }
+
+
+    /**
+     * 指定ユーザーの全問題の出題済みフラグを初期化する
+     * @param userId  ユーザーID
+     * @return        変更したレコード数
+     */
+    public int resetAllAsked(String userId) {
+
+        String sql =
+            "UPDATE quizzes " +
+            "JOIN subjects ON quizzes.subject_id = subjects.id " +
+            "SET quizzes.is_asked = FALSE " +
+            "WHERE subjects.user_id = ? AND quizzes.is_asked = TRUE";
+
+        int rowCount = executeUpdate(sql, userId);
+        return rowCount;
     }
 }
