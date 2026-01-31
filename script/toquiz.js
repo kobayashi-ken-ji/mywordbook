@@ -62,25 +62,32 @@ class ToQuiz
     elements = {
         inputEnable   : document.getElementById("input-enable"),
         speakEnable   : document.getElementById("speak-enable"),
-        count         : document.getElementById("count"),
+        totalCount    : document.getElementById("total-count"),
+        countInLot    : document.getElementById("count-in-lot"),
         question      : document.getElementById("question"),
         input         : document.getElementById("input"),
         answer        : document.getElementById("answer"),
         explanation   : document.getElementById("explanation"),
         difficultyids : document.getElementsByName("difficultyids"),
         answerButton  : document.getElementById("answer-button"),
+        retestButton  : document.getElementById("retest-button"),
         nextButton    : document.getElementById("next-button"),
         quitButton    : document.getElementById("quit-button"),
     };
 
     // 出題用の変数
-    subjectName   = "";     // 科目名
-    quizzes       = [];     // 残りの問題リスト (出題ごとに減っていく)
-    quizzesLength = 0;      // 問題総数
-    quizCount     = 0;      // 出題数 (何問目か)
-    correctCount  = 0;      // 正解数
-    quiz          = null;   // 現在出題中の問題
-    isAnswered    = false;  // すでに回答済みの問題かどうか
+    subjectName    = "";     // 科目名
+    quizzes        = [];     // 残りの問題リスト (出題ごとに減っていく)
+    solvedQuizzes  = [];     // 回答し終えた問題のリスト
+    totalCount     = 0;      // 何問目か (全体)
+    countInLot     = 0;      // 何問目か (今回)
+    totalSize      = 0;      // 全体の総数 
+    lotSize        = 0;      // 今回の総数
+    correctCount   = 0;      // 正解数 (今回)
+    noRetestCount  = 0;      // 再出題せず、次へ進んだ数 (ユーザーの習得度が高い)
+    quiz           = null;   // 現在出題中の問題
+    isAnswered     = false;  // すでに回答済みの問題か否か
+    isDone         = false;  // 出題が一巡したか否か
 
     // 読み上げ機能
     speech = new Speech();
@@ -89,13 +96,16 @@ class ToQuiz
      * 出題を開始する
      * @param {array} quizJson 
      */
-    constructor(quizJson, subjectName) {
+    constructor(quizJson, subjectName, answeredCount, totalSize) {
 
         this.subjectName = subjectName;
+        this.answeredCount = answeredCount;
+        this.totalSize = totalSize;
+        this.totalCount = answeredCount;
 
         // JSONから、Quizリストを生成
         this.quizzes = quizJson.map(args => new Quiz(...args));
-        this.quizzesLength = this.quizzes.length;
+        this.lotSize = this.quizzes.length;
 
         // 総問題数が0
         if (this.quizzes.length == 0) {
@@ -110,12 +120,8 @@ class ToQuiz
             e.speakEnable .addEventListener("change", () => this.speech.enable = e.speakEnable.checked);
             e.quitButton  .addEventListener("click" , () => this.goToResult());
             e.answerButton.addEventListener("click" , () => this.displayAnswer(true));
-
-            // クリック時に答えを表示、離した時に次の問題へ
-            // e.nextButton  .addEventListener("mousedown" , () => this.displayAnswer(false));
-            // e.nextButton  .addEventListener("mouseup"   , () => this.displayNextQuiz());
-
-            e.nextButton  .addEventListener("click" , () => this.displayNextQuiz());
+            e.nextButton  .addEventListener("click" , () => this.displayNextQuiz(false));
+            e.retestButton.addEventListener("click" , () => this.displayNextQuiz(true));
         }
 
         // 難易度ボタン (複数のラジオボタン)
@@ -134,20 +140,57 @@ class ToQuiz
 
     // リザルト画面へ移行
     goToResult() {
-        // URLを生成
-        const rate = this.correctCount / this.quizCount * 100;
-        const url =
-            `result?subjectname=${this.subjectName}` +
-            `&correctcount=${this.correctCount}` +
-            `&quizcount=${this.quizCount}&rate=${rate}`;
 
-        // ページ遷移
-        window.location.href = url;
+        const form = document.getElementById("form");
+
+        // 出題済み問題のID配列 を生成
+        const quizIds = this.solvedQuizzes.map(quiz => quiz.id);
+
+        // 配列の要素を、隠し要素としてフォーム追加
+        quizIds.forEach(quizId => {
+            const input = document.createElement("input");
+            input.type = "hidden";
+            input.name = "quizIds";
+            input.value = quizId;
+            form.appendChild(input);
+        });
+
+        // フォームに追加するラムダ
+        const input = (name, value)=>{
+            const input = document.createElement("input");
+            input.type = "hidden";
+            input.name = name;
+            input.value = value;
+            form.appendChild(input);
+        };
+
+        // その他、クエリで送信していたものもフォームに追加
+        input("subjectname", this.subjectName);
+        input("correctcount", this.correctCount);
+        input("quizcount", this.countInLot);
+        input("no_retest_count", this.noRetestCount);
+
+        // POST送信
+        form.submit();
     }
 
 
     // 次の問題を表示
-    displayNextQuiz() {
+    // 再出題ボタンが押された場合は true
+    displayNextQuiz(isRetest = false) {
+
+        // 再出題 → 前回の問題を、配列の末尾に追加する
+        if (isRetest)
+            this.quizzes.push(this.quiz);
+
+        // 再出題しない → 終了配列に格納
+        else if (this.quiz != null) {
+            this.solvedQuizzes.push(this.quiz);
+
+            // 再出題しなかった問題をカウント
+            if (!this.isDone)
+                this.noRetestCount++;
+        }
 
         // 全問終了 → 結果ページへ
         if (!this.quizzes.length) {
@@ -155,9 +198,8 @@ class ToQuiz
             return;
         }
 
-        // 問題をランダムに選出, 配列から削除
-        const index = Math.floor(Math.random() * this.quizzes.length);
-        const quiz  = this.quizzes.splice(index, 1)[0];
+        // 問題をデキューする
+        const quiz  = this.quizzes.shift();
         this.quiz = quiz;
 
         const e = this.elements;
@@ -169,10 +211,18 @@ class ToQuiz
         // ラジオボタンの配列[ 難易度id-1 ]
         e.difficultyids[quiz.difficulty_id-1].checked = true;
 
-        // 出題カウントを更新
-        e.count.innerText =
-            (++this.quizCount) + "問目 / " +
-            this.quizzesLength + "問中";
+        // 出題カウントを更新 (全体、今回)
+        // 今回の出題数より多い部分は、再出題部分の為カウントしない
+        if (this.countInLot < this.lotSize) {
+            e.totalCount.innerText =
+                (++this.totalCount) + "問目 / " + this.totalSize + "問中";
+
+            e.countInLot.innerText =
+                (++this.countInLot) + "問目 / " + this.lotSize + "問中";
+        }
+
+        // 出題数が終わったフラグ
+        else this.isDone = true;
 
         // 正解文、説明文を非表示
         e.answer     .classList.add('opacity_0');
@@ -226,7 +276,6 @@ class ToQuiz
         // 正解を表示
         e.answer.innerText = mark + this.quiz.answer;
         e.answer.classList.remove('opacity_0');
-        
     }
 
 
@@ -258,4 +307,4 @@ class ToQuiz
 // 実行
 //=============================================================================
 
-new ToQuiz(quizJson, subjectName);
+new ToQuiz(quizJson, subjectName, answeredCount, totalSize);
