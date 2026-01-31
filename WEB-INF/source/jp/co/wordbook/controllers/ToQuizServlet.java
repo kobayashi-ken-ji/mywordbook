@@ -2,6 +2,8 @@ package jp.co.wordbook.controllers;
 
 import java.io.*;
 import java.util.*;
+import java.util.stream.Collectors;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
@@ -17,33 +19,112 @@ public class ToQuizServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException
     {
-        // セッションから取得
+        // セッションから取得、セッションを延長
         String userId = Session.getUserId(request);
+        Session.setSession(request, userId);
 
-        String[] difficulty_ids;
-        String format;
+        // DAO
+        QuizSettingDAO quizSettingDAO = new QuizSettingDAO();
         SubjectDTO subject;
         List<QuizDTO> quizzes;
         List<DifficultyDTO> difficulties;
+        
+        // QuizSettingの情報
+        int           subjectId;
+        boolean       isSwapMode;       // 出題文と正解文を入れ替える
+        int           lotSize;          // 一度に出題する問題数
+        int           answeredCount;    // 既出題数
+        List<Integer> difficultyIds;
 
+        int unaskedCount = 0;   // 未出題数
+        
+        // パラメータチェック
         try {
-            // リクエストから取得
-            difficulty_ids  = Parameter.getStringArray(request, "difficultyids");
-            format          = Parameter.getString(request, "format");
-            int subject_id  = Parameter.getInt(request, "subjectid");
+            QuizSettingDTO quizSettingDTO;
+
+            // 「新しく開始 / 続きから」ボタンが押されたか
+            String actionString = request.getParameter("action");
+
+            // 「新しく開始」の処理
+            if ("new-start".equals(actionString)) { 
+
+                //-------------------------
+                // DBに QuizSetting を書込む
+                //-------------------------
+
+                String format;
+                String[] difficultyIdStrings;
+
+                // リクエストから取得
+                difficultyIdStrings
+                          = Parameter.getStringArray(request, "difficultyids");
+                format    = Parameter.getString(request, "format");
+                subjectId = Parameter.getInt(request, "subjectid");
+                lotSize   = Parameter.getInt(request, "lot-size");
+
+                // ユーザーを照合
+                subject = new SubjectDAO().getRecord(subjectId, userId);
+        
+                isSwapMode = "swap".equals(format);
+
+                // 難易度id  String[] → List<Integer>  変換
+                difficultyIds = Arrays.asList(difficultyIdStrings).stream()
+                    .map(Integer::valueOf)
+                    .collect(Collectors.toList());
+
+                // 出題設定をDBへ更新、既出題数をリセット
+                quizSettingDAO.updateRecord(
+                    userId, subjectId, isSwapMode, lotSize, 0, difficultyIds);
+                
+                // DTOに詰める
+                quizSettingDTO = new QuizSettingDTO();
+                quizSettingDTO.setSubjectId(subjectId);
+                quizSettingDTO.setIsSwapMode(isSwapMode);
+                quizSettingDTO.setLotSize(lotSize);
+                quizSettingDTO.setDifficultyIds(difficultyIds);
+
+                //-------------------------
+                // 各問題の出題済みフラグを初期化
+                //      ユーザーが自分のタイミングで、はじめからスタートすることも可能なため、
+                //      出題リザルト時ではなく、ここで実行する
+                //-------------------------
+
+                QuizDAO quizDAO = new QuizDAO();
+                quizDAO.resetAllAsked(userId);
+                answeredCount = 0;
+            }
+
+            // 「続きから」の処理
+            else {
+                // 「一度の出題数」のみDBへ更新
+                lotSize = Parameter.getInt(request, "lot-size");
+                if (lotSize != 0)
+                    quizSettingDAO.updateLotSize(userId, lotSize);
+
+                // それ以外はDBから取得
+                quizSettingDTO = quizSettingDAO.getRecord(userId);
+                subjectId     = quizSettingDTO.getSubjectId();
+                isSwapMode    = quizSettingDTO.getIsSwapMode();
+                answeredCount = quizSettingDTO.getAnsweredCount();
+                difficultyIds = quizSettingDTO.getDifficultyIds();
+
+                // 科目情報を取得
+                subject = new SubjectDAO().getRecord(subjectId, userId);
+            }
 
             // データベースから取得
-            subject      = new SubjectDAO().getRecord(subject_id, userId);  // ユーザーを照合
-            quizzes      = new QuizDAO().getAllRecords(subject_id, difficulty_ids);
             difficulties = new DifficultyDAO().getAllRecords();
+            quizzes      = new QuizDAO().getUnaskedRecords(quizSettingDTO);
+            unaskedCount = new QuizDAO().getUnaskedCount(quizSettingDTO);
         }
-        
+
         // パラメータが不正 → インフォメーションページへ
         catch (ParameterException e) {
             e.printStackTrace();
             Information.forwardDataWasIncorrect(request, response);
             return;
         }
+
 
         // 問題数が0 → インフォメーションページへ
         if (quizzes.size() == 0) {
@@ -58,7 +139,7 @@ public class ToQuizServlet extends HttpServlet {
         }
 
         // 問題文 ⇔ 正解文 の入れ替え
-        if ("swap".equals(format)) {
+        if (isSwapMode) {
             for (QuizDTO quiz : quizzes) {
                 String newAnswer   = quiz.getQuestion();
                 String newQuestion = quiz.getAnswer();
@@ -66,6 +147,9 @@ public class ToQuizServlet extends HttpServlet {
                 quiz.setAnswer(newAnswer);
             }
         }
+
+        // 総出題数 = 既出題数 + 未出題数
+        final int totalSize = answeredCount + unaskedCount;
 
         // Javascriptでクイズデータ(JSON)を使用できるようにする
         //      JSP内javascriptにもEL式で渡せるが、
@@ -75,6 +159,8 @@ public class ToQuizServlet extends HttpServlet {
             "<script charset=\"utf-8\">\n" +
                 "let quizJson = " + quizlistToJson(quizzes) + ";\n" +
                 "let subjectName = \"" + subject.getName() + "\";\n" +
+                "let answeredCount = " + answeredCount + ";\n" +
+                "let totalSize = " + totalSize + ";\n" +
             "</script>";
 
         // リクエストへ設定

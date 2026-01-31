@@ -7,8 +7,13 @@ import java.io.*;
  */
 public class DifficultyDTO implements Serializable
 {
+    // DBの値
     private int id;
     private String name;
+
+    // サーブレットからJSPへ渡す値 (チェックボックスの初期値)
+    private boolean checked = false;
+
 
     // コンストラクタ
     public DifficultyDTO() {}
@@ -17,9 +22,13 @@ public class DifficultyDTO implements Serializable
         this.name = name;
     }
 
-    // ゲッター / セッター
-    public void setId(int id)        { this.id = id; }
-    public void setName(String name) { this.name = name; }
-    public int getId()               { return id; }
-    public String getName()          { return name; }
+    // セッター
+    public void setId(int id)               { this.id = id; }
+    public void setName(String name)        { this.name = name; }
+    public void SetChecked(boolean checked) { this.checked = checked; }
+
+    // ゲッター
+    public int getId()         { return id; }
+    public String getName()    { return name; }
+    public boolean isChecked() { return checked; }
 }

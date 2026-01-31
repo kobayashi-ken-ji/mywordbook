@@ -124,6 +124,78 @@ public abstract class DataAccessObject<T> {
         return rowCount;
     }
 
+
+    /**
+     * 該当レコードの総数を取得 (SELECT COUNT 文)
+     * @param sql           SQL文
+     * @param parameters    SQLの?に設定する値
+     * @return              レコード情報のリスト (nullなし)
+     */
+    protected int executeQueryGetCount(String sql, Object... parameters) {
+
+        int count = 0;
+        connect();
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            // SQLの?に値を設定
+            int index = 1;
+            for (Object parameter : parameters)
+                statement.setObject(index++, parameter);
+
+            // SQL実行
+            ResultSet results = statement.executeQuery();
+
+            // カウント数を取得
+            if (results.next())
+                count = results.getInt(1);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        disconnect();
+        return count;
+    }
+
+    // /**
+    //  * レコードを新規作成、上書き、削除 (一括更新版)
+    //  * @param sql           SQL文
+    //  * @param parameters    SQLの?に設定する値
+    //  * @return              操作したレコード数
+    //  */
+    // protected void executeUpdateBatch(String sql, List<T> entities, Object... parameters) {
+
+    //     connect();
+
+    //     try (PreparedStatement statement = connection.prepareStatement(sql)) {
+
+    //         // トランザクションを開始
+    //         connection.setAutoCommit(false);
+
+    //         // エンティティ(DTO) 全て
+    //         for (T entity : entities) {
+                
+    //             // SQLの?に値を設定
+    //             int index = 1;
+    //             for (Object parameter : parameters)
+    //                 statement.setObject(index++, parameter);
+
+    //             // バッチに追加
+    //             statement.addBatch();
+    //         }
+
+    //         // 一括で送信/反映
+    //         statement.executeBatch();
+    //         connection.commit();
+
+    //     } catch (SQLException e) {
+    //         e.printStackTrace();
+    //     }
+
+    //     disconnect();
+    // }
+    
     
     /**
      * レコードを新規作成

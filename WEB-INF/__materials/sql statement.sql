@@ -56,14 +56,15 @@ INSERT
         (2, "普通"),
         (3, "苦手");
 
+
 -- 科目名
 INSERT
     INTO subjects(id, name, user_id)
     VALUES
-        (1, "英語 - 単語", "a"),
-        (2, "英語 - 熟語", "a"),
-        (3, "英語 - 構文", "a"),
-        (4, "英語 - 活用", "a");
+        (1, "英語 - 単語", "guest"),
+        (2, "英語 - 熟語", "guest"),
+        (3, "英語 - 構文", "guest"),
+        (4, "英語 - 活用", "guest");
 
 INSERT
     INTO subjects(name, user_id)
@@ -126,4 +127,4 @@ DELETE FROM difficulties;
 
 UPDATE users SET id="b" WHERE id="a";
 UPDATE users SET password="b" WHERE password="a";
-UPDATE subjects SET user_id="konata" WHERE user_id="a";
+UPDATE subjects SET user_id="guest" WHERE user_id="a";

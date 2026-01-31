@@ -7,19 +7,21 @@ import java.io.*;
  */
 public class QuizDTO implements Serializable {
 
-    private int    id;               // クイズID
-    private int    subject_id;       // 科目ID
-    private int    difficulty_id;    // 難易度
-    private String explanation;      // 説明文
-    private String question;         // 問題文
-    private String answer;           // 正解文
+    private int     id;             // クイズID
+    private int     subject_id;     // 科目ID
+    private int     difficulty_id;  // 難易度
+    private String  explanation;    // 説明文
+    private String  question;       // 問題文
+    private String  answer;         // 正解文
+    private boolean isAsked;        // 出題済みフラグ
 
 
     // コンストラクタ
     public QuizDTO() {}
     public QuizDTO(
         int id, int subject_id, int difficulty_id,
-        String explanation, String question, String answer
+        String explanation, String question, String answer,
+        boolean isAsked
     ) {
         this.id             = id;
         this.subject_id     = subject_id;
@@ -27,6 +29,7 @@ public class QuizDTO implements Serializable {
         this.explanation    = explanation;
         this.question       = question;
         this.answer         = answer;
+        this.isAsked        = isAsked;
     }
 
     // セッター
@@ -36,6 +39,7 @@ public class QuizDTO implements Serializable {
     public void setExplanation(String explanation)  { this.explanation = explanation; }
     public void setQuestion(String question)        { this.question = question; }
     public void setAnswer(String answer)            { this.answer = answer; }
+    public void setIsAsked(boolean isAsked)         { this.isAsked = isAsked; }
 
     // ゲッター
     public int getId()              { return id; }
@@ -44,4 +48,5 @@ public class QuizDTO implements Serializable {
     public String getExplanation()  { return explanation; }
     public String getQuestion()     { return question; }
     public String getAnswer()       { return answer; }
+    public boolean getIsAsked()     { return isAsked; }
 }

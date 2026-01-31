@@ -21,18 +21,14 @@
                     <c:forEach var="subject" items="${subjects}">
                         <tr>
                             <th>${subject.id}</td>
-                            <td>
-                                <a href="${url}?subjectid=${subject.id}">
-                                    ${subject.name}
-                                </a>
-                            </td>
+                            <td><a href="${url}?subjectid=${subject.id}">${subject.name}</a></td>
                         </tr>
                     </c:forEach>
                 </table>
-
-                <a class="button" href="subjectedit?subjectid=0" 
-                    <c:if test="${isQuizEdit}">style="display:none;"</c:if>
-                >科目を追加</a>
+                
+                <c:if test="${!isQuizEdit}">
+                    <a class="button" href="subjectedit?subjectid=0">科目を追加</a>
+                </c:if>
             </div>
 
             <a class="button red wide" href="top">戻る</a>

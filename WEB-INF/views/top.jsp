@@ -27,15 +27,20 @@
                         <select id="subject-select" name="subjectid">
 
                             <c:forEach var="subject" items="${subjects}">
-                                <option value='${subject.id}'>${subject.name}</option>
+                                <option
+                                    value='${subject.id}'
+                                    ${subject.id == quizSetting.subjectId ? " selected" : ""}
+                                >
+                                    ${subject.name}
+                                </option>
                             </c:forEach>
 
                         </select>
                     </c:if>
                 </div>
                 <br>
-
-                <div>
+                                
+                <div class="buttonlike devide4">
                     出題範囲<br>
 
                     <c:forEach var="difficulty" items="${difficulties}">
@@ -43,7 +48,7 @@
                             <input
                                 type="checkbox" name="difficultyids"
                                 value="${difficulty.id}" 
-                                <c:if test="${1 < difficulty.id}">checked</c:if>
+                                ${difficulty.checked ? " checked" : ""}
                             >
                             <span>${difficulty.name}</span>
                         </label>
@@ -54,27 +59,54 @@
                 <div>
                     出題方式<br>
                     <label>
-                        <input type="radio" name="format" value="normal" checked>
+                        <input type="radio" name="format" value="normal"
+                            ${quizSetting.isSwapMode ? "" : " checked" }
+                        >
                         <span>通常</span>
                     </label>
                     <label>
-                        <input type="radio" name="format" value="swap">
+                        <input type="radio" name="format" value="swap"
+                            ${quizSetting.isSwapMode ? " checked" : "" }
+                        >
                         <span>問題 ⇔ 答え</span>
                     </label>
                 </div>
                 <br>
 
+                <div>
+                    一度に出題する問題数<br>
+                    <select id="lot-size" name="lot-size">
+                        <c:forEach var="lotSize" items="${lotSizes}">
+                            <option
+                                value='${lotSize}'
+                                ${lotSize == quizSetting.lotSize ? " selected" : ""}
+                            >
+                                ${lotSize}問
+                            </option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <br>
 
                 <button
-                    type="submit" class="red wide" onclick="topStartButton()"
-                    <c:if test="${nosubjects}">disabled</c:if>
+                    type="submit" class="red wide" name="action" value="new-start"
+                    ${nosubjects ? " disabled" : ""}
+                    onclick="topStartButton()"
                 >
                     出題スタート
                 </button>
+
+                <c:if test="${quizSetting.answeredCount > 0}">
+                    <button
+                        type="submit" class="wide" name="action" value="continue"
+                        ${nosubjects ? " disabled" : ""}
+                    >
+                        前回の続きから
+                    </button>
+                </c:if>
                 <br>
             </form>
             <br>
-                
 
             <div>
                 <a href="subjectlist?edit=subject">科目を編集</a> | 

@@ -18,8 +18,10 @@
                     <tr>
                         <th>ID</th>
                         <td>
-                            <c:if test="${quiz.id == 0}">- 新規作成 -</c:if>
-                            <c:if test="${quiz.id != 0}">${quiz.id}</c:if>
+                            ${(quiz.id == 0)
+                                ? "- 新規作成 -"
+                                : quiz.id
+                            }
                         </td>
                     </tr>
                     <tr>
@@ -53,7 +55,7 @@
                     </tr>
                     <tr>
                         <th>難易度</th>
-                        <td class="buttonlike">
+                        <td  class="buttonlike devide4">
 
                             <c:forEach var="difficulty" items="${difficulties}">
                                 <label>

@@ -12,7 +12,7 @@
 
             <div class="buttonlike">
                 <label>
-                    <input type="checkbox" id="input-enable" checked>
+                    <input type="checkbox" id="input-enable">
                     <span>回答欄 表示</span>
                 </label>
                 <label>
@@ -25,7 +25,8 @@
             <div class="white-area quiz">
 
                 ${subjectname}
-                <div id="count">0問目 / 0問中</div>
+                <div>全体 : <span id="total-count">0問目 / 0問中</span></div>
+                <div>今回 : <span id="count-in-lot">0問目 / 0問中</span></div>
 
                 <div class="question">
                     <p id="question">出題</p>
@@ -35,7 +36,7 @@
                 <p class="answer" id="answer">正解文</p>
                 <div class="explanation" id="explanation">説明文</div>
 
-                <div class="buttonlike">
+                <div  class="buttonlike devide4">
                     <c:forEach var="difficulty" items="${difficulties}">
                         <label>
                             <input
@@ -48,7 +49,14 @@
                 </div>
                 <br>
 
-                <button class="red" id="answer-button">答え</button>
+                <%-- 不可視のフォーム  クイズID配列送信用 --%>
+                <form 
+                    id="form" action="result", method="POST" 
+                    style="display:none"
+                ></form>
+                
+                <button class="red double" id="answer-button">答え</button><br>
+                <button id="retest-button">後で再出題</button>
                 <button id="next-button">次の問題</button>
             </div>
         </div>
