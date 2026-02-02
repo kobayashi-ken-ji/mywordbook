@@ -15,18 +15,18 @@ public class Information {
      * @param response      サーブレットが受け取るレスポンス
      * @param heading       見出し文
      * @param paragraph     説明文
-     * @param buttonname    ボタン名
+     * @param buttonName    ボタン名
      * @param url           ボタンを押したときの遷移先
      */
     static public void forward(
         HttpServletRequest request, HttpServletResponse response,
-        String heading, String paragraph, String buttonname, String url
+        String heading, String paragraph, String buttonName, String url
     ) {
         try {
             // リクエストへ設定
             request.setAttribute("heading", heading);
             request.setAttribute("paragraph", paragraph);
-            request.setAttribute("buttonname", buttonname);
+            request.setAttribute("buttonName", buttonName);
             request.setAttribute("url", url);
 
             // JSPへ送信

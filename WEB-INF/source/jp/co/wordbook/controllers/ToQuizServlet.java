@@ -23,8 +23,7 @@ public class ToQuizServlet extends HttpServlet {
         String userId = Session.getUserId(request);
         Session.setSession(request, userId);
 
-        // DAO
-        QuizSettingDAO quizSettingDAO = new QuizSettingDAO();
+        // DTO
         SubjectDTO subject;
         List<QuizDTO> quizzes;
         List<DifficultyDTO> difficulties;
@@ -40,7 +39,9 @@ public class ToQuizServlet extends HttpServlet {
         
         // パラメータチェック
         try {
-            QuizSettingDTO quizSettingDTO;
+            QuizDAO quizDAO = new QuizDAO();
+            QuizSettingDAO quizSettingDAO = new QuizSettingDAO();
+            QuizSettingDTO quizSetting;
 
             // 「新しく開始 / 続きから」ボタンが押されたか
             String actionString = request.getParameter("action");
@@ -77,11 +78,11 @@ public class ToQuizServlet extends HttpServlet {
                     userId, subjectId, isSwapMode, lotSize, 0, difficultyIds);
                 
                 // DTOに詰める
-                quizSettingDTO = new QuizSettingDTO();
-                quizSettingDTO.setSubjectId(subjectId);
-                quizSettingDTO.setIsSwapMode(isSwapMode);
-                quizSettingDTO.setLotSize(lotSize);
-                quizSettingDTO.setDifficultyIds(difficultyIds);
+                quizSetting = new QuizSettingDTO();
+                quizSetting.setSubjectId(subjectId);
+                quizSetting.setIsSwapMode(isSwapMode);
+                quizSetting.setLotSize(lotSize);
+                quizSetting.setDifficultyIds(difficultyIds);
 
                 //-------------------------
                 // 各問題の出題済みフラグを初期化
@@ -89,7 +90,6 @@ public class ToQuizServlet extends HttpServlet {
                 //      出題リザルト時ではなく、ここで実行する
                 //-------------------------
 
-                QuizDAO quizDAO = new QuizDAO();
                 quizDAO.resetAllAsked(userId);
                 answeredCount = 0;
             }
@@ -102,11 +102,11 @@ public class ToQuizServlet extends HttpServlet {
                     quizSettingDAO.updateLotSize(userId, lotSize);
 
                 // それ以外はDBから取得
-                quizSettingDTO = quizSettingDAO.getRecord(userId);
-                subjectId     = quizSettingDTO.getSubjectId();
-                isSwapMode    = quizSettingDTO.getIsSwapMode();
-                answeredCount = quizSettingDTO.getAnsweredCount();
-                difficultyIds = quizSettingDTO.getDifficultyIds();
+                quizSetting = quizSettingDAO.getRecord(userId);
+                subjectId     = quizSetting.getSubjectId();
+                isSwapMode    = quizSetting.getIsSwapMode();
+                answeredCount = quizSetting.getAnsweredCount();
+                difficultyIds = quizSetting.getDifficultyIds();
 
                 // 科目情報を取得
                 subject = new SubjectDAO().getRecord(subjectId, userId);
@@ -114,8 +114,8 @@ public class ToQuizServlet extends HttpServlet {
 
             // データベースから取得
             difficulties = new DifficultyDAO().getAllRecords();
-            quizzes      = new QuizDAO().getUnaskedRecords(quizSettingDTO);
-            unaskedCount = new QuizDAO().getUnaskedCount(quizSettingDTO);
+            quizzes      = quizDAO.getUnaskedRecords(quizSetting);
+            unaskedCount = quizDAO.getUnaskedCount(quizSetting);
         }
 
         // パラメータが不正 → インフォメーションページへ
@@ -155,7 +155,7 @@ public class ToQuizServlet extends HttpServlet {
         //      JSP内javascriptにもEL式で渡せるが、
         //      エディタがjavascript内のEL式を解釈できずに警告を出すため、
         //      スクリプトごと送る
-        String jsonscript = 
+        String jsonScript = 
             "<script charset=\"utf-8\">\n" +
                 "let quizJson = " + quizlistToJson(quizzes) + ";\n" +
                 "let subjectName = \"" + subject.getName() + "\";\n" +
@@ -165,8 +165,8 @@ public class ToQuizServlet extends HttpServlet {
 
         // リクエストへ設定
         request.setAttribute("difficulties", difficulties);
-        request.setAttribute("subjectname", subject.getName());
-        request.setAttribute("jsonscript", jsonscript);
+        request.setAttribute("subjectName", subject.getName());
+        request.setAttribute("jsonScript", jsonScript);
 
         // JSPへ送信
         String view = "/WEB-INF/views/toquiz.jsp";
@@ -188,7 +188,7 @@ public class ToQuizServlet extends HttpServlet {
         final Object[][] quizArray = list.stream()
             .map(quiz -> new Object[] {
                 quiz.getId(),
-                quiz.getDifficulty_id(),
+                quiz.getDifficultyId(),
                 quiz.getQuestion(),
                 quiz.getAnswer(),
                 quiz.getExplanation(),

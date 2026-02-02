@@ -21,13 +21,15 @@ public class SubjectEditServlet extends HttpServlet {
 
         try {
             // リクエストから取得
-            int subjectid = Parameter.getInt(request, "subjectid");
-            isNew = (subjectid == 0);
+            int subjectId = Parameter.getInt(request, "subjectid");
+
+            // idが0なら新規作成
+            isNew = (subjectId == 0);
 
             // データベースから取得 or 新規作成
             subject = (isNew)
                 ? new SubjectDTO(0, "", "")
-                : new SubjectDAO().getRecord(subjectid, userId);
+                : new SubjectDAO().getRecord(subjectId, userId);
         }
                 
         // パラメータが不正 → インフォメーションページへ

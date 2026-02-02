@@ -22,11 +22,11 @@ public class QuizListServlet extends HttpServlet {
 
         try {
             // リクエストから取得
-            int subject_id = Parameter.getInt(request, "subjectid");
+            int subjectId = Parameter.getInt(request, "subjectid");
 
             // データベースから取得
-            subject = new SubjectDAO().getRecord(subject_id, userId);  // ユーザーを照合
-            quizzes = new QuizDAO().getAllRecords(subject_id);
+            subject = new SubjectDAO().getRecord(subjectId, userId);  // ユーザーを照合
+            quizzes = new QuizDAO().getAllRecords(subjectId);
         }
         
         // パラメータが不正 → インフォメーションページへ

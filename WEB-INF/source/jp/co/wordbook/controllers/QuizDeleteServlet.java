@@ -13,7 +13,7 @@ public class QuizDeleteServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException
     {
-        int quiz_id;
+        int quizId;
         QuizDTO quiz;
         QuizDAO quizDAO = new QuizDAO();
 
@@ -22,11 +22,11 @@ public class QuizDeleteServlet extends HttpServlet {
 
         try {
             // リクエスト、データベースから取得
-            quiz_id = Parameter.getInt(request, "id");
-            quiz    = quizDAO.getRecord(quiz_id);
+            quizId = Parameter.getInt(request, "id");
+            quiz    = quizDAO.getRecord(quizId);
 
             // ユーザーと紐づいているかチェック
-            new SubjectDAO().userHasSubject(quiz.getSubject_id(), userId);
+            new SubjectDAO().userHasSubject(quiz.getSubjectId(), userId);
         }
         
         // パラメータが不正 → インフォメーションページへ
@@ -37,7 +37,7 @@ public class QuizDeleteServlet extends HttpServlet {
         }
 
         // データベースから削除
-        boolean success = quizDAO.deleteRecord(quiz_id);
+        boolean success = quizDAO.deleteRecord(quizId);
         
         // 見出し
         String heading = (success)
@@ -51,7 +51,7 @@ public class QuizDeleteServlet extends HttpServlet {
             heading,
             "問題文 : " + quiz.getQuestion(),
             "問題一覧へ",
-            "quizlist?subjectid=" + quiz.getSubject_id()
+            "quizlist?subjectid=" + quiz.getSubjectId()
         );
     }
 }

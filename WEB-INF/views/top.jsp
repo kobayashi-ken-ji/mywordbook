@@ -16,14 +16,14 @@
 
                 <div>
                     科目<br>
-                    <c:if test="${nosubjects}">
+                    <c:if test="${noSubjects}">
                         <p class="alert-red">
                             科目がありません。<br>
                             新しく作成してください。
                         </p>
                     </c:if>
 
-                    <c:if test="${!nosubjects}">
+                    <c:if test="${!noSubjects}">
                         <select id="subject-select" name="subjectid">
 
                             <c:forEach var="subject" items="${subjects}">
@@ -48,7 +48,7 @@
                             <input
                                 type="checkbox" name="difficultyids"
                                 value="${difficulty.id}" 
-                                ${difficulty.checked ? " checked" : ""}
+                                ${difficulty.checked ? " checked" : "" }
                             >
                             <span>${difficulty.name}</span>
                         </label>
@@ -79,7 +79,7 @@
                         <c:forEach var="lotSize" items="${lotSizes}">
                             <option
                                 value='${lotSize}'
-                                ${lotSize == quizSetting.lotSize ? " selected" : ""}
+                                ${lotSize == quizSetting.lotSize ? " selected" : "" }
                             >
                                 ${lotSize}問
                             </option>
@@ -89,17 +89,18 @@
                 <br>
 
                 <button
-                    type="submit" class="red wide" name="action" value="new-start"
-                    ${nosubjects ? " disabled" : ""}
+                    type="submit" class="wide ${isContinuable ? 'blue' : 'red'}"
+                    name="action" value="new-start"
+                    ${noSubjects ? " disabled" : "" }
                     onclick="topStartButton()"
                 >
                     出題スタート
                 </button>
 
-                <c:if test="${quizSetting.answeredCount > 0}">
+                <c:if test="${isContinuable}">
                     <button
-                        type="submit" class="wide" name="action" value="continue"
-                        ${nosubjects ? " disabled" : ""}
+                        type="submit" class="wide red" name="action" value="continue"
+                        ${noSubjects ? " disabled" : "" }
                     >
                         前回の続きから
                     </button>

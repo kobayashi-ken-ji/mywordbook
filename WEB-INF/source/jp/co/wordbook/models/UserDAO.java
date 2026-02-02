@@ -1,7 +1,6 @@
 package jp.co.wordbook.models;
 
 import java.sql.*;
-// import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,11 +15,6 @@ public class UserDAO extends DataAccessObject<UserDTO> {
         return new UserDTO(
             results.getString("id"),
             results.getString("password")
-            // results.getInt("active_subject_id"),
-            // results.getInt("active_answered_count"),
-            // results.getInt("active_question_lot_size"),
-            // difficultyMaskToList(results.getInt("active_difficulty_mask"))
-            // // results.getInt("active_difficulty_mask"),
         );
     }
 
@@ -31,20 +25,20 @@ public class UserDAO extends DataAccessObject<UserDTO> {
      * @param password  ログインパスワード
      * @return          引数に合致するユーザーがいるか否か
      */
-    public boolean searchUser(String id, String password) {
+    public boolean searchUser(String userId, String password) {
 
         final String sql = "SELECT * FROM users WHERE id=? AND password=?";
-        List<UserDTO> list = executeQuery(sql, id, password);
+        List<UserDTO> list = executeQuery(sql, userId, password);
 
         return (!list.isEmpty());
     }
     
 
     // レコードからインスタンスを生成
-    public UserDTO getRecord(String id) throws ParameterException {
+    public UserDTO getRecord(String userId) throws ParameterException {
     
         final String sql = "SELECT * FROM users WHERE id = ?";
-        List<UserDTO> list = executeQuery(sql, id);
+        List<UserDTO> list = executeQuery(sql, userId);
 
         if (list.isEmpty())
             throw new ParameterException("userレコードを取得できません。");
@@ -52,48 +46,6 @@ public class UserDAO extends DataAccessObject<UserDTO> {
         return list.get(0);
     }
 
-    // //-------------------------------------------------------------------------
-    // // 難易度idの変換ユーティリティ   ビットマスク(DB側) ←→ List型(Java側)
-    // //-------------------------------------------------------------------------
-
-    // // 難易度idは 1~4 の4段階
-    // public static final int DIFFICULTY_ID_LENGTH = 4;
-
-    // /**
-    //  * 難易度idを変換 (ビットマスク → List型)
-    //  */
-    // public static List<Integer> difficultyMaskToList(int difficultyMask) {
-
-    //     final int mask = difficultyMask;
-    //     List<Integer> difficultys = new ArrayList<Integer>();
-
-    //     // 有効になっているidを取り出す
-    //     for (int i=0; i<DIFFICULTY_ID_LENGTH; i++) {
-    //         final int bit = (1 << i);
-
-    //         // ビットが立っていれば有効なid (idは1から始まるため +1)
-    //         if ((mask & bit) != 0)
-    //             difficultys.add(i + 1);
-    //     }
-
-    //     return difficultys;
-    // }
-
-    // /**
-    //  * 難易度idを変換 (List型 → ビットマスク)
-    //  */
-    // public static int difficultyListToMask(List<Integer> difficultys) {
-        
-    //     // Listがnullなら0を返す
-    //     int mask = 0;
-    //     if (difficultys == null) return mask;
-
-    //     // idをビットに加算していく
-    //     for (int difficulty : difficultys)
-    //         mask |= (1 << (difficulty-1));
-
-    //     return mask;
-    // }
     // 全レコードからインスタンスリストを生成
     // public List<UserBean> getAllRecords() {
 

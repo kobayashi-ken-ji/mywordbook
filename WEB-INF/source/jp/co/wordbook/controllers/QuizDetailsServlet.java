@@ -25,13 +25,13 @@ public class QuizDetailsServlet extends HttpServlet {
 
         try {
             // リクエストから取得
-            int quiz_id = Parameter.getInt(request, "quizid");
-            state       = Parameter.getString(request, "state");
+            int quizId = Parameter.getInt(request, "quizid");
+            state      = Parameter.getString(request, "state");
 
             // データベースから取得
-            quiz       = new QuizDAO().getRecord(quiz_id);
-            subject    = new SubjectDAO().getRecord(quiz.getSubject_id(), userId);  // ユーザーを照合
-            difficulty = new DifficultyDAO().getRecord(quiz.getDifficulty_id());
+            quiz       = new QuizDAO().getRecord(quizId);
+            subject    = new SubjectDAO().getRecord(quiz.getSubjectId(), userId);  // ユーザーを照合
+            difficulty = new DifficultyDAO().getRecord(quiz.getDifficultyId());
         }
         
         // パラメータが不正 → インフォメーションページへ
@@ -50,8 +50,8 @@ public class QuizDetailsServlet extends HttpServlet {
         // リクエストへ設定
         request.setAttribute("heading", heading);
         request.setAttribute("quiz", quiz);
-        request.setAttribute("subject_name", subject.getName());
-        request.setAttribute("difficulty_name", difficulty.getName());
+        request.setAttribute("subjectName", subject.getName());
+        request.setAttribute("difficultyName", difficulty.getName());
 
         // JSPへ送信
         String view = "/WEB-INF/views/quizdetails.jsp";

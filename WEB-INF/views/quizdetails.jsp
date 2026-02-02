@@ -21,7 +21,7 @@
                     </tr>
                     <tr>
                         <th>科目</th>
-                        <td>${subject_name}</td>
+                        <td>${subjectName}</td>
                     </tr>
                     <tr>
                         <th>問題文</th>
@@ -37,16 +37,16 @@
                     </tr>
                     <tr>
                         <th>難易度</th>
-                        <td>${difficulty_name}</td>
+                        <td>${difficultyName}</td>
                     </tr>
                 </table>
                 <br>
                 
-                <a class="button" href="quizedit?id=${quiz.id}&subjectid=${quiz.subject_id}">編集</a>
+                <a class="button" href="quizedit?id=${quiz.id}&subjectid=${quiz.subjectId}">編集</a>
                 <a class="button" href="quizdelete?id=${quiz.id}" onclick="deleteButton()">削除</a>
             </div>
 
-            <a class="button red wide" href="quizlist?subjectid=${quiz.subject_id}">
+            <a class="button red wide" href="quizlist?subjectid=${quiz.subjectId}">
                 戻る
             </a>
         </div>

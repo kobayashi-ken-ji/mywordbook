@@ -1,0 +1,47 @@
+===============================================================================
+Tomcatの警告
+「少なくとも1つのJARでTLDをスキャンしましたが、TLDが含まれていませんでした。」
+===============================================================================
+
+原因
+    TomcatがJSPで使うタグライブラリ（TLDファイル）を探すために
+    WEB-INF/lib 内の全てのjarファイルを全てスキャンする。
+
+    この時にJSPに関係ないファイルまで全て調べて、上記の表示をしてしまう。
+
+解決策
+    以下のファイルに記述を追加する。
+    全走査（デフォルト）の中止              defaultTldScan="false"
+    JSTLが入っているこのJARだけチェックする tldScan="taglibs-standard-*.jar"
+
+
+C:\pleiades\2024-03\tomcat\9\conf\context.xml
+<Context>
+    ... 
+
+    <!-- JSTL関連のJARだけをスキャンし、他（JacksonやMySQLなど）は全て無視する設定 -->
+    <JarScanner scanManifest="false">
+        <JarScanFilter defaultTldScan="false" 
+                       tldScan="taglibs-standard-*.jar" />
+    </JarScanner>
+</Context>
+
+===============================================================================
+Tomcatの警告
+[com.mysql.jdbc.Driver] を停止時に解除できませんでした。
+[Abandoned connection cleanup thread] という名前のスレッドを開始したようですが、停止に失敗しました。
+これはメモリリークを引き起こす可能性が非常に高いです。
+===============================================================================
+
+WEB-INF/lib 内にJDBCドライバを入れた場合に起こる。
+Tomcat自体のlibに入っている場合は起きないが、warファイルには含まれなくなる。
+
+DatabaseCleanupListener クラスを作成し、
+終了時に JDBCドライバと、Abandoned connection cleanup thread を手動で停止させる。
+
+AbandonedConnectionCleanupThread
+    DB接続が閉じられなかった場合、自動で切断する機能
+    「メモリリークを引き起こす可能性が非常に高い」という警告が出るのは、
+    Tomcatの管理外 (WEB-INF/lib内) にJDBCドライバあるため、停止に失敗している
+
+===============================================================================

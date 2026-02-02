@@ -13,7 +13,7 @@
                 <p>${paragraph}</p>
 
             </div>
-            <a class="button red wide" href="${url}">${buttonname}</a>
+            <a class="button red wide" href="${url}">${buttonName}</a>
         </div>
     </body>
 </html>
