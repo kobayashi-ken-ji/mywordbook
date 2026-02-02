@@ -16,25 +16,25 @@ public class QuizUpdateServlet extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         String userId = Session.getUserId(request);
 
-        int    quiz_id;
-        int    subject_id;
-        int    difficulty_id;
+        int    quizId;
+        int    subjectId;
+        int    difficultyId;
         String question;
         String answer;
         String explanation;
 
         try {
             // リクエストから取得
-            quiz_id       = Parameter.getInt(request, "quizid");
-            subject_id    = Parameter.getInt(request, "subjectid");
-            difficulty_id = Parameter.getInt(request, "difficultyid");
-            question      = Parameter.getString(request, "question");
-            answer        = Parameter.getString(request, "answer");
-            explanation   = Parameter.getString(request, "explanation");
+            quizId       = Parameter.getInt(request, "quizid");
+            subjectId    = Parameter.getInt(request, "subjectid");
+            difficultyId = Parameter.getInt(request, "difficultyid");
+            question     = Parameter.getString(request, "question");
+            answer       = Parameter.getString(request, "answer");
+            explanation  = Parameter.getString(request, "explanation");
 
             // データベースから取得
             // 科目とユーザーが紐づいているか否か
-            new SubjectDAO().userHasSubject(subject_id, userId);
+            new SubjectDAO().userHasSubject(subjectId, userId);
         }
         
         // パラメータが不正 → インフォメーションページへ
@@ -45,22 +45,22 @@ public class QuizUpdateServlet extends HttpServlet {
         }
 
         // レコードを 上書き or 挿入
-        quiz_id = new QuizDAO().updateRecord(
-            quiz_id, subject_id, difficulty_id, explanation, question, answer);
+        quizId = new QuizDAO().updateRecord(
+            quizId, subjectId, difficultyId, explanation, question, answer);
         
         // 保存に失敗 → インフォメーションを表示
-        if (quiz_id == 0) {
+        if (quizId == 0) {
             Information.forward(
                 request, response,
                 "問題を保存できませんでした",
                 "",
                 "問題一覧へ",
-                "quizlist?subjectid=" + subject_id
+                "quizlist?subjectid=" + subjectId
             );
             return;
         }
 
         // ページ遷移
-        response.sendRedirect("./quizdetails?quizid=" + quiz_id + "&state=update");
+        response.sendRedirect("./quizdetails?quizid=" + quizId + "&state=update");
     }
 }

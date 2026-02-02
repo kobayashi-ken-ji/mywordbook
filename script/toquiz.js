@@ -165,10 +165,10 @@ class ToQuiz
         };
 
         // その他、クエリで送信していたものもフォームに追加
-        input("subjectname", this.subjectName);
-        input("correctcount", this.correctCount);
-        input("quizcount", this.countInLot);
-        input("no_retest_count", this.noRetestCount);
+        input("subjectName", this.subjectName);
+        input("correctCount", this.correctCount);
+        input("quizCount", this.countInLot);
+        input("noRetestCount", this.noRetestCount);
 
         // POST送信
         form.submit();

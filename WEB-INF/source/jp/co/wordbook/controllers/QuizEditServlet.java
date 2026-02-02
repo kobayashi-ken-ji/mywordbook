@@ -14,9 +14,6 @@ public class QuizEditServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException
     {
-        SubjectDAO subjectDAO = new SubjectDAO();
-        DifficultyDAO difficultyDAO = new DifficultyDAO();
-
         List<SubjectDTO>    subjects;
         List<DifficultyDTO> difficulties;
         boolean isNew;
@@ -27,19 +24,24 @@ public class QuizEditServlet extends HttpServlet {
 
         try {
             // リクエストから取得
-            int quiz_id    = Parameter.getInt(request, "id");
-            int subject_id = Parameter.getInt(request, "subjectid");
-            isNew = (quiz_id == 0);
+            int quizId    = Parameter.getInt(request, "id");
+            int subjectId = Parameter.getInt(request, "subjectid");
+
+            // idが0なら新規作成
+            isNew = (quizId == 0);
+
+            SubjectDAO    subjectDAO    = new SubjectDAO();
+            DifficultyDAO difficultyDAO = new DifficultyDAO();
 
             // データベースから取得
-            subjects       = subjectDAO.getAllRecords(userId);
-            difficulties   = difficultyDAO.getAllRecords();
+            subjects     = subjectDAO.getAllRecords(userId);
+            difficulties = difficultyDAO.getAllRecords();
             quiz = (isNew)
-                ? new QuizDTO(0, subject_id, 2, "","", "", false)
-                : new QuizDAO().getRecord(quiz_id);
+                ? new QuizDTO(0, subjectId, 2, "","", "", false)
+                : new QuizDAO().getRecord(quizId);
 
             // ユーザーと紐づいているかチェック
-            subjectDAO.userHasSubject(quiz.getSubject_id(), userId);
+            subjectDAO.userHasSubject(quiz.getSubjectId(), userId);
         }
         
         // パラメータが不正 → インフォメーションページへ
@@ -51,14 +53,14 @@ public class QuizEditServlet extends HttpServlet {
 
         // キャンセルボタンの遷移先
         String cancelURL = (isNew)
-            ? "quizlist?subjectid=" + quiz.getSubject_id()             // 新規作成 → 問題一覧へ
-            : "quizdetails?quizid=" + quiz.getId() + "&state=normal";  // 編集 → 問題詳細へ
+            ? "quizlist?subjectid=" + quiz.getSubjectId()               // 新規作成 → 問題一覧へ
+            : "quizdetails?quizid=" + quiz.getId() + "&state=normal";   // 編集 → 問題詳細へ
 
         // リクエストへ設定
         request.setAttribute("quiz", quiz);
         request.setAttribute("subjects", subjects);
         request.setAttribute("difficulties", difficulties);
-        request.setAttribute("cancelurl", cancelURL);
+        request.setAttribute("cancelURL", cancelURL);
 
         // JSPへ送信
         String view = "/WEB-INF/views/quizedit.jsp";

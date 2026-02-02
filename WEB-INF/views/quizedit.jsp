@@ -32,7 +32,7 @@
                                 <c:forEach var="subject" items="${subjects}">
                                     <option
                                         value='${subject.id}'
-                                        <c:if test="${subject.id == quiz.subject_id}">selected</c:if>
+                                        ${subject.id == quiz.subjectId ? "selected" : "" }
                                     >
                                         ${subject.name}
                                     </option>
@@ -62,9 +62,7 @@
                                     <input
                                         type="radio" name="difficultyid"
                                         value="${difficulty.id}" 
-                                        <c:if test="${difficulty.id == quiz.difficulty_id}">
-                                            checked
-                                        </c:if>
+                                        ${difficulty.id == quiz.difficultyId ? "checked" : "" }
                                     >
                                     <span>${difficulty.name}</span>
                                 </label>
@@ -77,7 +75,7 @@
                 
                 <input  type="hidden" name="quizid" value="${quiz.id}">
                 <button type="submit">保存</button>
-                <a class="button red" href="${cancelurl}">キャンセル</a>
+                <a class="button red" href="${cancelURL}">キャンセル</a>
             </form>
         </div>
     </body>

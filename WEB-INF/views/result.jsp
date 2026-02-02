@@ -13,15 +13,15 @@
                 <table>
                     <tr>
                         <th>科目</th>
-                        <td>${subjectname}</td>
+                        <td>${subjectName}</td>
                     </tr>
                     <tr>
                         <th>正解数</th>
-                        <td>${correctcount}問 / ${quizcount}問中 (${percentCorrect}%)</td>
+                        <td>${correctCount}問 / ${quizCount}問中 (${percentCorrect}%)</td>
                     </tr>
                     <tr>
                         <th>再出題<br>不要数</th>
-                        <td>${noRetestCount}問 / ${quizcount}問中 (${percentNoRetest}%)</td>
+                        <td>${noRetestCount}問 / ${quizCount}問中 (${percentNoRetest}%)</td>
                     </tr>
                 </table>
             </div>

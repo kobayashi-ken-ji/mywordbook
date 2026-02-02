@@ -13,50 +13,15 @@ import jp.co.wordbook.models.*;
 @WebServlet("/result")
 public class ResultServlet extends HttpServlet {
 
-    // public void doGet(HttpServletRequest request, HttpServletResponse response)
-    //     throws ServletException, IOException
-    // {
-    //     String subjectname; 
-    //     int correctcount;   
-    //     int quizcount;      
-    //     int rate;           
-
-    //     // リクエストから取得
-    //     try {
-    //         subjectname  = Parameter.getString(request, "subjectname");
-    //         correctcount = Parameter.getInt(request, "correctcount");
-    //         quizcount    = Parameter.getInt(request, "quizcount");
-    //         rate         = Parameter.getInt(request, "rate");
-    //     }
-        
-    //     // パラメータが不正 → インフォメーションページへ
-    //     catch (ParameterException e) {
-    //         e.printStackTrace();
-    //         Information.forwardDataWasIncorrect(request, response);
-    //         return;
-    //     }
-
-    //     // リクエストへ設定
-    //     request.setAttribute("subjectname", subjectname);
-    //     request.setAttribute("correctcount", correctcount);
-    //     request.setAttribute("quizcount", quizcount);
-    //     request.setAttribute("rate", rate);
-
-    //     // JSPへ送信
-    //     String view = "/WEB-INF/views/result.jsp";
-    //     RequestDispatcher dispatcher = request.getRequestDispatcher(view);
-    //     dispatcher.forward(request, response);
-    // }
-
     public void doPost(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException
     {
         request.setCharacterEncoding("utf-8");
         String userId = Session.getUserId(request);
 
-        String subjectname; 
-        int correctcount;   
-        int quizcount;      
+        String subjectName; 
+        int correctCount;   
+        int quizCount;      
         int noRetestCount;
         String[] stringQuizIds;
 
@@ -66,10 +31,10 @@ public class ResultServlet extends HttpServlet {
 
         try {
             // リクエストから取得
-            subjectname   = Parameter.getString(request, "subjectname");
-            correctcount  = Parameter.getInt(request, "correctcount");
-            quizcount     = Parameter.getInt(request, "quizcount");
-            noRetestCount = Parameter.getInt(request, "no_retest_count");
+            subjectName   = Parameter.getString(request, "subjectName");
+            correctCount  = Parameter.getInt(request, "correctCount");
+            quizCount     = Parameter.getInt(request, "quizCount");
+            noRetestCount = Parameter.getInt(request, "noRetestCount");
             stringQuizIds = Parameter.getStringArrayOrEmpty(request, "quizIds");
 
             // DBから取得
@@ -84,8 +49,8 @@ public class ResultServlet extends HttpServlet {
         }
 
         // 
-        final int percentCorrect  = 100 * correctcount  / quizcount;
-        final int percentNoRetest = 100 * noRetestCount / quizcount;
+        final int percentCorrect  = 100 * correctCount  / quizCount;
+        final int percentNoRetest = 100 * noRetestCount / quizCount;
 
         // String[] → List<Integer> 変換
         List<Integer> quizIds = Arrays.stream(stringQuizIds)
@@ -97,7 +62,7 @@ public class ResultServlet extends HttpServlet {
         quizDAO.setAsked(quizIds);
 
         // 既出題数を増やす
-        quizSettingDAO.addAnsweredCount(userId, quizcount);
+        quizSettingDAO.addAnsweredCount(userId, quizCount);
         
         // 全ての問題が出題済み → 出題をリセットするためのフラグを立てる
         final boolean completed = (quizDAO.getUnaskedCount(quizSetting) == 0);
@@ -105,9 +70,9 @@ public class ResultServlet extends HttpServlet {
             quizSettingDAO.resetAnsweredCount(userId);
 
         // リクエストへ設定
-        request.setAttribute("subjectname", subjectname);
-        request.setAttribute("correctcount", correctcount);
-        request.setAttribute("quizcount", quizcount);
+        request.setAttribute("subjectName", subjectName);
+        request.setAttribute("correctCount", correctCount);
+        request.setAttribute("quizCount", quizCount);
         request.setAttribute("noRetestCount", noRetestCount);
         request.setAttribute("percentCorrect", percentCorrect);
         request.setAttribute("percentNoRetest", percentNoRetest);

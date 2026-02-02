@@ -1,5 +1,60 @@
 ================================================================================
-変更点
+コンパイル
+================================================================================
+
+ディレクトリ変更不要 & UTF-8指定 (26/02/01)
+javac -encoding UTF-8 -cp "WEB-INF/lib/*;WEB-INF/classes" -d WEB-INF/classes WEB-INF/source/jp/co/wordbook/controllers/*.java WEB-INF/source/jp/co/wordbook/models/*.java
+
+
+[!] エンコーディング問題
+    ※ 結論 (26/02/01) : コンパイル時に -encoding UTF-8 を付与する
+
+    本来は -encoding UTF-8 が必要だが、
+    以下の環境変数を適用すると、自動で付与される
+        システム変数
+            変数名  JAVA_TOOL_OPTIONS
+            変数値  -Dfile.encoding=UTF-8
+
+    ただし、コンソール上でエラーメッセージが文字化けするため、
+    事前に以下が必要になる。
+        コンソール文字化け対策 (UTF8化)
+        chcp 65001
+
+    しかし、これを行うと git commit -m "日本語文字" で文字化けが発生してしまう。
+
+
+old (cd WEB-INF でディレクトリ移動が必要)
+
+    パッケージ分割前
+    javac -cp "lib/servlet-api.jar;classes" -d classes source/jp/co/wordbook/*.java
+
+    パッケージ分割後 (25/09/08)
+    javac -cp "lib/servlet-api.jar;classes" -d classes source/jp/co/wordbook/controllers/*.java source/jp/co/wordbook/models/*.java
+
+    jacksonライブラリを追加 (26/01/23)
+    javac -cp "lib/*;classes" -d classes source/jp/co/wordbook/controllers/*.java source/jp/co/wordbook/models/*.java
+
+================================================================================
+warファイルを生成
+================================================================================
+
+jar cvf 作成するファイル名.jar 追加するファイル名(またはディレクトリ)
+
+出力場所を変更 (26.02.02)
+jar cvf D:\mywordbookWar\mywordbook.war .
+
+
+以前の指定方法
+
+    26.02.02以前
+    cd mywordbook  ※ 移動してから実行 
+    jar cvf mywordbook.war -C . .
+
+    [!] データ容量が大きいため、git commit する前に必ず削除すること
+
+
+================================================================================
+VS Codeに引っ越してきたときの変更点
 ================================================================================
 
 従来のクラスパスでコンパイル
@@ -11,31 +66,3 @@
     source - jp - co - wordbook - *.java
            ↑ この間に「jp.co.wordbook」ディレクトリがあったが、
              web.xml がクラスファイルを認識してくれなかった
-
-================================================================================
-コンパイル
-================================================================================
-
-コンソール文字化け対策 (UTF8化)
-chcp 65001
-
-jacksonライブラリを追加 (26/01/23)
-cd WEB-INF
-javac -cp "lib/*;classes" -d classes source/jp/co/wordbook/controllers/*.java source/jp/co/wordbook/models/*.java
-
-
-old
-    パッケージ分割前
-    javac -cp "lib/servlet-api.jar;classes" -d classes source/jp/co/wordbook/*.java
-
-
-    パッケージ分割後 (25/09/08)
-    cd WEB-INF  ※ 移動してからコンパイル
-    javac -cp "lib/servlet-api.jar;classes" -d classes source/jp/co/wordbook/controllers/*.java source/jp/co/wordbook/models/*.java
-
-================================================================================
-warファイルを生成
-================================================================================
-
-cd mywordbook  ※ 移動してから実行 
-jar cvf mywordbook.war -C . .

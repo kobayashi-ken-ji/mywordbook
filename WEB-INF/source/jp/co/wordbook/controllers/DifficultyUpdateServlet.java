@@ -29,7 +29,7 @@ public class DifficultyUpdateServlet  extends HttpServlet {
             // データベースから取得
             // ユーザーと科目が結びついているかチェック
             QuizDTO quiz = quizDAO.getRecord(quiz_id);
-            subjectDAO.userHasSubject(quiz.getSubject_id(), userId);
+            subjectDAO.userHasSubject(quiz.getSubjectId(), userId);
         }
         
         // パラメータが不正  →  ページ遷移なし、エラー告知無し のためreturn

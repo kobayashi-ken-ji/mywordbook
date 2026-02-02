@@ -24,7 +24,7 @@
 
             <div class="white-area quiz">
 
-                ${subjectname}
+                ${subjectName}
                 <div>全体 : <span id="total-count">0問目 / 0問中</span></div>
                 <div>今回 : <span id="count-in-lot">0問目 / 0問中</span></div>
 
@@ -62,7 +62,7 @@
         </div>
 
     <%-- 変数 quizJson, subjectName を作成するスクリプト --%>
-    ${jsonscript}
+    ${jsonScript}
     <script src="script/toquiz.js" charset="utf-8"></script>
 
     </body>

@@ -19,14 +19,14 @@ public class SubjectUpdateServlet extends HttpServlet {
         // セッションから取得
         String userId = Session.getUserId(request);
 
-        int    subject_id;
-        String subject_name;
+        int    subjectId;
+        String subjectName;
         String buttonValue;
 
         // リクエストから取得
         try {
-            subject_id   = Parameter.getInt(request, "subjectid");
-            subject_name = Parameter.getString(request, "subjectname");
+            subjectId   = Parameter.getInt(request, "subjectid");
+            subjectName = Parameter.getString(request, "subjectname");
             buttonValue  = Parameter.getString(request, "button");
         }
 
@@ -42,19 +42,19 @@ public class SubjectUpdateServlet extends HttpServlet {
 
         // レコードから削除
         if ("delete".equals(buttonValue)) {
-            boolean success = subjectDAO.deleteRecord(subject_id, userId);
+            boolean success = subjectDAO.deleteRecord(subjectId, userId);
             heading = (success)
                 ? "科目を削除しました"
                 : "科目を削除できませんでした";
 
             // この科目が設定されている問題も削除
             if (success)
-                new QuizDAO().deleteRecords(subject_id);
+                new QuizDAO().deleteRecords(subjectId);
         }
 
         // レコードを 上書き or 挿入
         else {
-            boolean success = subjectDAO.updateRecord(subject_id, subject_name, userId);
+            boolean success = subjectDAO.updateRecord(subjectId, subjectName, userId);
             heading = (success)
                 ? "科目を保存しました"
                 : "科目を保存できませんでした";
@@ -62,8 +62,8 @@ public class SubjectUpdateServlet extends HttpServlet {
 
         // リクエストへ設定
         request.setAttribute("heading", heading);
-        request.setAttribute("paragraph", "科目名 : " + subject_name);
-        request.setAttribute("buttonname", "科目一覧へ");
+        request.setAttribute("paragraph", "科目名 : " + subjectName);
+        request.setAttribute("buttonName", "科目一覧へ");
         request.setAttribute("url", "subjectlist?edit=subject");
 
         // JSPへ送信

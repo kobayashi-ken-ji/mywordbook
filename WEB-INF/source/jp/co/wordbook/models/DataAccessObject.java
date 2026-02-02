@@ -6,54 +6,102 @@ import java.util.*;
 /**
  * DAOの共通処理
  * 継承先は、各テーブルのDAO
- * TにはEntityを指定
+ * Tには子クラス用DTOを指定
  */
 public abstract class DataAccessObject<T> {
 
-    private Connection connection;
-
-    // データベース情報
-    // [!] LinuxではURLにUTF8と明記する必要がある
-    private static final String
-        URL      = "jdbc:mysql://localhost/mywordbook?useUnicode=true&characterEncoding=UTF-8",
-        USER     = "root",
-        PASSWORD = "",
-        JDBC     = "com.mysql.jdbc.Driver";
-
-    // T型のインスタンスを生成
+    // T型(子クラス用DTO) のインスタンスを生成
     protected abstract T createEntity(ResultSet results) throws SQLException;
 
     //-------------------------------------------------------------------------
     // データベースへの接続/切断
     //-------------------------------------------------------------------------
-
+ 
     /**
      * データベースに接続
-     * 使用後は必ず disconnect() を実行
+     * ※ try-with-resources 内での実行が必要
      */
-    protected void connect() {
+    protected Connection getConnection() throws ClassNotFoundException, SQLException {
 
-        try {
-            Class.forName(JDBC);
-            connection = DriverManager.getConnection(URL, USER, PASSWORD);
+        // 現在の環境ではforName()が必須
+        Class.forName(DBConstants.JDBC);
+        return DriverManager.getConnection(
+            DBConstants.URL, DBConstants.USER, DBConstants.PASSWORD);
+    }
 
-        } catch (ClassNotFoundException | SQLException e) {
+    /**
+     * DB操作関数のインターフェース
+     * apply()内で Connection.prepareStatement() を行い、DBを操作する
+     */
+    @FunctionalInterface
+    interface DBOperation<R> {
+
+        /**
+         * DBを操作するメソッド
+         * @param connection DB接続 (接続/切断はメソッド実行側が行う)
+         * @return 実行側に渡す値
+         * @throws Exception 全ての例外
+         */
+        R apply(Connection connection) throws Exception;
+    }
+
+
+    /**
+     * DBへ接続し、引数のDB操作を実行する (トランザクションなし)
+     * 例外発生時には、printStackTrace を行う
+     * @param operation DB操作
+     * @return  operation.apply() の戻り値 / 例外発生時はnull
+     */
+    protected <R> R execute(DBOperation<R> operation) {
+
+        // DBへの接続、切断
+        try (Connection connection = getConnection()) {
+
+            // 受け取ったDB処理を実行
+            return operation.apply(connection);
+        }
+
+        // DB接続、DB処理の両方の例外をキャッチ
+        catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
     }
 
 
     /**
-     * データベース接続を切断
+     * DBへ接続し、引数のDB操作を実行する (トランザクションを使用)
+     * 例外発生時には、ロールバックと printStackTrace を行う
+     * @param operation  DB操作 (Connection.commit() の直前まで)
+     * @return  operation.apply() の戻り値 / 例外発生時はnull
      */
-    protected void disconnect() {
+    protected <R> R executeWithTransaction(DBOperation<R> operation) {
 
-        try {
-            if (connection != null)
-                connection.close();
+        // DBへの接続、切断
+        try (Connection connection = getConnection()) {
 
-        } catch (SQLException e) {
+            try {
+                // トランザクションを開始
+                connection.setAutoCommit(false);
+
+                // 受け取ったDB処理を実行
+                R result = operation.apply(connection);
+                connection.commit();
+                return result;
+            }
+
+            // 失敗時はロールバックして、変更を元に戻す
+            catch (Exception e) {
+                e.printStackTrace();
+                connection.rollback();
+                return null;
+            }
+        }
+        
+        // DB接続の例外処理
+        catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
+            return null;
         }
     }
 
@@ -69,29 +117,25 @@ public abstract class DataAccessObject<T> {
      */
     protected List<T> executeQuery(String sql, Object... parameters) {
 
-        List<T> list = new ArrayList<>();
-        connect();
+        return execute(connection -> {
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
 
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                // SQLの?に値を設定
+                int index = 1;
+                for (Object parameter : parameters)
+                    statement.setObject(index++, parameter);
 
-            // SQLの?に値を設定
-            int index = 1;
-            for (Object parameter : parameters)
-                statement.setObject(index++, parameter);
+                // SQL実行
+                ResultSet results = statement.executeQuery();
 
-            // SQL実行
-            ResultSet results = statement.executeQuery();
+                // インスタンス化、リストに追加
+                List<T> resultList = new ArrayList<>();
+                while (results.next())
+                    resultList.add(createEntity(results));
 
-            // インスタンス化、リストに追加
-            while (results.next())
-                list.add(createEntity(results));
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        disconnect();
-        return list;
+                return resultList;
+            }
+        });
     }
 
 
@@ -103,25 +147,19 @@ public abstract class DataAccessObject<T> {
      */
     protected int executeUpdate(String sql, Object... parameters) {
 
-        int rowCount = 0;
-        connect();
+        return execute(connection -> {
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
 
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                // SQLの?に値を設定
+                int index = 1;
+                for (Object parameter : parameters)
+                    statement.setObject(index++, parameter);
 
-            // SQLの?に値を設定
-            int index = 1;
-            for (Object parameter : parameters)
-                statement.setObject(index++, parameter);
-
-            // SQL実行
-            rowCount = statement.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        disconnect();
-        return rowCount;
+                // SQL実行
+                int rowCount = statement.executeUpdate();
+                return rowCount;
+            } 
+        });
     }
 
 
@@ -133,104 +171,103 @@ public abstract class DataAccessObject<T> {
      */
     protected int executeQueryGetCount(String sql, Object... parameters) {
 
-        int count = 0;
-        connect();
+        return execute(connection -> {
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
 
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                // SQLの?に値を設定
+                int index = 1;
+                for (Object parameter : parameters)
+                    statement.setObject(index++, parameter);
 
-            // SQLの?に値を設定
-            int index = 1;
-            for (Object parameter : parameters)
-                statement.setObject(index++, parameter);
+                // SQL実行
+                ResultSet results = statement.executeQuery();
 
-            // SQL実行
-            ResultSet results = statement.executeQuery();
-
-            // カウント数を取得
-            if (results.next())
-                count = results.getInt(1);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        disconnect();
-        return count;
+                // カウント数を取得
+                return (results.next())
+                    ? results.getInt(1)
+                    : 0;
+            }            
+        });
     }
 
-    // /**
-    //  * レコードを新規作成、上書き、削除 (一括更新版)
-    //  * @param sql           SQL文
-    //  * @param parameters    SQLの?に設定する値
-    //  * @return              操作したレコード数
-    //  */
-    // protected void executeUpdateBatch(String sql, List<T> entities, Object... parameters) {
 
-    //     connect();
+    /**
+     * 複数レコードをアップデート (新規作成 | 上書き | 削除)
+     * SQL文(１レコードの操作)を使い回し、複数回実行する
+     * @param sql １レコードを操作するSQL文
+     * @param parameters
+     *      Object              : SQL文の?に渡す値
+     *      List<Object>        : SQL1回分(1レコード分) をまとめたもの
+     *      List<List<Object>>  : SQL複数回分をまとめたもの
+     * @param expectedUpdateCount 期待される変更数 (SQL1回分)
+     * @return 成否 (1つでも更新数が少なければfalse)
+     */
+    protected boolean executeUpdateBatch(
+        String sql, List<List<Object>> parametersList, int expectedUpdateCount) {
 
-    //     try (PreparedStatement statement = connection.prepareStatement(sql)) {
+        // DBへの接続、切断
+        int[] updateCounts = executeWithTransaction(connection -> {
 
-    //         // トランザクションを開始
-    //         connection.setAutoCommit(false);
+            // DBへの操作
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
 
-    //         // エンティティ(DTO) 全て
-    //         for (T entity : entities) {
-                
-    //             // SQLの?に値を設定
-    //             int index = 1;
-    //             for (Object parameter : parameters)
-    //                 statement.setObject(index++, parameter);
+                // SQL文１回分 (１レコード操作分) のパラメータを取得
+                for (List<Object> parameters : parametersList) {
+                    
+                    // SQL文の?に値を設定
+                    int index = 1;
+                    for (Object parameter : parameters)
+                        statement.setObject(index++, parameter);
 
-    //             // バッチに追加
-    //             statement.addBatch();
-    //         }
+                    // バッチに追加
+                    statement.addBatch();
+                }
 
-    //         // 一括で送信/反映
-    //         statement.executeBatch();
-    //         connection.commit();
+                // 一括で送信/反映
+                return statement.executeBatch();
+            }
+        });
 
-    //     } catch (SQLException e) {
-    //         e.printStackTrace();
-    //     }
+        // nullチェック
+        if (updateCounts == null) return false;
 
-    //     disconnect();
-    // }
+        // 戻り値 : 期待変更数と各SQL結果が同じかどうか
+        for (int updateCount : updateCounts) {
+            if (updateCount != expectedUpdateCount) return false;
+        }
+        return true;
+    }
     
     
     /**
-     * レコードを新規作成
-     * @param columnIndex   自動生成されるカラムの番号
+     * レコードを新規作成し、自動生成値を取得
+     * @param columnIndex   取得する、自動生成キー(IDなど) のカラムの番号
      * @param sql           SQL文
      * @param parameters    SQL文の?に設定する値
-     * @return 最初に自動生成されたキー値を取得 (Long, String などへのキャストが必要)
+     * @return columnIndexの値 (Long, String などへのキャストが必要 / 例外時はnull)
      */
     protected Object executeInsert(int columnIndex, String sql, Object... parameters) {
+        return execute(connection -> {
+            try (
+                PreparedStatement statement = 
+                    connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ) {
+                // SQLの?に値を設定
+                int index = 1;
+                for (Object parameter : parameters)
+                    statement.setObject(index++, parameter);
 
-        Object generatedValue = null;
-        connect();
+                // SQL実行
+                statement.executeUpdate();
 
-        try (
-            PreparedStatement statement = 
-                connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-        ) {
-            // SQLの?に値を設定
-            int index = 1;
-            for (Object parameter : parameters)
-                statement.setObject(index++, parameter);
+                // 自動生成されたキー値を取得
+                ResultSet result = statement.getGeneratedKeys();
 
-            // SQL実行
-            statement.executeUpdate();
-
-            // 自動生成されたキー値を取得
-            ResultSet result = statement.getGeneratedKeys();
-            if (result.next())
-                generatedValue = result.getObject(columnIndex);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        disconnect();
-        return generatedValue;
+                // 指定されたキーの値を返す
+                return (result.next())
+                    ? result.getObject(columnIndex) // generatedValue
+                    : null;
+            }
+        });
     }
 }

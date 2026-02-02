@@ -19,8 +19,8 @@ public class TopServlet extends HttpServlet {
 
         // DAOを生成
         QuizSettingDAO quizSettingDAO = new QuizSettingDAO();
-        SubjectDAO subjectDAO = new SubjectDAO();
-        DifficultyDAO difficultyDAO = new DifficultyDAO();
+        SubjectDAO     subjectDAO     = new SubjectDAO();
+        DifficultyDAO  difficultyDAO  = new DifficultyDAO();
 
         // DTOを取得
         List<SubjectDTO> subjects = subjectDAO.getAllRecords(userId);  // ユーザーを照合
@@ -49,16 +49,21 @@ public class TopServlet extends HttpServlet {
         }
 
         // 「一度に出題する問題数」のプルダウンの要素
-        List<Integer> lotSizes = Arrays.asList(10, 20, 30, 40, 50);
+        final List<Integer> lotSizes = Arrays.asList(10, 20, 30, 40, 50);
+
+        // 「つづきから」ボタンを表示するか
+        final boolean isContinuable = quizSetting.getAnsweredCount() > 0;
 
         //-----------------------------------------------------------
 
         // リクエストへ設定
-        request.setAttribute("nosubjects", (subjects.size() == 0));
+        request.setAttribute("noSubjects", (subjects.size() == 0));
         request.setAttribute("subjects", subjects);
         request.setAttribute("difficulties", difficulties);
         request.setAttribute("quizSetting", quizSetting);
         request.setAttribute("lotSizes", lotSizes);
+        request.setAttribute("isContinuable", isContinuable);
+
 
         // JSPへ送信
         String view = "/WEB-INF/views/top.jsp";
