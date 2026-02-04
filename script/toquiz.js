@@ -38,14 +38,14 @@ class Quiz
     /**
      * 出題用のデータをまとめるクラス
      * @param {number} id               問題のID
-     * @param {number} difficulty_id    難易度
+     * @param {number} difficultyId     難易度
      * @param {string} question         問題文
      * @param {string} answer           正解文
      * @param {string} explanation      説明文
      */
-    constructor(id, difficulty_id, question, answer, explanation) {
+    constructor(id, difficultyId, question, answer, explanation) {
         this.id            = id;
-        this.difficulty_id = difficulty_id;
+        this.difficultyId = difficultyId;
         this.question      = question;
         this.answer        = answer;
         this.explanation   = explanation;
@@ -61,7 +61,7 @@ class ToQuiz
     // HTMLの要素を取得
     elements = {
         inputEnable   : document.getElementById("input-enable"),
-        speakEnable   : document.getElementById("speak-enable"),
+        speechEnabled : document.getElementById("speak-enable"),
         totalCount    : document.getElementById("total-count"),
         countInLot    : document.getElementById("count-in-lot"),
         question      : document.getElementById("question"),
@@ -99,7 +99,6 @@ class ToQuiz
     constructor(quizJson, subjectName, answeredCount, totalSize) {
 
         this.subjectName = subjectName;
-        this.answeredCount = answeredCount;
         this.totalSize = totalSize;
         this.totalCount = answeredCount;
 
@@ -116,12 +115,12 @@ class ToQuiz
         // イベントリスナーを設定
         {
             const e = this.elements;
-            e.inputEnable .addEventListener("change", () => this.applyInputEnable());
-            e.speakEnable .addEventListener("change", () => this.speech.enable = e.speakEnable.checked);
-            e.quitButton  .addEventListener("click" , () => this.goToResult());
-            e.answerButton.addEventListener("click" , () => this.displayAnswer(true));
-            e.nextButton  .addEventListener("click" , () => this.displayNextQuiz(false));
-            e.retestButton.addEventListener("click" , () => this.displayNextQuiz(true));
+            e.inputEnable  .addEventListener("change", () => this.applyInputEnable());
+            e.speechEnabled.addEventListener("change", () => this.speech.enable = e.speechEnabled.checked);
+            e.quitButton   .addEventListener("click" , () => this.goToResult());
+            e.answerButton .addEventListener("click" , () => this.displayAnswer(true));
+            e.nextButton   .addEventListener("click" , () => this.displayNextQuiz(false));
+            e.retestButton .addEventListener("click" , () => this.displayNextQuiz(true));
         }
 
         // 難易度ボタン (複数のラジオボタン)
@@ -167,8 +166,9 @@ class ToQuiz
         // その他、クエリで送信していたものもフォームに追加
         input("subjectName", this.subjectName);
         input("correctCount", this.correctCount);
-        input("quizCount", this.countInLot);
         input("noRetestCount", this.noRetestCount);
+        input("isSpeechEnabled", this.elements.speechEnabled.checked);
+        input("isInputEnabled", this.elements.inputEnable.checked);
 
         // POST送信
         form.submit();
@@ -199,7 +199,7 @@ class ToQuiz
         }
 
         // 問題をデキューする
-        const quiz  = this.quizzes.shift();
+        const quiz = this.quizzes.shift();
         this.quiz = quiz;
 
         const e = this.elements;
@@ -208,8 +208,9 @@ class ToQuiz
         this.isAnswered = false;
 
         // 難易度を反映
-        // ラジオボタンの配列[ 難易度id-1 ]
-        e.difficultyids[quiz.difficulty_id-1].checked = true;
+        //  ・ ラジオボタン配列 : 0開始
+        //  ・ 難易度id- : 1開始
+        e.difficultyids[quiz.difficultyId-1].checked = true;
 
         // 出題カウントを更新 (全体、今回)
         // 今回の出題数より多い部分は、再出題部分の為カウントしない
@@ -291,10 +292,14 @@ class ToQuiz
 
 
     // 難易度の変更を送信 (onclick用)
-    sendDifficultyid(difficulty_id) {
+    sendDifficultyid(difficultyId) {
         
+        // クイズ情報にも反映
+        // 再出題するときに表示するため
+        this.quiz.difficultyId = difficultyId;
+
         // URLを作成
-        const query = `?quizid=${this.quiz.id}&difficultyid=${difficulty_id}`;
+        const query = `?quizid=${this.quiz.id}&difficultyid=${difficultyId}`;
         const url = "difficultyupdate" + query;
 
         // 送信

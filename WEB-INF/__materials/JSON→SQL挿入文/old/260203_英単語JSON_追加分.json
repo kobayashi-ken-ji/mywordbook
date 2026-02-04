@@ -1,0 +1,112 @@
+{
+    "truncate" : [
+        "[動] (先頭から特定サイズに)切り詰める, 中身を消す",
+        "TRUNCATE TABLE - 条件指定など行わず、テーブル内のデータを全て削除するSQL文"
+    ],
+    "behavior" : [
+        "[名] 行動, 振る舞い",
+        "behave - [動] 振舞う",
+        "customize the default behavior - デフォルトの動作をカスタマイズする"
+    ],
+    "induce" : [
+        "[動] 中へ導く, 引き起こす, 誘発する",
+        "order induced by",
+        "according to the order induced by ～",
+        "～によって導き出された順番に従って (ソートの表現)"
+    ],
+    "according" : [
+        "[形] 従って, ～によれば",
+        "according to the order induced by ～",
+        "～によって導き出された順番に従って (ソートの表現)"
+    ],
+    "indicate" : [
+        "[動] (～ということを)示す、 物語る",
+        "Indicates whether this file exists.",
+        "ファイルが存在するかどうかを示す"
+    ],
+    "recent" : [
+        "[形] (出来事などが)最近の, 少し前の",
+        "A summary of recent changes",
+        "最近の変更点の概要"
+    ],
+    "unmet" : [
+        "[形] (要求などが)満たされていない",
+        "packages have unmet dependencies",
+        "パッケージには満たされていない依存関係があります"
+    ],
+    "excluding" : [
+        "[前] ～を除いて",
+        "Excluding files with the following patterns.",
+        "次のパターンに合致するファイルを除外する"
+    ],
+    "acquire" : [
+        "[動] (努力して)獲得する, 取得する"
+    ],
+    "alter" : [
+        "[動] (部分的に)変える, 変更する"
+    ],
+    "dissent" : [
+        "[動] 反対する, 異議を唱える"
+    ],
+    "correspond" : [
+        "[動] (物事が)一致する, 対応する"
+    ],
+    "bulk" : [
+        "[名] かさ, 容積, 大量, 巨体",
+        "a ship of vast bulk",
+        "すごく大きい船"
+    ],
+    "feature" : [
+        "[名] 特徴, 特色"
+    ],
+    "potential" : [
+        "(本来備わっている)潜在力, 将来性"
+    ],
+    "discover" : [
+        "[動] 発見する, 明らかにする"
+    ],
+    "noun" : [
+        "[名] 名詞"
+    ],
+    "its" : [
+        "[代] それの (it の所有格)"
+    ],
+    "adjective" : [
+        "[名] 形容詞"
+    ],
+    "purpose" : [
+        "[名] 目的, [動] 意図する"
+    ],
+    "lint" : [
+        "[名] 糸くず, 構文チェックをすること、そのツール",
+        "linter とも"
+    ],
+    "detect" : [
+        "[動] 検出する, (～を)見つける, (存在などに)気付く"
+    ],
+    "simplify" : [
+        "[動] 単純にする, 簡略化する",
+        "simplification [名] 単純化",
+        "simple [形] 簡単な",
+        "simply [副] 簡単に"
+    ],
+    "explicit" : [
+        "[形] 明確な, はっきりと述べられた",
+        "explicit / implicit",
+        "明示的 / 暗黙的"
+    ],
+    "implicit" : [
+        "[形] (同意などが)暗黙の",
+        "explicit / implicit",
+        "明示的 / 暗黙的"
+    ],
+    "persist" : [
+        "[動] 持続する, 固執する",
+        "persistence [名] 持続性, しつこさ"
+    ],
+    "trigger" : [
+        "[動] 起動する, [名] 引き金",
+        "trigger the workflow whenever a file is changed",
+        "ファイルが変更されるたびにワークフローを起動する"
+    ]
+}

@@ -14,8 +14,7 @@ public class QuizEditServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException
     {
-        List<SubjectDTO>    subjects;
-        List<DifficultyDTO> difficulties;
+        List<SubjectDTO> subjects;
         boolean isNew;
         QuizDTO quiz;
 
@@ -30,14 +29,13 @@ public class QuizEditServlet extends HttpServlet {
             // idが0なら新規作成
             isNew = (quizId == 0);
 
-            SubjectDAO    subjectDAO    = new SubjectDAO();
-            DifficultyDAO difficultyDAO = new DifficultyDAO();
+            SubjectDAO subjectDAO = new SubjectDAO();
 
             // データベースから取得
-            subjects     = subjectDAO.getAllRecords(userId);
-            difficulties = difficultyDAO.getAllRecords();
+            final int DIFFICULTY_ID_DEFAULT = 4;
+            subjects = subjectDAO.getAllRecords(userId);
             quiz = (isNew)
-                ? new QuizDTO(0, subjectId, 2, "","", "", false)
+                ? new QuizDTO(0, subjectId, DIFFICULTY_ID_DEFAULT, "","", "", false)
                 : new QuizDAO().getRecord(quizId);
 
             // ユーザーと紐づいているかチェック
@@ -59,7 +57,7 @@ public class QuizEditServlet extends HttpServlet {
         // リクエストへ設定
         request.setAttribute("quiz", quiz);
         request.setAttribute("subjects", subjects);
-        request.setAttribute("difficulties", difficulties);
+        request.setAttribute("difficultyMap", Difficulty.MAP);
         request.setAttribute("cancelURL", cancelURL);
 
         // JSPへ送信

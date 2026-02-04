@@ -19,23 +19,24 @@ public class ResultServlet extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         String userId = Session.getUserId(request);
 
-        String subjectName; 
-        int correctCount;   
-        int quizCount;      
+        String subjectName;
+        int correctCount;
         int noRetestCount;
+        boolean isSpeechEnabled;
+        boolean isInputEnabled;
         String[] stringQuizIds;
 
         QuizSettingDAO quizSettingDAO = new QuizSettingDAO();
         QuizSettingDTO quizSetting;
 
-
         try {
             // リクエストから取得
-            subjectName   = Parameter.getString(request, "subjectName");
-            correctCount  = Parameter.getInt(request, "correctCount");
-            quizCount     = Parameter.getInt(request, "quizCount");
-            noRetestCount = Parameter.getInt(request, "noRetestCount");
-            stringQuizIds = Parameter.getStringArrayOrEmpty(request, "quizIds");
+            subjectName     = Parameter.getString(request, "subjectName");
+            correctCount    = Parameter.getInt(request, "correctCount");
+            noRetestCount   = Parameter.getInt(request, "noRetestCount");
+            stringQuizIds   = Parameter.getStringArrayOrEmpty(request, "quizIds");
+            isSpeechEnabled = Parameter.getBoolean(request, "isSpeechEnabled");
+            isInputEnabled  = Parameter.getBoolean(request, "isInputEnabled");
 
             // DBから取得
             quizSetting = quizSettingDAO.getRecord(userId);
@@ -48,9 +49,10 @@ public class ResultServlet extends HttpServlet {
             return;
         }
 
-        // 
-        final int percentCorrect  = 100 * correctCount  / quizCount;
-        final int percentNoRetest = 100 * noRetestCount / quizCount;
+        // 正答率、「再出題しなかった」割合
+        final int quizCount = stringQuizIds.length;
+        final int percentCorrect  = (quizCount == 0) ? 0 : (100 * correctCount  / quizCount);
+        final int percentNoRetest = (quizCount == 0) ? 0 : (100 * noRetestCount / quizCount);
 
         // String[] → List<Integer> 変換
         List<Integer> quizIds = Arrays.stream(stringQuizIds)
@@ -61,8 +63,8 @@ public class ResultServlet extends HttpServlet {
         QuizDAO quizDAO = new QuizDAO();
         quizDAO.setAsked(quizIds);
 
-        // 既出題数を増やす
-        quizSettingDAO.addAnsweredCount(userId, quizCount);
+        // 既出題数を増やす、出題画面の設定を上書きする
+        quizSettingDAO.updateResult(userId, quizCount, isSpeechEnabled, isInputEnabled);
         
         // 全ての問題が出題済み → 出題をリセットするためのフラグを立てる
         final boolean completed = (quizDAO.getUnaskedCount(quizSetting) == 0);

@@ -22,3 +22,7 @@ VScode拡張機能のインストール
     普段通りのURLでアクセスできる。
     http://localhost:8080/mywordbook/top
 
+
+[!] コンパイル時の注意
+    必ず -g オプションを利用して、デバッグ情報を付与すること
+    javac -g ...

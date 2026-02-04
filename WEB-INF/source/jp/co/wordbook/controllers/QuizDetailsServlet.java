@@ -18,7 +18,6 @@ public class QuizDetailsServlet extends HttpServlet {
         String state;
         QuizDTO quiz;
         SubjectDTO subject;
-        DifficultyDTO difficulty;
 
         // セッションから取得
         String userId = Session.getUserId(request);
@@ -31,7 +30,6 @@ public class QuizDetailsServlet extends HttpServlet {
             // データベースから取得
             quiz       = new QuizDAO().getRecord(quizId);
             subject    = new SubjectDAO().getRecord(quiz.getSubjectId(), userId);  // ユーザーを照合
-            difficulty = new DifficultyDAO().getRecord(quiz.getDifficultyId());
         }
         
         // パラメータが不正 → インフォメーションページへ
@@ -51,7 +49,7 @@ public class QuizDetailsServlet extends HttpServlet {
         request.setAttribute("heading", heading);
         request.setAttribute("quiz", quiz);
         request.setAttribute("subjectName", subject.getName());
-        request.setAttribute("difficultyName", difficulty.getName());
+        request.setAttribute("difficultyName", Difficulty.MAP.get(quiz.getDifficultyId()));
 
         // JSPへ送信
         String view = "/WEB-INF/views/quizdetails.jsp";

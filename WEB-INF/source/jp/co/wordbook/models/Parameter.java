@@ -57,6 +57,29 @@ public class Parameter {
         return string;
     }
 
+
+    /**
+     * リクエストのパラメータから真偽値を取得
+     * @param request               サーブレットのリクエスト
+     * @param parameterName         リクエストから取得するパラメータの名前
+     * @return                      文字列"true", "false"を 真偽値 true, false にして返す
+     * @throws ParameterException   文字列が true, false 以外の場合
+     */
+    public static boolean getBoolean(HttpServletRequest request, String parameterName)
+        throws ParameterException
+    {
+        String string = request.getParameter(parameterName);
+
+        if (string == null)
+            throw new ParameterException("パラメータ [" + parameterName + "] がnullです。");
+        
+        if (string.equals("true"))  return true;
+        if (string.equals("false")) return false;
+
+        throw new ParameterException(
+            "パラメータ [" + parameterName + "] (値: " + string + ") は true|false ではありません。");
+    }
+
     
     /**
      * パラメータから文字列配列を取得

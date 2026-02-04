@@ -1,6 +1,6 @@
 package jp.co.wordbook.models;
 
-// データベースへ接続するための情報
+/** データベースへ接続するための情報 */
 public class DBConstants {
 
     // インスタンス化を防ぐために private化

@@ -3,7 +3,6 @@ package jp.co.wordbook.models;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-// import java.util.stream.Collectors;
 
 /**
  * usersテーブルへアクセスするクラス
@@ -20,7 +19,9 @@ public class QuizSettingDAO extends DataAccessObject<QuizSettingDTO> {
             results.getInt("lot_size"),
             results.getBoolean("is_swap_mode"),
             results.getInt("answered_count"),
-            difficultyMaskToList(results.getInt("difficulty_mask"))
+            difficultyMaskToList(results.getInt("difficulty_mask")),
+            results.getBoolean("is_speech_enabled"),
+            results.getBoolean("is_input_enabled")
         );
     }
 
@@ -70,15 +71,22 @@ public class QuizSettingDAO extends DataAccessObject<QuizSettingDTO> {
     }
 
 
-    /** レコードの上書き (出題数を加算) */
-    public boolean addAnsweredCount(String userId, int answeredCount) {
-
+    /** レコードの上書き (出題結果を反映する) */
+    public boolean updateResult(
+        String userId, int answeredCount,
+        boolean isSpeechEnabled, boolean isInputEnabled
+    ) {
         String sql =
             "UPDATE user_quiz_settings " + 
-            "SET answered_count = answered_count + ? " +
+            "SET " +
+                "answered_count = answered_count + ?, " +
+                "is_speech_enabled = ?, " +
+                "is_input_enabled = ? " +
             "WHERE user_id = ?;";
 
-        int rowCount = executeUpdate(sql, answeredCount, userId);
+        int rowCount = executeUpdate(
+            sql, answeredCount, isSpeechEnabled, isInputEnabled, userId);
+
         return (rowCount != 0);
     }
 
@@ -154,8 +162,6 @@ public class QuizSettingDAO extends DataAccessObject<QuizSettingDTO> {
     //     int rowCount = executeUpdate(sql, id, password);
     //     return (rowCount != 0);
     // }
-
-
 
 
     // レコードの削除
