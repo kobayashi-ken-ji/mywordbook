@@ -13,20 +13,24 @@ public class QuizSettingDTO implements Serializable
     private boolean isSwapMode;             // 問題文と正解文を入れ替えるフラグ
     private int     answeredCount;          // 既出題数
     private List<Integer> difficultyIds;    // 設定中の難易度IDのリスト
+    private boolean isSpeechEnabled;        // 読み上げ機能の 有効/無効
+    private boolean isInputEnabled;         // ユーザー回答欄の 有効/無効
 
     // コンストラクタ
     public QuizSettingDTO() {}
     public QuizSettingDTO(
         String userId, int subjectId,
-        int lotSize, boolean isSwapMode, int answeredCount, 
-        List<Integer> difficultyIds
+        int lotSize, boolean isSwapMode, int answeredCount, List<Integer> difficultyIds,
+        boolean isSpeechEnabled, boolean isInputEnabled
     ) {
-        this.userId        = userId;
-        this.subjectId     = subjectId;
-        this.lotSize       = lotSize;
-        this.isSwapMode    = isSwapMode;
-        this.answeredCount = answeredCount;
-        this.difficultyIds = difficultyIds;
+        this.userId          = userId;
+        this.subjectId       = subjectId;
+        this.lotSize         = lotSize;
+        this.isSwapMode      = isSwapMode;
+        this.answeredCount   = answeredCount;
+        this.difficultyIds   = difficultyIds;
+        this.isSpeechEnabled = isSpeechEnabled;
+        this.isInputEnabled  = isInputEnabled;
     }
 
     // ゲッター
@@ -38,7 +42,9 @@ public class QuizSettingDTO implements Serializable
     public void setDifficultyIds(List<Integer> difficultyIds) {
         this.difficultyIds = difficultyIds;
     }
-    
+    public void setIsSpeechEnabled(boolean isSpeechEnabled) { this.isSpeechEnabled = isSpeechEnabled; }
+    public void setIsInputEnabled(boolean isInputEnabled)  { this.isInputEnabled = isInputEnabled; }
+
     // セッター
     public String getUserId()               { return userId; }
     public int getSubjectId()               { return subjectId; }
@@ -46,4 +52,6 @@ public class QuizSettingDTO implements Serializable
     public boolean getIsSwapMode()          { return isSwapMode; }
     public int getAnsweredCount()           { return answeredCount; }
     public List<Integer> getDifficultyIds() { return difficultyIds; }
+    public boolean getIsSpeechEnabled()     { return isSpeechEnabled; }
+    public boolean getIsInputEnabled()      { return isInputEnabled; }
 }

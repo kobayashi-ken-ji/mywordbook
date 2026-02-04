@@ -43,14 +43,14 @@
                 <div class="buttonlike devide4">
                     出題範囲<br>
 
-                    <c:forEach var="difficulty" items="${difficulties}">
+                    <c:forEach var="difficulty" items="${difficultyMap}">
                         <label>
                             <input
                                 type="checkbox" name="difficultyids"
-                                value="${difficulty.id}" 
-                                ${difficulty.checked ? " checked" : "" }
+                                value="${difficulty.key}" 
+                                ${activeDifficultyIds.contains(difficulty.key) ? " checked" : "" }
                             >
-                            <span>${difficulty.name}</span>
+                            <span>${difficulty.value}</span>
                         </label>
                     </c:forEach>
                 </div>

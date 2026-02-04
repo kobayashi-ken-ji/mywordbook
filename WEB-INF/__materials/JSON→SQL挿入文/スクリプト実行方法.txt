@@ -11,9 +11,10 @@ NodeJS版
 (2) 事前に 「英単語JSON.json」 ファイルから、クリップボードへコピーしておく
 
 (3) コマンドで実行
-node "C:\pleiades\2024-03\tomcat\9\webapps\mywordbook\WEB-INF\__materials\JSON→SQL挿入文\【NodeJS】JSON→SQL挿入文.mjs"
+node "WEB-INF\__materials\JSON→SQL挿入文\【NodeJS】JSON→SQL挿入文.mjs"
     cmdならファイルを投げ入れてパス指定が出来る
-    VScodeでは「→」が消えてしまう
+    [!] VScodeでは「→」が消えてしまう
+
 
 (4) クリップボードにコピーされているので、DBでSQL文を実行
 

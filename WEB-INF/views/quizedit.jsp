@@ -57,14 +57,14 @@
                         <th>難易度</th>
                         <td  class="buttonlike devide4">
 
-                            <c:forEach var="difficulty" items="${difficulties}">
+                            <c:forEach var="difficulty" items="${difficultyMap}">
                                 <label>
                                     <input
                                         type="radio" name="difficultyid"
-                                        value="${difficulty.id}" 
-                                        ${difficulty.id == quiz.difficultyId ? "checked" : "" }
+                                        value="${difficulty.key}" 
+                                        ${difficulty.key == quiz.difficultyId ? "checked" : "" }
                                     >
-                                    <span>${difficulty.name}</span>
+                                    <span>${difficulty.value}</span>
                                 </label>
                             </c:forEach>
 

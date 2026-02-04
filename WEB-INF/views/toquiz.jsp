@@ -12,11 +12,15 @@
 
             <div class="buttonlike">
                 <label>
-                    <input type="checkbox" id="input-enable">
+                    <input type="checkbox" id="input-enable"
+                        ${quizSetting.isInputEnabled ? "checked" : "" }
+                    >
                     <span>回答欄 表示</span>
                 </label>
                 <label>
-                    <input type="checkbox" id="speak-enable">
+                    <input type="checkbox" id="speak-enable"
+                        ${quizSetting.isSpeechEnabled ? "checked" : "" }
+                    >
                     <span>英語読み上げ</span>
                 </label>
                 <button class="quit-button" id="quit-button">出題終了</button> 
@@ -37,13 +41,13 @@
                 <div class="explanation" id="explanation">説明文</div>
 
                 <div  class="buttonlike devide4">
-                    <c:forEach var="difficulty" items="${difficulties}">
+                    <c:forEach var="difficulty" items="${difficultyMap}">
                         <label>
                             <input
                                 type="radio" name="difficultyids"
-                                value="${difficulty.id}"
+                                value="${difficulty.key}"
                             >
-                            <span>${difficulty.name}</span>
+                            <span>${difficulty.value}</span>
                         </label>
                     </c:forEach>
                 </div>

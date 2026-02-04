@@ -5,6 +5,9 @@
 ディレクトリ変更不要 & UTF-8指定 (26/02/01)
 javac -encoding UTF-8 -cp "WEB-INF/lib/*;WEB-INF/classes" -d WEB-INF/classes WEB-INF/source/jp/co/wordbook/controllers/*.java WEB-INF/source/jp/co/wordbook/models/*.java
 
+※ デバッグ情報を付与 (-g オプション)
+javac -g -encoding UTF-8 -cp "WEB-INF/lib/*;WEB-INF/classes" -d WEB-INF/classes WEB-INF/source/jp/co/wordbook/controllers/*.java WEB-INF/source/jp/co/wordbook/models/*.java
+
 
 [!] エンコーディング問題
     ※ 結論 (26/02/01) : コンパイル時に -encoding UTF-8 を付与する

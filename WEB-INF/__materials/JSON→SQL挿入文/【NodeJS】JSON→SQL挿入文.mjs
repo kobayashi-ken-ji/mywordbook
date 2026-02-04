@@ -14,14 +14,14 @@ const LF_ESC = "\\n"    // SQL内での改行用
 // INSERT文
 const INSERT_HEADER = 
     "INSERT" + LF +
-    "    INTO quizzes(subject_id, difficulty_id, question, answer, explanation)" + LF +
+    "    INTO quizzes(subject_id, difficulty_id, question, answer, explanation, is_asked)" + LF +
     "    VALUES" + LF;
 
 
-// 科目ID, 難易度ID [変更可]
+// 科目ID, 難易度ID, 出題済みフラグ [変更可]
 // const SUBJECT_ID = 1;
-const DIFFICULTY_ID = 2;    // 1 得意, 2 普通, 3 苦手
-
+const DIFFICULTY_ID = 4;    // 1完璧, 2ほぼ覚, 3うろ覚, 4苦手
+const IS_ASKED = "FALSE";
 
 /** JSONテキスト → SQL挿入文 へ変換 */
 class JsonToSQL
@@ -68,10 +68,10 @@ class JsonToSQL
             const explanation = values.slice(1).join(LF_ESC);
 
             // SQL化
-            // 例  (0, 1, "問題文", "正解文", "説明文")
+            // 例  (0, 1, "問題文", "正解文", "説明文", FALSE)
             const sql = 
                 `(${subujectId}, ${DIFFICULTY_ID}, ` +
-                `\"${question}\", \"${answer}\", \"${explanation}\")`;
+                `\"${question}\", \"${answer}\", \"${explanation}\", ${IS_ASKED})`;
 
             // インデントを追加
             return "        " + sql;
