@@ -86,9 +86,12 @@ public class ToQuizServlet extends HttpServlet {
 
             // 「続きから」の処理
             else {
-                // 「一度の出題数」のみDBへ更新
+                // 「一度の出題数」のみ DB,DTO へ更新
                 int lotSize = Parameter.getInt(request, "lot-size");
-                if (lotSize != 0) quizSettingDAO.updateLotSize(userId, lotSize);
+                if (lotSize != 0) {
+                    quizSettingDAO.updateLotSize(userId, lotSize);
+                    quizSetting.setLotSize(lotSize);
+                }
 
                 // それ以外はDB値を取得
                 int subjectId = quizSetting.getSubjectId();

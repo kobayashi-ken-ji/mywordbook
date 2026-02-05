@@ -2,6 +2,35 @@
 コンパイル
 ================================================================================
 
+コンパイルのバッチ化 (26/02/05)
+    .\build.bat で起動
+    -g オプションでデバッグ
+
+    [!] servlet-api.jar の場所を変更
+        WEB-INF/lib/  を削除
+        tomcat/9/lib  を参照
+
+================================================================================
+warファイルを生成
+================================================================================
+
+jar cvf 作成するファイル名.jar 追加するファイル名(またはディレクトリ)
+
+出力場所を変更 (26.02.02)
+jar cvf D:\mywordbookWar\mywordbook.war .
+
+以前の指定方法
+
+    26.02.02以前
+    cd mywordbook  ※ 移動してから実行 
+    jar cvf mywordbook.war -C . .
+
+    [!] データ容量が大きいため、git commit する前に必ず削除すること
+
+================================================================================
+コンパイルコマンドの履歴
+================================================================================
+
 ディレクトリ変更不要 & UTF-8指定 (26/02/01)
 javac -encoding UTF-8 -cp "WEB-INF/lib/*;WEB-INF/classes" -d WEB-INF/classes WEB-INF/source/jp/co/wordbook/controllers/*.java WEB-INF/source/jp/co/wordbook/models/*.java
 
@@ -27,34 +56,14 @@ javac -g -encoding UTF-8 -cp "WEB-INF/lib/*;WEB-INF/classes" -d WEB-INF/classes 
 
 
 old (cd WEB-INF でディレクトリ移動が必要)
-
-    パッケージ分割前
-    javac -cp "lib/servlet-api.jar;classes" -d classes source/jp/co/wordbook/*.java
+    jacksonライブラリを追加 (26/01/23)
+    javac -cp "lib/*;classes" -d classes source/jp/co/wordbook/controllers/*.java source/jp/co/wordbook/models/*.java
 
     パッケージ分割後 (25/09/08)
     javac -cp "lib/servlet-api.jar;classes" -d classes source/jp/co/wordbook/controllers/*.java source/jp/co/wordbook/models/*.java
 
-    jacksonライブラリを追加 (26/01/23)
-    javac -cp "lib/*;classes" -d classes source/jp/co/wordbook/controllers/*.java source/jp/co/wordbook/models/*.java
-
-================================================================================
-warファイルを生成
-================================================================================
-
-jar cvf 作成するファイル名.jar 追加するファイル名(またはディレクトリ)
-
-出力場所を変更 (26.02.02)
-jar cvf D:\mywordbookWar\mywordbook.war .
-
-
-以前の指定方法
-
-    26.02.02以前
-    cd mywordbook  ※ 移動してから実行 
-    jar cvf mywordbook.war -C . .
-
-    [!] データ容量が大きいため、git commit する前に必ず削除すること
-
+    パッケージ分割前
+    javac -cp "lib/servlet-api.jar;classes" -d classes source/jp/co/wordbook/*.java
 
 ================================================================================
 VS Codeに引っ越してきたときの変更点

@@ -2,6 +2,7 @@
     "java.project.sourcePaths": ["WEB-INF/source"],
     // "java.project.outputPath": "classes",
     "java.project.referencedLibraries": [
-        "WEB-INF/lib/*.jar"
+        "WEB-INF/lib/*.jar",
+        "../../lib/servlet-api.jar"
     ]
 }
