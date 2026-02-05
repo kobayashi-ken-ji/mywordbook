@@ -1,1 +1,12 @@
+# コンパイル物
 *.war
+WEB-INF/classes/
+*.class
+
+# 個人の環境設定
+.vscode/
+
+# 一時ファイル・ログ
+*.log
+Thumbs.db
+sources.txt

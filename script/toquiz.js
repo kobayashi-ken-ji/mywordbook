@@ -44,11 +44,11 @@ class Quiz
      * @param {string} explanation      説明文
      */
     constructor(id, difficultyId, question, answer, explanation) {
-        this.id            = id;
+        this.id           = id;
         this.difficultyId = difficultyId;
-        this.question      = question;
-        this.answer        = answer;
-        this.explanation   = explanation;
+        this.question     = question;
+        this.answer       = answer;
+        this.explanation  = explanation;
     }
 }
 
@@ -115,6 +115,7 @@ class ToQuiz
         // イベントリスナーを設定
         {
             const e = this.elements;
+            this.speech.enable = e.speechEnabled.checked;
             e.inputEnable  .addEventListener("change", () => this.applyInputEnable());
             e.speechEnabled.addEventListener("change", () => this.speech.enable = e.speechEnabled.checked);
             e.quitButton   .addEventListener("click" , () => this.goToResult());
