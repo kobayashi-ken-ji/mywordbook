@@ -4,6 +4,8 @@ WEB-INF/classes/
 # 一時ファイル・ログ
 sources.txt
 
+# Pythonキャッシュ
+__pycache__/
 
 # Created by https://www.toptal.com/developers/gitignore/api/java,windows,linux,macos,visualstudiocode
 # Edit at https://www.toptal.com/developers/gitignore?templates=java,windows,linux,macos,visualstudiocode
