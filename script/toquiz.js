@@ -112,7 +112,7 @@ class ToQuiz
             return;
         }
 
-        // イベントリスナーを設定
+        // UIの処理を設定
         {
             const e = this.elements;
             this.speech.enable = e.speechEnabled.checked;
@@ -123,6 +123,17 @@ class ToQuiz
             e.nextButton   .addEventListener("click" , () => this.displayNextQuiz(false));
             e.retestButton .addEventListener("click" , () => this.displayNextQuiz(true));
         }
+
+        // キーボードショートカットを設定
+        document.addEventListener("keyup", (keyboardEvent)=>{
+
+            // ↓答え表示, →次の問題へ, ←後で再出題
+            switch (keyboardEvent.key) {
+                case "ArrowDown"  : this.displayAnswer(true);    return;
+                case "ArrowRight" : this.displayNextQuiz(false); return;
+                case "ArrowLeft"  : this.displayNextQuiz(true);  return;
+            }
+        }, false);
 
         // 難易度ボタン (複数のラジオボタン)
         for (let element of this.elements.difficultyids) {

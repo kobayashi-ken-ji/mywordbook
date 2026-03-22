@@ -62,7 +62,14 @@
                 <button class="red double" id="answer-button">答え</button><br>
                 <button id="retest-button">後で再出題</button>
                 <button id="next-button">次の問題</button>
+
+                <div class="gray-font">
+                    <br>
+                    キーボード操作 [ ←再出題 ↓答え →次へ ]
+                </div>
             </div>
+
+
         </div>
 
     <%-- 変数 quizJson, subjectName を作成するスクリプト --%>
