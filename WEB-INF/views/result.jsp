@@ -29,6 +29,21 @@
             <a class="button wide ${completed ? 'red' : 'blue'}" href="top">トップ画面へ</a>
             <a class="button wide red" ${completed ? 'hidden' : '' }
                 href="toquiz?action=continue&lot-size=0">次の出題へ</a>
+            
+            <div class="gray-font">
+                <br>
+                キーボード操作 [ ↑トップへ →次へ ]
+            </div>
         </div>
     </body>
+
+    <%-- キーボード操作の処理 --%>
+    <script>
+        document.addEventListener("keyup", (keyboardEvent)=>{
+            switch (keyboardEvent.key) {
+                case "ArrowUp"    : location.href = "top"; return;
+                case "ArrowRight" : location.href = "toquiz?action=continue&lot-size=0"; return;
+            }
+        }, false);
+    </script>
 </html>
