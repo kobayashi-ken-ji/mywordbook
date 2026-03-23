@@ -9,6 +9,7 @@
     --window-width  : 320px;
     --background    : #edf2f9;
     --font-blue     : #6c49bd;
+    --button-blue   : rgb(125, 145, 235);
 }
 
 body {
@@ -33,6 +34,11 @@ h1 + p,
 .small-font {
     font-size   : 85%;
     color       : var(--font-blue);
+    margin      : 0px;
+}
+
+.small-black-font {
+    font-size   : 85%;
     margin      : 0px;
 }
 
@@ -122,7 +128,7 @@ a.button {
     color           : #ffffff;
     font-size       : 100%;
     margin          : 2px 0px;
-    background-color: rgb(125, 145, 235);
+    background-color: var(--button-blue);
 }
 
 button:hover,
@@ -280,6 +286,7 @@ table select {
 }
 
 /* 3連ボタンの中に 通常のボタンを混ぜる */
+/* 
 .quit-button {
     color           : white;
     margin-top      : 5px;
@@ -290,15 +297,32 @@ table select {
     background      : var(--button-dark);
     border          : none;
 
-    /* 幅固定のため */
     display         : inline-block;
     text-align      : center;
     width           : 95px;
 }
+ */
 
 /* 4連ボタン化用クラス */
 .buttonlike.devide4 label span {
     width           : 70px;
+}
+
+/* 四角 2連ボタン */
+.squared-button {
+    color           : white;
+    margin-top      : 5px;
+    margin-bottom   : 5px;
+    font-size       : 14px;
+    border-radius   : 3px;
+    padding         : 3px 0px;
+    background      : var(--button-blue); /*var(--button-dark);*/
+    border          : none;
+
+    /* 幅固定のため */
+    display         : inline-block;
+    text-align      : center;
+    width           : 110px;
 }
 
 /*=============================================*/

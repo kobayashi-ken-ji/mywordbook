@@ -23,14 +23,20 @@
                     >
                     <span>英語読み上げ</span>
                 </label>
-                <button class="quit-button" id="quit-button">出題終了</button> 
             </div>
 
             <div class="white-area quiz">
+                
+                <div class="buttonlike">
+                    <button class="squared-button" id="quiz-edit-button">問題を編集 &#x2197;</button>
+                    <button class="squared-button" id="quit-button">出題終了</button> 
+                </div>
 
                 ${subjectName}
-                <div>全体 : <span id="total-count">0問目 / 0問中</span></div>
-                <div>今回 : <span id="count-in-lot">0問目 / 0問中</span></div>
+                <div class="small-black-font">
+                    <div>全体 : <span id="total-count">0問目 / 0問中</span></div>
+                    <div>今回 : <span id="count-in-lot">0問目 / 0問中</span></div>
+                </div>
 
                 <div class="question">
                     <p id="question">出題</p>

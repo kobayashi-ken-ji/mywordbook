@@ -60,19 +60,20 @@ class ToQuiz
 {
     // HTMLの要素を取得
     elements = {
-        inputEnable   : document.getElementById("input-enable"),
-        speechEnabled : document.getElementById("speak-enable"),
-        totalCount    : document.getElementById("total-count"),
-        countInLot    : document.getElementById("count-in-lot"),
-        question      : document.getElementById("question"),
-        input         : document.getElementById("input"),
-        answer        : document.getElementById("answer"),
-        explanation   : document.getElementById("explanation"),
-        difficultyids : document.getElementsByName("difficultyids"),
-        answerButton  : document.getElementById("answer-button"),
-        retestButton  : document.getElementById("retest-button"),
-        nextButton    : document.getElementById("next-button"),
-        quitButton    : document.getElementById("quit-button"),
+        inputEnable    : document.getElementById("input-enable"),
+        speechEnabled  : document.getElementById("speak-enable"),
+        totalCount     : document.getElementById("total-count"),
+        countInLot     : document.getElementById("count-in-lot"),
+        question       : document.getElementById("question"),
+        input          : document.getElementById("input"),
+        answer         : document.getElementById("answer"),
+        explanation    : document.getElementById("explanation"),
+        difficultyids  : document.getElementsByName("difficultyids"),
+        answerButton   : document.getElementById("answer-button"),
+        retestButton   : document.getElementById("retest-button"),
+        nextButton     : document.getElementById("next-button"),
+        quitButton     : document.getElementById("quit-button"),
+        quizEditButton : document.getElementById("quiz-edit-button"),
     };
 
     // 出題用の変数
@@ -116,12 +117,13 @@ class ToQuiz
         {
             const e = this.elements;
             this.speech.enable = e.speechEnabled.checked;
-            e.inputEnable  .addEventListener("change", () => this.applyInputEnable());
-            e.speechEnabled.addEventListener("change", () => this.speech.enable = e.speechEnabled.checked);
-            e.quitButton   .addEventListener("click" , () => this.goToResult());
-            e.answerButton .addEventListener("click" , () => this.displayAnswer(true));
-            e.nextButton   .addEventListener("click" , () => this.displayNextQuiz(false));
-            e.retestButton .addEventListener("click" , () => this.displayNextQuiz(true));
+            e.inputEnable   .addEventListener("change", () => this.applyInputEnable());
+            e.speechEnabled .addEventListener("change", () => this.speech.enable = e.speechEnabled.checked);
+            e.quitButton    .addEventListener("click" , () => this.goToResult());
+            e.answerButton  .addEventListener("click" , () => this.displayAnswer(true));
+            e.nextButton    .addEventListener("click" , () => this.displayNextQuiz(false));
+            e.retestButton  .addEventListener("click" , () => this.displayNextQuiz(true));
+            e.quizEditButton.addEventListener("click" , () => this.openQuizEditPage());
         }
 
         // キーボードショートカットを設定
@@ -148,6 +150,13 @@ class ToQuiz
         this.displayNextQuiz();
     }
 
+
+    // 現在の問題の編集画面を開く (新規ページで開く)
+    openQuizEditPage() {
+        if (!this.quiz) return;
+        const url = `quizedit?id=${this.quiz.id}&subjectid=0`;
+        open(url);
+    }
 
     // リザルト画面へ移行
     goToResult() {
